@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="GYa-sp-hMl" id="v5C-AH-nnm"/>
+                <outlet property="createButton" destination="GhE-eN-kWl" id="FJp-Nr-aIe"/>
+                <outlet property="emailTextField" destination="zYS-A5-P0K" id="DKm-5i-Xaw"/>
+                <outlet property="passwordTextField" destination="cLr-X3-ybd" id="DgT-NK-GCo"/>
+                <outlet property="submitButton" destination="ZHy-ES-mRt" id="9uU-yn-ZaD"/>
+                <outlet property="usernameTextField" destination="epD-S0-lYf" id="pNS-ku-Ext"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhE-eN-kWl">
+                    <frame key="frameInset" minX="49.33%" width="300" height="54" maxY="51"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                    <state key="normal" title="Create Account">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="createPressed:" destination="-1" eventType="touchUpInside" id="OLP-Gv-GtH"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYa-sp-hMl">
+                    <frame key="frameInset" minX="50.00%" minY="97" width="325" height="166"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Give me yo deets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyg-N1-KD8">
+                            <frame key="frameInset" minX="36" minY="16" width="252" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                            <color key="textColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="myname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="epD-S0-lYf">
+                            <frame key="frameInset" minX="36" minY="51" width="253" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                        </textField>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8F-Yl-ru4">
+                            <frame key="frameInset" minX="36" minY="79" width="254" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mysupersecretpassword" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cLr-X3-ybd">
+                            <frame key="frameInset" minX="36" minY="106" width="253" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                        </textField>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lqj-7f-twG">
+                            <frame key="frameInset" minX="36" minY="134" width="254" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omP-B2-GMj">
+                    <frame key="frameInset" minX="50.00%" width="325" height="100" maxY="137"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a new account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sm-Kk-WoO">
+                            <frame key="frameInset" minX="36" minY="16" width="252" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                            <color key="textColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my@email.address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zYS-A5-P0K">
+                            <frame key="frameInset" minX="36" minY="50" width="253" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="textColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                        </textField>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oz9-gh-Qqy">
+                            <frame key="frameInset" minX="36" minY="78" width="254" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.37254901959999998" green="0.3921568627" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHy-ES-mRt">
+                    <frame key="frameInset" minX="49.33%" minY="295" width="300" height="54"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                    <state key="normal" title="Login">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="submitPressed:" destination="-1" eventType="touchUpInside" id="geS-zh-viK"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.14117647059999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <point key="canvasLocation" x="4" y="35"/>
+        </view>
+    </objects>
+</document>
