@@ -85,6 +85,12 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Your Pools" id="xDh-aL-wmw">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="28C-9n-XSd">
+                            <color key="tintColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logOutPressed:" destination="cTe-uf-Onn" id="ZnN-bh-kdQ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7WJ-bd-KGE">
                             <color key="tintColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

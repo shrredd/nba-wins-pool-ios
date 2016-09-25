@@ -91,13 +91,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
           if let dictionary = tokenDictionary as? [String : String] {
             if let token = dictionary["token"] {
               let user = User(username: username, email: email, token: token)
-              Pools.shared.add(user: user)
+              Users.shared.loggedInUser = user
+              Users.shared.add(user: user)
               if email == nil {
                 Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userDictionary, success) in
                   if success {
                     if let dictionary = userDictionary as? [String : String] {
                       if let userEmail = dictionary["email"] {
                         user.email = userEmail
+                        Users.shared.save()
                         self.presentingViewController?.dismiss(animated: true, completion: nil)
                       }
                     }

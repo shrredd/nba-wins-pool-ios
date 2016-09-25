@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: Equatable {
+class User: Equatable, Hashable {
   static let username = "username"
   static let email = "email"
   static let token = "token"
@@ -62,7 +62,15 @@ class User: Equatable {
     return dictionary
   }
   
+  // MARK: Equatable
+  
   static func ==(userA: User, userB: User) -> Bool {
     return userA.username == userB.username
+  }
+  
+  // MARK: Hashable
+  
+  var hashValue: Int {
+    return username.hashValue
   }
 }

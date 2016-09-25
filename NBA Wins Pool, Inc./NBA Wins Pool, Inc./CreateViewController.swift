@@ -56,7 +56,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     
     if let name = poolNameTextField.text,
       let size = numberOfPlayersSegment.titleForSegment(at: numberOfPlayersSegment.selectedSegmentIndex),
-      let user = Pools.shared.loggedInUser {
+      let user = Users.shared.loggedInUser {
       Backend.createPool(name: name, size: size, creator: user, completion: { [unowned self] (id) in
         if id != nil {
           if let sizeInt = Int(size) {

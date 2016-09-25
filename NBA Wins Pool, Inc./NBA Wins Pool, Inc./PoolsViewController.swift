@@ -10,8 +10,18 @@ import UIKit
 
 class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
+  var noPoolsLabel: UILabel?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let label = UILabel(frame: view.bounds)
+    label.text = "No pools :("
+    label.font = UIFont(name: "Avenir-Heavy", size: 26.0)
+    label.textColor = UIColor.white
+    label.textAlignment = .center
+    view.addSubview(label)
+    noPoolsLabel = label
     
     NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.poolsUpdated), object: nil)
     
@@ -19,7 +29,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     tableView.delegate = self
     tableView.reloadData()
     
-    if Pools.shared.loggedInUser == nil {
+    if Users.shared.loggedInUser == nil {
       let loginViewController = LoginViewController()
       present(loginViewController, animated: false, completion: nil)
     }
@@ -32,7 +42,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    if let name = Pools.shared.loggedInUser?.username {
+    if let name = Users.shared.loggedInUser?.username {
       self.title = name + "\'s Pools"
     }
   }
@@ -44,6 +54,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    noPoolsLabel?.isHidden = Pools.shared.pools.count > 0
     return Pools.shared.pools.count
   }
   
@@ -56,7 +67,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     cell.membersLabel?.text = "\(pool.users.count)/\(pool.size) members"
     
     let button = cell.button
-    if let user = Pools.shared.loggedInUser {
+    if let user = Users.shared.loggedInUser {
       if !pool.users.contains(user) {
         button?.setTitle("Join", for: .normal)
       } else if pool.users.count != pool.size {
@@ -97,7 +108,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   func poolCellButtonPressed(cell: PoolTableViewCell) {
     if let indexPath = tableView.indexPath(for: cell) {
-      if let user = Pools.shared.loggedInUser {
+      if let user = Users.shared.loggedInUser {
         let pool = Pools.shared.pools[indexPath.row]
         if !pool.users.contains(user) {
           // join
@@ -107,6 +118,20 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
       }
     }
   }
+  
+  // MARK: button callbacks
+  
+  @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
+    if let user = Users.shared.loggedInUser {
+      Users.shared.loggedInUser = nil
+      Users.shared.remove(user: user)
+      Pools.shared.removeAllPools()
+      
+      let loginViewController = LoginViewController()
+      present(loginViewController, animated: true, completion: nil)
+    }
+  }
+  
   
   // MARK: - Navigation
   
