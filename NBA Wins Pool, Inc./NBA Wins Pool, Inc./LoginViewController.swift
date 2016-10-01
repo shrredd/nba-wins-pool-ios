@@ -115,8 +115,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   }
   
   func dismiss() {
-    Pools.getPools()
-    Pools.joinPool()
+    Pools.shared.getPools()
+    Pools.shared.joinPool()
     User.saveUser()
     self.presentingViewController?.dismiss(animated: true, completion: nil)
   }

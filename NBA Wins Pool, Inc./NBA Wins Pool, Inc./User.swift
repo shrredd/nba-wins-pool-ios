@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: DictionaryBase, Equatable, Hashable {
+class User: DictionaryBase, Hashable {
   static var shared = loadSavedUser()
   
   static let loggedInUser = "logged_in_user"

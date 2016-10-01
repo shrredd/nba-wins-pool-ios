@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DictionaryBase {
+class DictionaryBase: Equatable {
   
   init(dictionary: [String : AnyObject]) {
     self.dictionary = dictionary
@@ -26,5 +26,9 @@ class DictionaryBase {
         dictionary[key] = value
       }
     }
+  }
+  
+  static func ==(baseA: DictionaryBase, baseB: DictionaryBase) -> Bool {
+    return false // override me
   }
 }

@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    Pools.getPools()
+    Pools.shared.getPools()
+    Teams.shared.getStandings()
     return true
   }
   
@@ -31,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch parameter {
             case Pool.id:
               if let id = Int(value) {
-                Pools.idForInvitedPool = id
-                Pools.joinPool()
+                Pools.shared.idForInvitedPool = id
+                Pools.shared.joinPool()
                 return true
               } else {
                 break;

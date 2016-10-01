@@ -8,78 +8,40 @@
 
 import UIKit
 
-class Pools {
+class Pools: StoredDictionaries {
   
   static let shared = Pools()
-  static let pools = "pools"
-  static let poolsUpdated = "Pools.poolsUpdated"
-  
-  static var idForInvitedPool: Int?
+  var idForInvitedPool: Int?
   
   init() {
-    if let array = UserDefaults.standard.object(forKey: Pools.pools) as? [[String : AnyObject]] {
-      loadPools(array: array)
-    }
+    super.init(type: "pools")
+    
+    Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getPools), userInfo: nil, repeats: true)
   }
   
-  var pools = [Pool]()
+  override func dictionaryBase(dictionary: [String : AnyObject]) -> DictionaryBase {
+    return Pool(dictionary: dictionary)
+  }
   
-  func loadPools(array: [[String : AnyObject]]) {
-    for dictionary in array {
-      let pool = Pool(dictionary: dictionary)
-      if let index = pools.index(of: pool) {
-        let oldPool = pools[index]
-        oldPool.dictionary = pool.dictionary
-      } else {
-        pools.append(pool)
-      }
-    }
-    
-    savePools()
-    NotificationCenter.default.post(name: Notification.Name(rawValue: Pools.poolsUpdated), object: nil)
+  var pools: [Pool] {
+    return bases as! [Pool]
   }
   
   func add(pool: Pool) {
-    if let index = pools.index(of: pool) {
-      let oldPool = pools[index]
-      oldPool.dictionary = pool.dictionary
-    } else {
-      pools.append(pool)
-    }
-    
-    savePools()
-    NotificationCenter.default.post(name: Notification.Name(rawValue: Pools.poolsUpdated), object: nil)
+    super.add(base: pool)
   }
   
   func remove(pool: Pool) {
-    if let index = pools.index(of: pool) {
-      pools.remove(at: index)
-    }
-    savePools()
+    super.remove(base: pool)
   }
   
-  func removeAllPools() {
-    pools = [Pool]()
-    savePools()
-  }
-  
-  func savePools() {
-    var dictionaries = [[String : AnyObject]]()
-    for pool in pools {
-      dictionaries.append(pool.dictionary)
-    }
-    
-    UserDefaults.standard.set(dictionaries, forKey: Pools.pools)
-    UserDefaults.standard.synchronize()
-  }
-  
-  static func getPools() {
+  @objc func getPools() {
     if let user = User.shared {
       if let token = user.token {
-        Backend.getPools(username: user.username, token: token, completion: { (poolsArray, success) in
+        Backend.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
           if success, let array = poolsArray as? [[String : AnyObject]] {
-            Pools.shared.loadPools(array: array)
-          } else if let vc = visibleViewController() {
+            self.load(array: array)
+          } else if let vc = Pools.visibleViewController() {
             UIAlertController.alertFailed(title: "GET Pools Failed", message: String(describing: poolsArray), viewController: vc)
           }
         })
@@ -87,15 +49,15 @@ class Pools {
     }
   }
   
-  static func joinPool() {
+  func joinPool() {
     if let user = User.shared {
       if let token = user.token {
         if let id = idForInvitedPool {
-          Backend.joinPool(id: id, username: user.username, token: token, completion: { (poolDictionary, success) in
+          Backend.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (poolDictionary, success) in
             if success, let dictionary = poolDictionary as? [String : AnyObject] {
-              Pools.shared.add(pool: Pool(dictionary: dictionary))
-              idForInvitedPool = nil
-            } else if let vc = visibleViewController() {
+              self.add(pool: Pool(dictionary: dictionary))
+              self.idForInvitedPool = nil
+            } else if let vc = Pools.visibleViewController() {
               UIAlertController.alertFailed(title: "Failed to Join Pool", message: String(describing: poolDictionary), viewController: vc)
             }
           })

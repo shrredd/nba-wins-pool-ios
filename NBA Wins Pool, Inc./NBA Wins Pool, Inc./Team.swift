@@ -38,7 +38,7 @@ struct Record {
   }
 }
 
-class Team {
+class Team: DictionaryBase {
   var id: String!
   var abbreviation: String!
   var firstName: String!
@@ -63,135 +63,66 @@ class Team {
   var pointsAllowedPerGame: Double?
   var pointDifferentialPerGame: Double?
   
-  init(dictionary: [String: String]) {
-    for (key, value) in dictionary {
-      switch key {
-      case "abbreviation":
-        self.abbreviation = value
-        break
-      case "team_id":
-        self.id = value
-        break
-      case "first_name":
-        self.firstName = value
-        break
-      case "last_name":
-        self.lastName = value
-        break
-      case "conference":
-        self.conference = Conference(rawValue: value)
-        break
-      case "division":
-        self.division = Division(rawValue: value)
-        break
-      case "site_name":
-        self.siteName = value
-        break
-      case "city":
-        self.city = value
-        break
-      case "state":
-        self.state = value
-        break
-      default:
-        break
+  override func didSetDictionary(oldValue: [String : AnyObject]) {
+    super.didSetDictionary(oldValue: oldValue)
+    
+    self.abbreviation = dictionary["abbreviation"] as? String
+    self.id = dictionary["team_id"] as? String
+    self.firstName = dictionary["first_name"] as? String
+    self.lastName = dictionary["last_name"] as? String
+    if let conference = dictionary["conference"] as? String {
+      self.conference = Conference(rawValue: conference)
+    }
+    if let division = dictionary["division"] as? String {
+      self.division = Division(rawValue: division)
+    }
+    self.siteName = dictionary["site_name"] as? String
+    self.city = dictionary["city"] as? String
+    self.state = dictionary["state"] as? String
+    if let lastTen = dictionary["last_ten"] as? String {
+      let array = lastTen.components(separatedBy: "-")
+      if let wins = Int(array[0]), let losses = Int(array[1]) {
+        self.lastTenRecord = Record(wins: wins, losses: losses)
       }
+    }
+    if let streakType = dictionary["streak_type"] as? String {
+      self.streakType = Streak(rawValue: streakType)
+    }
+    if let ppg = dictionary["points_scored_per_game"] as? String {
+      if let double = Double(ppg) {
+        self.pointsScoredPerGame = double
+      }
+    }
+    if let papg = dictionary["points_allowed_per_game"] as? String {
+      if let double = Double(papg) {
+        self.pointDifferentialPerGame = double
+      }
+    }
+    if let pdpg = dictionary["point_differential_per_game"] as? String {
+      if let double = Double(pdpg) {
+        self.pointDifferentialPerGame = double
+      }
+    }
+    self.gamesBack = dictionary["games_back"] as? Double
+    self.rank = dictionary["rank"] as? Int
+    self.playoffSeed = dictionary["playoff_seed"] as? Int
+    self.streak = dictionary["streak_total"] as? Int
+    if let wins = dictionary["won"] as? Int, let losses = dictionary["lost"] as? Int {
+      self.record = Record(wins: wins, losses: losses)
+    }
+    if let wins = dictionary["home_won"] as? Int, let losses = dictionary["home_lost"] as? Int {
+      self.homeRecord = Record(wins: wins, losses: losses)
+    }
+    if let wins = dictionary["conference_won"] as? Int, let losses = dictionary["conference_lost"] as? Int {
+      self.conferenceRecord = Record(wins: wins, losses: losses)
+    }
+    if let wins = dictionary["away_won"] as? Int, let losses = dictionary["away_lost"] as? Int {
+      self.awayRecord = Record(wins: wins, losses: losses)
     }
   }
   
-  func set(dictionary: [String : AnyObject]) {
-    
-    var rec = Record()
-    var conferenceRec = Record()
-    var homeRec = Record()
-    var awayRec = Record()
-    
-    for (key, value) in dictionary {
-      if let stringValue = value as? String {
-        switch key {
-        case "last_ten":
-          let array = stringValue.components(separatedBy: "-")
-          if let wins = Int(array[0]), let losses = Int(array[1]) {
-            lastTenRecord = Record(wins: wins, losses: losses)
-          }
-          break
-        case "steak_type":
-          streakType = Streak(rawValue: stringValue)
-          break
-        case "points_scored_per_game":
-          if let double = Double(stringValue) {
-            pointsScoredPerGame = double
-          }
-          break
-        case "points_allowed_per_game":
-          if let double = Double(stringValue) {
-            pointsAllowedPerGame = double
-          }
-          break
-        case "point_differential_per_game":
-          if let double = Double(stringValue) {
-            pointDifferentialPerGame = double
-          }
-          break
-        default:
-          break
-        }
-      }
-      
-      if let doubleValue = value as? Double {
-        switch key {
-        case "games_back":
-          self.gamesBack = doubleValue
-          break
-        default:
-          break
-        }
-      }
-      
-      if let intValue = value as? Int {
-        switch key {
-        case "rank":
-          rank = intValue
-          break
-        case "playoff_seed":
-          playoffSeed = intValue
-          break
-        case "streak_total":
-          streak = intValue
-          break
-        case "won":
-          rec.wins = intValue
-          break
-        case "lost":
-          rec.losses = intValue
-          break
-        case "home_won":
-          homeRec.wins = intValue
-          break
-        case "home_lost":
-          homeRec.losses = intValue
-          break
-        case "conference_won":
-          conferenceRec.wins = intValue
-          break
-        case "conference_lost":
-          conferenceRec.losses = intValue
-          break
-        case "away_won":
-          awayRec.wins = intValue
-          break
-        case "away_lost":
-          awayRec.losses = intValue
-          break
-        default:
-          break
-        }
-      }
-    }
-    
-    record = rec
-    homeRecord = homeRec
-    conferenceRecord = conferenceRec
-    awayRecord = awayRec
+  static func ==(teamA: Team, teamB: Team) -> Bool {
+    return teamA.id == teamB.id
   }
+  
 }

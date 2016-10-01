@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Pool: DictionaryBase, Equatable {
+class Pool: DictionaryBase {
   static let name = "name"
   static let id = "id"
   static let maxSize = "max_size"
@@ -35,6 +35,6 @@ class Pool: DictionaryBase, Equatable {
   }
   
   static func ==(poolA: Pool, poolB: Pool) -> Bool {
-    return poolA.name == poolB.name && poolA.id == poolB.id && poolA.maxSize == poolB.maxSize
+    return poolA.id == poolB.id
   }
 }

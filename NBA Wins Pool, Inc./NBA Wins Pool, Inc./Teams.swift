@@ -8,92 +8,44 @@
 
 import Foundation
 
-class Teams {
+class Teams: StoredDictionaries {
   
   static let shared = Teams()
-  static let standings = "standings"
-  static let teams = "teams"
-  static let didGetStandings = "Teams.didGetStandings"
-  static let didGetTeams = "Teams.didGetTeams"
+  static let standingsDate = "standings_date"
   
-  var teams = [Team]()
+  var dateUpdated: String?
   
   init() {
-    if let array = UserDefaults.standard.object(forKey: Teams.teams) as? [[String:AnyObject]] {
-      setTeams(array: array)
-    } else {
+    super.init(type: "teams")
+    dateUpdated = UserDefaults.standard.object(forKey: Teams.standingsDate) as? String
+    
+    if teams.count == 0 {
       Backend.getTeams { [unowned self] (teamDictionaries, success) in
-        if success, let dictionaries = teamDictionaries as? [[String : AnyObject]] {
-          UserDefaults.standard.set(dictionaries, forKey: Teams.teams)
-          UserDefaults.standard.synchronize()
-          self.setTeams(array: dictionaries)
-          NotificationCenter.default.post(name: NSNotification.Name(rawValue: Teams.didGetTeams), object: nil)
+        if success, let array = teamDictionaries as? [[String : AnyObject]] {
+          self.load(array: array)
         }
       }
     }
     
-    if let dictionary = UserDefaults.standard.object(forKey: Teams.standings) as? [String:AnyObject] {
-      setStandings(dictionary: dictionary)
-    }
-    
     Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getStandings), userInfo: nil, repeats: true)
-    getStandings()
+  }
+  
+  override func dictionaryBase(dictionary: [String : AnyObject]) -> DictionaryBase {
+    return Team(dictionary: dictionary)
+  }
+  
+  var teams: [Team] {
+    return bases as! [Team]
   }
   
   @objc func getStandings() {
     Backend.getStandings { [unowned self] (standingsDictionary, success) in
       if success, let dictionary = standingsDictionary as? [String : AnyObject] {
-        if let defaults = UserDefaults.standard.object(forKey: Teams.standings) as? [String:AnyObject] {
-          if let dateA = defaults["standings_date"] as? String, let dateB = dictionary["standings_date"] as? String {
-            if dateA == dateB {
-              return
+        if let date = dictionary[Teams.standingsDate] as? String {
+          if date != self.dateUpdated {
+            if let standings = dictionary["standing"] as? [[String : AnyObject]] {
+              self.load(array: standings)
             }
-          }
-        }
-        
-        UserDefaults.standard.set(dictionary, forKey: Teams.standings)
-        UserDefaults.standard.synchronize()
-        self.setStandings(dictionary: dictionary)
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Teams.didGetStandings), object: nil)
-      }
-    }
-  }
-  
-  func team(id: String) -> Team? {
-    for team in teams {
-      if team.id == id {
-        return team
-      }
-    }
-    
-    return nil
-  }
-  
-  func setTeams(array: [[String:AnyObject]]) {
-    for dictionary in array {
-      
-      var stringDictionary = [String : String]()
-      for (key, value) in dictionary {
-        if let stringValue = value as? String {
-          stringDictionary[key] = stringValue
-        }
-      }
-      
-      let team = Team(dictionary: stringDictionary)
-      teams.append(team)
-    }
-  }
-  
-  func setStandings(dictionary: [String : AnyObject]) {
-    if teams.count == 0 {
-      return
-    }
-    
-    if let standings = dictionary["standing"] as? [[String:AnyObject]] {
-      for dictionary in standings {
-        if let id = dictionary["team_id"] as? String {
-          if let team = team(id: id) {
-            team.set(dictionary: dictionary)
           }
         }
       }

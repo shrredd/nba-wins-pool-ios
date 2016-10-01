@@ -30,17 +30,17 @@ class Backend {
     let JSONObject = [userName : username as AnyObject,
                       userPassword : password as AnyObject,
                       userEmail : email as AnyObject]
-    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: accounts, JSONObject: JSONObject, completion: completion)
+    uploadJSON(host: poolHost, endPoint: accounts, JSONObject: JSONObject, completion: completion)
   }
   
   static func authenticateUser(username: String, password: String, completion: @escaping (AnyObject?, Bool) -> Void) {
     let JSONObject = [userName : username as AnyObject,
                       userPassword : password as AnyObject]
-    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: auth, JSONObject: JSONObject, completion: completion)
+    uploadJSON(host: poolHost, endPoint: auth, JSONObject: JSONObject, completion: completion)
   }
   
   static func getUserDetails(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(httpMethod: "GET", host: poolHost, endPoint: accounts + username + "/",
+    requestJSON(host: poolHost, endPoint: accounts + username + "/",
                 fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
@@ -52,11 +52,11 @@ class Backend {
                       poolSize : size as AnyObject,
                       poolMembers : members as AnyObject]
     
-    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: pools, JSONObject: JSONObject, completion: completion)
+    uploadJSON(host: poolHost, endPoint: pools, JSONObject: JSONObject, completion: completion)
   }
   
   static func getPools(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(httpMethod: "GET", host: poolHost, endPoint: username + "/" + pools,
+    requestJSON(host: poolHost, endPoint: username + "/" + pools,
                 fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
@@ -66,6 +66,10 @@ class Backend {
       fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
   }
   
+  static func getPoolStatus(id: Int, completion: @escaping (AnyObject?, Bool) -> Void) {
+    requestJSON(host: poolHost, endPoint: pools + "\(id)", completion: completion)
+  }
+  
   // MARK: team backend
   
   static let teamHost = "https://erikberg.com/"
@@ -73,16 +77,16 @@ class Backend {
   static let standingsEnpoint = "nba/standings.json"
   
   static func getTeams(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(httpMethod: "GET", host: teamHost, endPoint: teamsEndpoint, completion: completion)
+    requestJSON(host: teamHost, endPoint: teamsEndpoint, completion: completion)
   }
   
   static func getStandings(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(httpMethod: "GET", host: teamHost, endPoint: standingsEnpoint, completion: completion)
+    requestJSON(host: teamHost, endPoint: standingsEnpoint, completion: completion)
   }
   
   // MARK: helper functions
   
-  static func uploadJSON(httpMethod: String,
+  static func uploadJSON(httpMethod: String = "POST",
                          host: String,
                          endPoint: String,
                          parameters: [String : String]? = nil,
@@ -106,7 +110,7 @@ class Backend {
     }
   }
   
-  static func requestJSON(httpMethod: String,
+  static func requestJSON(httpMethod: String = "GET",
                           host: String,
                           endPoint: String,
                           parameters: [String : String]? = nil,

@@ -23,7 +23,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     view.addSubview(label)
     noPoolsLabel = label
     
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.poolsUpdated), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.shared.updated), object: nil)
     
     tableView.dataSource = self
     tableView.delegate = self
@@ -114,7 +114,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
     User.shared = nil
-    Pools.shared.removeAllPools()
+    Pools.shared.removeAll()
     
     let loginViewController = LoginViewController()
     present(loginViewController, animated: true, completion: nil)
