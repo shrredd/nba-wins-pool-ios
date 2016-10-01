@@ -27,110 +27,43 @@ class Backend {
   // MARK: user creation and authentication
   
   static func createUser(username: String, password: String, email: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = [userName : username,
-                      userPassword : password,
-                      userEmail : email]
-    do {
-      let body = try JSONSerialization.data(withJSONObject: JSONObject)
-      
-      requestJSON(httpMethod: "POST", host: poolHost, endPoint: accounts, fields: ["Content-Type" : "application/json"], body: body) { (JSON, statusCode, error) in
-        if let status = statusCode {
-          if status.isIn200s() {
-            completion(JSON, true)
-            return
-          }
-        }
-        
-        completion(JSON, false)
-      }
-      
-    } catch {
-      completion(nil, false)
-    }
+    let JSONObject = [userName : username as AnyObject,
+                      userPassword : password as AnyObject,
+                      userEmail : email as AnyObject]
+    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: accounts, JSONObject: JSONObject, completion: completion)
   }
   
   static func authenticateUser(username: String, password: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = [userName : username,
-                      userPassword : password]
-    
-    do {
-      let body = try JSONSerialization.data(withJSONObject: JSONObject)
-      
-      requestJSON(httpMethod: "POST", host: poolHost, endPoint: auth, fields: ["Content-Type" : "application/json"], body: body) { (JSON, statusCode, error) in
-        if let status = statusCode {
-          if status.isIn200s() {
-            completion(JSON, true)
-            return
-          }
-        }
-        
-        completion(JSON, false)
-      }
-      
-    } catch {
-      completion(nil, false)
-    }
-    
+    let JSONObject = [userName : username as AnyObject,
+                      userPassword : password as AnyObject]
+    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: auth, JSONObject: JSONObject, completion: completion)
   }
   
   static func getUserDetails(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
     requestJSON(httpMethod: "GET", host: poolHost, endPoint: accounts + username + "/",
-                fields: ["Authorization" : "Token " + token]) { (JSON, statusCode, error) in
-                  if let status = statusCode {
-                    if status.isIn200s() {
-                      completion(JSON, true)
-                      return
-                    }
-                  }
-                  
-                  completion(JSON, false)
-    }
+                fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
   // MARK: pool backend
   
   static func createPool(name: String, size: String, username: String, completion: @escaping (AnyObject?, Bool) -> Void) {
     let members = [username]
-    let JSONObject: [String : AnyObject] = [poolName : name as AnyObject,
-                                            poolSize : size as AnyObject,
-                                            poolMembers : members as AnyObject]
+    let JSONObject = [poolName : name as AnyObject,
+                      poolSize : size as AnyObject,
+                      poolMembers : members as AnyObject]
     
-    do {
-      let body = try JSONSerialization.data(withJSONObject: JSONObject)
-      
-      requestJSON(httpMethod: "POST", host: poolHost, endPoint: pools,
-                  fields: ["Content-Type" : "application/json"], body: body) { (JSON, statusCode, error) in
-                    if let status = statusCode {
-                      if status.isIn200s() {
-                        completion(JSON, true)
-                        return
-                      }
-                    }
-                    
-                    completion(JSON, false)
-      }
-      
-    } catch {
-      completion(nil, false)
-    }
+    uploadJSON(httpMethod: "POST", host: poolHost, endPoint: pools, JSONObject: JSONObject, completion: completion)
   }
   
   static func getPools(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
     requestJSON(httpMethod: "GET", host: poolHost, endPoint: username + "/" + pools,
-                fields: ["Authorization" : "Token " + token]) { (JSON, statusCode, error) in
-                  if let status = statusCode {
-                    if status.isIn200s() {
-                      completion(JSON, true)
-                      return
-                    }
-                  }
-                  
-                  completion(JSON, false)
-    }
+                fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
-  static func joinPool(id: String, player: User, completion: (Bool) -> Void) {
-    completion(true)
+  static func joinPool(id: Int, username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
+    let JSONObject = ["member" : username as AnyObject]
+    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: pools + "\(id)",
+      fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
   }
   
   // MARK: team backend
@@ -139,35 +72,47 @@ class Backend {
   static let teamsEndpoint = "nba/teams.json"
   static let standingsEnpoint = "nba/standings.json"
   
-  static func getTeams(completion: @escaping ([[String : AnyObject]]?, Int?, Error?) -> Void) {
-    requestJSON(httpMethod: "GET", host: teamHost, endPoint: teamsEndpoint) { (JSON, statusCode, error) in
-      if let array = JSON as? [[String : AnyObject]] {
-        completion(array, statusCode, error)
-      } else {
-        completion(nil, statusCode, error)
-      }
-    }
+  static func getTeams(completion: @escaping (AnyObject?, Bool) -> Void) {
+    requestJSON(httpMethod: "GET", host: teamHost, endPoint: teamsEndpoint, completion: completion)
   }
   
-  static func getStandings(completion: @escaping ([String : AnyObject]?, Int?, Error?) -> Void) {
-    requestJSON(httpMethod: "GET", host: teamHost, endPoint: standingsEnpoint, completion: { (JSON, statusCode, error) in
-      if let dictionary = JSON as? [String : AnyObject] {
-        completion(dictionary, statusCode, error)
-      } else {
-        completion(nil, statusCode, error)
-      }
-    })
+  static func getStandings(completion: @escaping (AnyObject?, Bool) -> Void) {
+    requestJSON(httpMethod: "GET", host: teamHost, endPoint: standingsEnpoint, completion: completion)
   }
   
   // MARK: helper functions
   
+  static func uploadJSON(httpMethod: String,
+                         host: String,
+                         endPoint: String,
+                         parameters: [String : String]? = nil,
+                         fields: [String : String]? = nil,
+                         JSONObject: [String : AnyObject],
+                         completion: @escaping (AnyObject?, Bool) -> Void) {
+    
+    do {
+      let body = try JSONSerialization.data(withJSONObject: JSONObject)
+      
+      var dictionary = ["Content-Type" : "application/json"]
+      if let moreFields = fields {
+        for (key, value) in moreFields {
+          dictionary[key] = value
+        }
+      }
+      
+      requestJSON(httpMethod: httpMethod, host: host, endPoint: endPoint, fields: dictionary, body: body, completion: completion)
+    } catch {
+      completion(nil, false)
+    }
+  }
+  
   static func requestJSON(httpMethod: String,
                           host: String,
-                          endPoint:String,
+                          endPoint: String,
                           parameters: [String : String]? = nil,
                           fields: [String : String]? = nil,
                           body: Data? = nil,
-                          completion: @escaping (AnyObject?, Int?, Error?) -> Void) {
+                          completion: @escaping (AnyObject?, Bool) -> Void) {
     request(httpMethod: httpMethod, host: host, endPoint: endPoint, parameters: parameters, fields: fields, body: body) { (data, statusCode, error) in
       var JSON: AnyObject? = nil
       if let JSONData = data {
@@ -179,7 +124,14 @@ class Backend {
         }
       }
       
-      completion(JSON, statusCode, error)
+      if let status = statusCode {
+        if status.isIn200s() {
+          completion(JSON, true)
+          return
+        }
+      }
+      
+      completion(JSON, false)
     }
   }
   

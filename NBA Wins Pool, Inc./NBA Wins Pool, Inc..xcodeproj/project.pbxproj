@@ -26,6 +26,7 @@
 		C2A771EA1D83F88400B2DC13 /* Pools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771E91D83F88400B2DC13 /* Pools.swift */; };
 		C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F11D84E4CB00B2DC13 /* Backend.swift */; };
 		C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */; };
+		C2A808331DA04C4200C02C15 /* DictionaryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808321DA04C4200C02C15 /* DictionaryBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		C2A771E91D83F88400B2DC13 /* Pools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pools.swift; sourceTree = "<group>"; };
 		C2A771F11D84E4CB00B2DC13 /* Backend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolTableViewCell.swift; sourceTree = "<group>"; };
+		C2A808321DA04C4200C02C15 /* DictionaryBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				C2A771E91D83F88400B2DC13 /* Pools.swift */,
 				C2A343B51D7BF81E0062D5FF /* Pool.swift */,
 				C2784BC11D950D5600C6DA1F /* User.swift */,
+				C2A808321DA04C4200C02C15 /* DictionaryBase.swift */,
 				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
 				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
 				C26DB53B1D7BF66800BF5EFF /* Main.storyboard */,
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A808331DA04C4200C02C15 /* DictionaryBase.swift in Sources */,
 				C2A343BA1D7C05F40062D5FF /* CreateViewController.swift in Sources */,
 				C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */,
 				C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */,

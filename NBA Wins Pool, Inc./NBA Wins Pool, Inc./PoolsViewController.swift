@@ -66,17 +66,12 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     cell.nameLabel?.text = pool.name
     cell.membersLabel?.text = "\(pool.users.count)/\(pool.maxSize) members"
     
-    let button = cell.button
-    if let user = User.shared {
-      if !pool.users.contains(user) {
-        button?.setTitle("Join", for: .normal)
-      } else if pool.users.count != pool.maxSize {
-        button?.setTitle("Invite", for: .normal)
+    if let button = cell.button {
+      if pool.users.count != pool.maxSize {
+        button.setTitle("Invite", for: .normal)
       } else {
-        button?.isHidden = true
+        button.isHidden = true
       }
-    } else {
-      button?.isHidden = true
     }
     
     return cell
@@ -92,7 +87,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
 
   func invite(pool: Pool) {
     let message = "Join our NBA wins pool ->"
-    let string = Pool.name + "=" + pool.name + "&" + Pool.id + "=\(pool.id)" + "&" + Pool.maxSize + "=\(pool.maxSize)"
+    let string = Pool.id + "=\(pool.id)"
     
     if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
       if let url = URL(string: "NBAWinsPool://?" + escapedString) {
@@ -108,13 +103,9 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   func poolCellButtonPressed(cell: PoolTableViewCell) {
     if let indexPath = tableView.indexPath(for: cell) {
-      if let user = User.shared {
-        let pool = Pools.shared.pools[indexPath.row]
-        if !pool.users.contains(user) {
-          // join
-        } else if pool.users.count != pool.maxSize {
-          invite(pool: pool)
-        }
+      let pool = Pools.shared.pools[indexPath.row]
+      if pool.users.count != pool.maxSize {
+        invite(pool: pool)
       }
     }
   }

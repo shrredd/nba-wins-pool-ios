@@ -59,10 +59,9 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
       let user = User.shared {
       Backend.createPool(name: name, size: size, username: user.username, completion: { [unowned self] (poolDictionary, success) in
         if success, let dictionary = poolDictionary as? [String : AnyObject] {
-          if let pool = Pool(dictionary: dictionary) {
-            Pools.shared.add(pool: pool)
-            _ = self.navigationController?.popViewController(animated: true)
-          }
+          let pool = Pool(dictionary: dictionary)
+          Pools.shared.add(pool: pool)
+          _ = self.navigationController?.popViewController(animated: true)
         } else {
           UIAlertController.alertFailed(title: "Create Pool Failed", message: String(describing: poolDictionary), viewController: self)
         }

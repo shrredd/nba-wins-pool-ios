@@ -95,11 +95,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             } else {
               Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userDictionary, success) in
                 if success, let dictionary = userDictionary as? [String : AnyObject] {
-                  if let user = User(dictionary: dictionary) {
-                    user.token = token
-                    User.shared = user
-                    self.dismiss()
-                  }
+                  let user = User(dictionary: dictionary)
+                  user.token = token
+                  User.shared = user
+                  self.dismiss()
+                  
                 } else {
                   UIAlertController.alertFailed(title: "GET User Details Failed", message: String(describing: userDictionary), viewController: self)
                 }
@@ -115,7 +115,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   }
   
   func dismiss() {
-    AppDelegate.getPools()
+    Pools.getPools()
+    Pools.joinPool()
     User.saveUser()
     self.presentingViewController?.dismiss(animated: true, completion: nil)
   }
@@ -128,11 +129,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text {
       Backend.createUser(username: username, password: password, email: email, completion: { [unowned self] (userDictionary, success) in
         if success, let dictionary = userDictionary as? [String : AnyObject] {
-          if let user = User(dictionary: dictionary) {
-            User.shared = user
-            User.saveUser()
-            self.authenticate()
-          }
+          let user = User(dictionary: dictionary)
+          User.shared = user
+          User.saveUser()
+          self.authenticate()
         } else {
           UIAlertController.alertFailed(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)
         }

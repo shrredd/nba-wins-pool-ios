@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: Equatable, Hashable {
+class User: DictionaryBase, Equatable, Hashable {
   static var shared = loadSavedUser()
   
   static let loggedInUser = "logged_in_user"
@@ -35,45 +35,12 @@ class User: Equatable, Hashable {
     }
   }
   
-  init?(dictionary: [String: AnyObject]) {
-    for (key, value) in dictionary {
-      if let stringValue = value as? String {
-        switch key {
-        case "token":
-          self.token = stringValue
-          break
-        case "username":
-          self.username = stringValue
-          break
-        case "email":
-          self.email = stringValue
-          break
-        default:
-          break
-        }
-      }
-    }
+  override func didSetDictionary(oldValue: [String : AnyObject]) {
+    super.didSetDictionary(oldValue: oldValue)
     
-    if username == nil {
-      return nil
-    }
-  }
-  
-  var dictionary: [String : AnyObject]? {
-    if let name = username {
-      var dictionary: [String : AnyObject] = [User.username : name as AnyObject]
-      if let mail = email {
-        dictionary[User.email] = mail as AnyObject?
-      }
-      
-      if let auth = token {
-        dictionary[User.token] = auth as AnyObject?
-      }
-      
-      return dictionary
-    } else {
-      return nil
-    }
+    self.username = dictionary[User.username] as? String
+    self.email = dictionary[User.email] as? String
+    self.token = dictionary[User.token] as? String
   }
   
   // MARK: Equatable

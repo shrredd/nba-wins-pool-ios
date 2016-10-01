@@ -22,11 +22,11 @@ class Teams {
     if let array = UserDefaults.standard.object(forKey: Teams.teams) as? [[String:AnyObject]] {
       setTeams(array: array)
     } else {
-      Backend.getTeams { [unowned self] (dictionaries, statusCode, error) in
-        if dictionaries != nil {
+      Backend.getTeams { [unowned self] (teamDictionaries, success) in
+        if success, let dictionaries = teamDictionaries as? [[String : AnyObject]] {
           UserDefaults.standard.set(dictionaries, forKey: Teams.teams)
           UserDefaults.standard.synchronize()
-          self.setTeams(array: dictionaries!)
+          self.setTeams(array: dictionaries)
           NotificationCenter.default.post(name: NSNotification.Name(rawValue: Teams.didGetTeams), object: nil)
         }
       }
@@ -41,19 +41,19 @@ class Teams {
   }
   
   @objc func getStandings() {
-    Backend.getStandings { [unowned self] (dictionary, statusCode, error) in
-      if dictionary != nil {
+    Backend.getStandings { [unowned self] (standingsDictionary, success) in
+      if success, let dictionary = standingsDictionary as? [String : AnyObject] {
         if let defaults = UserDefaults.standard.object(forKey: Teams.standings) as? [String:AnyObject] {
-          if let dateA = defaults["standings_date"] as? String, let dateB = dictionary?["standings_date"] as? String {
+          if let dateA = defaults["standings_date"] as? String, let dateB = dictionary["standings_date"] as? String {
             if dateA == dateB {
               return
             }
           }
         }
         
-        UserDefaults.standard.set(dictionary!, forKey: Teams.standings)
+        UserDefaults.standard.set(dictionary, forKey: Teams.standings)
         UserDefaults.standard.synchronize()
-        self.setStandings(dictionary: dictionary!)
+        self.setStandings(dictionary: dictionary)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Teams.didGetStandings), object: nil)
       }
     }

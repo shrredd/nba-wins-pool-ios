@@ -8,61 +8,33 @@
 
 import Foundation
 
-class Pool: Equatable {
+class Pool: DictionaryBase, Equatable {
   static let name = "name"
   static let id = "id"
   static let maxSize = "max_size"
   static let members = "members"
   
-  let name: String
-  let id: Int
-  let maxSize: Int
+  var name: String!
+  var id: Int!
+  var maxSize: Int!
   var users = [User]()
   
-  init(name: String, id: Int, maxSize: Int) {
-    self.name = name
-    self.id = id
-    self.maxSize = maxSize
-  }
-  
-  init?(dictionary: [String : AnyObject]) {
-    if let maxSize = dictionary[Pool.maxSize] as? Int,
-      let name = dictionary[Pool.name] as? String,
-      let id = dictionary[Pool.id] as? Int,
-      let members = dictionary[Pool.members] as? [[String : AnyObject]] {
-      self.maxSize = maxSize
-      self.name = name
-      self.id = id
+  override func didSetDictionary(oldValue: [String : AnyObject]) {
+    super.didSetDictionary(oldValue: oldValue)
+    
+    self.maxSize = dictionary[Pool.maxSize] as? Int
+    self.name = dictionary[Pool.name] as? String
+    self.id = dictionary[Pool.id] as? Int
+    if let members = dictionary[Pool.members] as? [[String : AnyObject]] {
       for memberDictionary in members {
-        if let user = User(dictionary: memberDictionary) {
-          users.append(user)
-        }
+        users.append(User(dictionary: memberDictionary))
       }
     } else {
-      return nil
+      users.removeAll()
     }
-  }
-  
-  var dictionary: [String : AnyObject] {
-    
-    var members = [[String : AnyObject]]()
-    for user in users {
-      if let dictionary = user.dictionary {
-        members.append(dictionary)
-      }
-    }
-    
-    return [Pool.name : name as AnyObject,
-            Pool.id : id as AnyObject,
-            Pool.maxSize : maxSize as AnyObject,
-            Pool.members : members as AnyObject]
   }
   
   static func ==(poolA: Pool, poolB: Pool) -> Bool {
     return poolA.name == poolB.name && poolA.id == poolB.id && poolA.maxSize == poolB.maxSize
-  }
-  
-  func add(user: User) {
-    users.append(user)
   }
 }
