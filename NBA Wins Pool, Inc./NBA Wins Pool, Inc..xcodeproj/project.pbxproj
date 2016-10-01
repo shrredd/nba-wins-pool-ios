@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF64C1D8DD71B00008CBB /* Colors.swift */; };
-		C22CF6511D8DF07F00008CBB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF6501D8DF07F00008CBB /* PlayerTableViewCell.swift */; };
+		C22CF6511D8DF07F00008CBB /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */; };
 		C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */; };
 		C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53B1D7BF66800BF5EFF /* Main.storyboard */; };
 		C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */; };
@@ -21,18 +21,19 @@
 		C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BD11D9662F000C6DA1F /* AlertExtension.swift */; };
 		C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */; };
 		C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B51D7BF81E0062D5FF /* Pool.swift */; };
-		C2A343B81D7C01220062D5FF /* PlayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B71D7C01220062D5FF /* PlayersViewController.swift */; };
+		C2A343B81D7C01220062D5FF /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B71D7C01220062D5FF /* UsersViewController.swift */; };
 		C2A343BA1D7C05F40062D5FF /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B91D7C05F40062D5FF /* CreateViewController.swift */; };
 		C2A771EA1D83F88400B2DC13 /* Pools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771E91D83F88400B2DC13 /* Pools.swift */; };
 		C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F11D84E4CB00B2DC13 /* Backend.swift */; };
 		C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */; };
 		C2A808331DA04C4200C02C15 /* DictionaryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808321DA04C4200C02C15 /* DictionaryBase.swift */; };
 		C2A808351DA05C0800C02C15 /* StoredDictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808341DA05C0800C02C15 /* StoredDictionaries.swift */; };
+		C2A808371DA069AE00C02C15 /* Draft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808361DA069AE00C02C15 /* Draft.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C22CF64C1D8DD71B00008CBB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		C22CF6501D8DF07F00008CBB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		C26DB5341D7BF66800BF5EFF /* NBA Wins Pool, Inc..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NBA Wins Pool, Inc..app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C26DB53C1D7BF66800BF5EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -47,13 +48,14 @@
 		C2784BD11D9662F000C6DA1F /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolsViewController.swift; sourceTree = "<group>"; };
 		C2A343B51D7BF81E0062D5FF /* Pool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
-		C2A343B71D7C01220062D5FF /* PlayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersViewController.swift; sourceTree = "<group>"; };
+		C2A343B71D7C01220062D5FF /* UsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		C2A343B91D7C05F40062D5FF /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		C2A771E91D83F88400B2DC13 /* Pools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pools.swift; sourceTree = "<group>"; };
 		C2A771F11D84E4CB00B2DC13 /* Backend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolTableViewCell.swift; sourceTree = "<group>"; };
 		C2A808321DA04C4200C02C15 /* DictionaryBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryBase.swift; sourceTree = "<group>"; };
 		C2A808341DA05C0800C02C15 /* StoredDictionaries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredDictionaries.swift; sourceTree = "<group>"; };
+		C2A808361DA069AE00C02C15 /* Draft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Draft.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,19 +72,23 @@
 		C22CF64E1D8DF04F00008CBB /* Pools */ = {
 			isa = PBXGroup;
 			children = (
+				C2A771E91D83F88400B2DC13 /* Pools.swift */,
+				C2A343B51D7BF81E0062D5FF /* Pool.swift */,
+				C2A808361DA069AE00C02C15 /* Draft.swift */,
 				C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */,
 				C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */,
 			);
 			name = Pools;
 			sourceTree = "<group>";
 		};
-		C22CF64F1D8DF06600008CBB /* Players */ = {
+		C22CF64F1D8DF06600008CBB /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				C2A343B71D7C01220062D5FF /* PlayersViewController.swift */,
-				C22CF6501D8DF07F00008CBB /* PlayerTableViewCell.swift */,
+				C2784BC11D950D5600C6DA1F /* User.swift */,
+				C2A343B71D7C01220062D5FF /* UsersViewController.swift */,
+				C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */,
 			);
-			name = Players;
+			name = Users;
 			sourceTree = "<group>";
 		};
 		C26DB52B1D7BF66800BF5EFF = {
@@ -108,14 +114,11 @@
 				C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */,
 				C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */,
 				C22CF64E1D8DF04F00008CBB /* Pools */,
-				C22CF64F1D8DF06600008CBB /* Players */,
+				C22CF64F1D8DF06600008CBB /* Users */,
 				C2A343B91D7C05F40062D5FF /* CreateViewController.swift */,
 				C2A771F11D84E4CB00B2DC13 /* Backend.swift */,
 				C26DB54A1D7BF67A00BF5EFF /* Teams.swift */,
 				C26DB54B1D7BF67A00BF5EFF /* Team.swift */,
-				C2A771E91D83F88400B2DC13 /* Pools.swift */,
-				C2A343B51D7BF81E0062D5FF /* Pool.swift */,
-				C2784BC11D950D5600C6DA1F /* User.swift */,
 				C2A808341DA05C0800C02C15 /* StoredDictionaries.swift */,
 				C2A808321DA04C4200C02C15 /* DictionaryBase.swift */,
 				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
@@ -207,16 +210,17 @@
 				C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */,
 				C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */,
 				C2784BCF1D9642F300C6DA1F /* LoginViewController.swift in Sources */,
-				C2A343B81D7C01220062D5FF /* PlayersViewController.swift in Sources */,
+				C2A343B81D7C01220062D5FF /* UsersViewController.swift in Sources */,
 				C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */,
 				C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */,
 				C2784BC21D950D5600C6DA1F /* User.swift in Sources */,
-				C22CF6511D8DF07F00008CBB /* PlayerTableViewCell.swift in Sources */,
+				C22CF6511D8DF07F00008CBB /* UserTableViewCell.swift in Sources */,
 				C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */,
 				C2A808351DA05C0800C02C15 /* StoredDictionaries.swift in Sources */,
 				C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */,
 				C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */,
 				C2A771EA1D83F88400B2DC13 /* Pools.swift in Sources */,
+				C2A808371DA069AE00C02C15 /* Draft.swift in Sources */,
 				C26DB54E1D7BF67A00BF5EFF /* Team.swift in Sources */,
 				C26DB54D1D7BF67A00BF5EFF /* Teams.swift in Sources */,
 			);

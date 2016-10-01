@@ -27,18 +27,30 @@ enum Streak: String {
   case Losing = "loss"
 }
 
-struct Record {
+struct Record: CustomStringConvertible {
   var wins = 0
   var losses = 0
-  func percentage() -> Double {
+  
+  var percentage: Double {
     if wins + losses == 0 {
       return 0
     }
     return Double(wins) / Double(wins + losses)
   }
+  
+  public static func +(lhs: Record, rhs: Record) -> Record {
+    return Record(wins: lhs.wins + rhs.wins, losses: lhs.losses + rhs.losses)
+  }
+  
+  // MARK: CustomStringConvertible
+  
+  var description: String {
+    return "\(wins)-\(losses) (\(percentage))"
+  }
+  
 }
 
-class Team: DictionaryBase {
+class Team: DictionaryBase, CustomStringConvertible, Equatable {
   var id: String!
   var abbreviation: String!
   var firstName: String!
@@ -121,8 +133,16 @@ class Team: DictionaryBase {
     }
   }
   
+  // MARK: Equatable
+  
   static func ==(teamA: Team, teamB: Team) -> Bool {
     return teamA.id == teamB.id
+  }
+  
+  // MARK: CustomStringConvertible
+  
+  var description: String {
+    return id + " \(record)"
   }
   
 }

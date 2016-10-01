@@ -54,24 +54,32 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    noPoolsLabel?.isHidden = Pools.shared.pools.count > 0
-    return Pools.shared.pools.count
+    noPoolsLabel?.isHidden = Pools.shared.items.count > 0
+    return Pools.shared.items.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "PoolTableViewCell", for: indexPath) as! PoolTableViewCell
     cell.delegate = self
     
-    let pool = Pools.shared.pools[indexPath.row]
+    let pool = Pools.shared.items[indexPath.row]
     cell.nameLabel?.text = pool.name
-    cell.membersLabel?.text = "\(pool.users.count)/\(pool.maxSize) members"
+    cell.membersLabel?.text = "\(pool.users.count)/\(pool.maxSize!) members"
     
     if let button = cell.button {
       if pool.users.count != pool.maxSize {
         button.setTitle("Invite", for: .normal)
+      } else if let draft = pool.draft, draft.isComplete {
+        let record = pool.record(user: User.shared!)
+        button.setTitle("\(record.wins)-\(record.losses) (\(record.percentage*100.0)%)", for: .normal)
+      } else if let username = pool.draft?.userWithPick?.username {
+        button.setTitle(username + "'s pick", for: .normal)
       } else {
-        button.isHidden = true
+        button.setTitle("Waiting for draft status...", for: .normal)
       }
+      
+      button.isUserInteractionEnabled = !pool.isFull
+      button.isEnabled = !pool.isFull
     }
     
     return cell
@@ -80,14 +88,14 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   // Override to support editing the table view.
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      Pools.shared.remove(pool: Pools.shared.pools[indexPath.row])
+      Pools.shared.remove(Pools.shared.items[indexPath.row])
       tableView.deleteRows(at: [indexPath], with: .fade)
     }
   }
 
   func invite(pool: Pool) {
     let message = "Join our NBA wins pool ->"
-    let string = Pool.id + "=\(pool.id)"
+    let string = Pool.id + "=\(pool.id!)"
     
     if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
       if let url = URL(string: "NBAWinsPool://?" + escapedString) {
@@ -103,7 +111,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   func poolCellButtonPressed(cell: PoolTableViewCell) {
     if let indexPath = tableView.indexPath(for: cell) {
-      let pool = Pools.shared.pools[indexPath.row]
+      let pool = Pools.shared.items[indexPath.row]
       if pool.users.count != pool.maxSize {
         invite(pool: pool)
       }
@@ -126,8 +134,8 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let indexPath = self.tableView.indexPathForSelectedRow {
-      let viewController = segue.destination as! PlayersViewController
-      viewController.pool = Pools.shared.pools[indexPath.row]
+      let viewController = segue.destination as! UsersViewController
+      viewController.pool = Pools.shared.items[indexPath.row]
     }
   }
   

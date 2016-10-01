@@ -1,5 +1,5 @@
 //
-//  PlayerTableViewCell.swift
+//  UserTableViewCell.swift
 //  NBA Wins Pool, Inc.
 //
 //  Created by John Benz Jessen on 9/17/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerTableViewCell: UITableViewCell {
+class UserTableViewCell: UITableViewCell {
   
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var recordLabel: UILabel!

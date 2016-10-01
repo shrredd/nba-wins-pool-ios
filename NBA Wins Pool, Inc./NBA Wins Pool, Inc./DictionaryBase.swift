@@ -8,10 +8,11 @@
 
 import Foundation
 
-class DictionaryBase: Equatable {
+class DictionaryBase {
   
-  init(dictionary: [String : AnyObject]) {
+  required init(dictionary: [String : AnyObject]) {
     self.dictionary = dictionary
+    didSetDictionary(oldValue: [:])
   }
   
   var dictionary: [String : AnyObject] {
@@ -21,14 +22,8 @@ class DictionaryBase: Equatable {
   }
   
   func didSetDictionary(oldValue: [String : AnyObject]) {
-    for (key, value) in oldValue {
-      if dictionary[key] == nil {
-        dictionary[key] = value
-      }
+    for (key, value) in oldValue where dictionary[key] == nil {
+      dictionary[key] = value
     }
-  }
-  
-  static func ==(baseA: DictionaryBase, baseB: DictionaryBase) -> Bool {
-    return false // override me
   }
 }

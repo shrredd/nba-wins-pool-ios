@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundView" destination="GYa-sp-hMl" id="v5C-AH-nnm"/>
+                <outlet property="createAccountBackgroundView" destination="omP-B2-GMj" id="9rZ-JR-8pV"/>
                 <outlet property="createButton" destination="GhE-eN-kWl" id="FJp-Nr-aIe"/>
                 <outlet property="emailTextField" destination="zYS-A5-P0K" id="DKm-5i-Xaw"/>
                 <outlet property="passwordTextField" destination="cLr-X3-ybd" id="DgT-NK-GCo"/>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhE-eN-kWl">
-                    <frame key="frameInset" minX="49.33%" width="300" height="54" maxY="51"/>
+                    <frame key="frameInset" minX="48.67%" width="300" height="54" maxY="174"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
@@ -35,7 +36,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYa-sp-hMl">
-                    <frame key="frameInset" minX="50.00%" minY="73" width="325" height="166"/>
+                    <frame key="frameInset" minX="50.00%" minY="28" width="325" height="166"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Give me yo deets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyg-N1-KD8">
@@ -73,7 +74,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omP-B2-GMj">
-                    <frame key="frameInset" minX="50.00%" width="325" height="100" maxY="137"/>
+                    <frame key="frameInset" minX="50.00%" width="325" height="100" maxY="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a new account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Sm-Kk-WoO">
@@ -99,7 +100,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZHy-ES-mRt">
-                    <frame key="frameInset" minX="49.33%" minY="271" width="300" height="54"/>
+                    <frame key="frameInset" minX="48.67%" minY="226" width="300" height="54"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>

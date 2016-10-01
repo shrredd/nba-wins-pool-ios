@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var backgroundView: UIView!
+  @IBOutlet weak var createAccountBackgroundView: UIView!
   
   @IBOutlet weak var usernameTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
@@ -30,8 +31,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     usernameTextField.delegate = self
     passwordTextField.delegate = self
     emailTextField.delegate = self
-    submitButton.isEnabled = false
-    createButton.isEnabled = false
+    submitButton.setTitleColor(UIColor.lightGray, for: .disabled)
+    createButton.setTitleColor(UIColor.lightGray, for: .disabled)
+    submitButton.layer.cornerRadius = 4.0
+    createButton.layer.cornerRadius = 4.0
+    backgroundView.layer.cornerRadius = 4.0
+    createAccountBackgroundView.layer.cornerRadius = 4.0
+    
+    refreshButtonsEnabled()
   }
   
   func refreshButtonsEnabled() {
@@ -45,17 +52,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
       passwordCount += text.characters.count
     }
     
-    var emailCount = 0
-    var components = 0
+    var emailValid = false
     if let text = emailTextField.text {
-      components = text.components(separatedBy: ["@", "."]).count
-      emailCount += text.characters.count
+      var components = text.components(separatedBy: "@")
+      if components[0].characters.count > 0 && components.count == 2 {
+        let rightComponents = components[1].components(separatedBy: ".")
+        if rightComponents.count == 2 && rightComponents[0].characters.count > 0 && rightComponents[1].characters.count > 2 {
+          emailValid = true
+        }
+      }
     }
     
-    submitButton.isEnabled = usernameCount > 0 && passwordCount > 0
-    createButton.isEnabled = submitButton.isEnabled && emailCount > 8 && components == 3
+    submitButton.isEnabled = usernameCount > 0 && passwordCount > 8
+    createButton.isEnabled = submitButton.isEnabled && emailValid
   }
-
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
   
   // MARK: UITextFieldDelegate
   
@@ -86,38 +100,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   func authenticate() {
     if let username = usernameTextField.text, let password = passwordTextField.text {
-      Backend.authenticateUser(username: username, password: password) { [unowned self] (tokenDictionary, success) in
-        if success, let dictionary = tokenDictionary as? [String : String] {
-          if let token = dictionary["token"] {
-            if let user = User.shared {
-              user.token = token
-              self.dismiss()
-            } else {
-              Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userDictionary, success) in
-                if success, let dictionary = userDictionary as? [String : AnyObject] {
-                  let user = User(dictionary: dictionary)
-                  user.token = token
-                  User.shared = user
-                  self.dismiss()
-                  
-                } else {
-                  UIAlertController.alertFailed(title: "GET User Details Failed", message: String(describing: userDictionary), viewController: self)
-                }
+      Backend.authenticateUser(username: username, password: password) { [unowned self] (tokenJSON, success) in
+        if success, let tokenDictionary = tokenJSON as? [String : AnyObject] {
+          if let user = User.shared {
+            user.dictionary = tokenDictionary
+            self.dismiss()
+          } else if let token = tokenDictionary["token"] as? String {
+            Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userJSON, success) in
+              if success, let userDictionary = userJSON as? [String : AnyObject] {
+                let user = User(dictionary: userDictionary)
+                user.dictionary = tokenDictionary
+                User.shared = user
+                self.dismiss()
                 
+              } else {
+                UIAlertController.alertOK(title: "GET User Details Failed", message: String(describing: userJSON), viewController: self)
+              }
+              
               })
-            }
           }
         } else {
-          UIAlertController.alertFailed(title: "Authenticate User Failed", message: String(describing: tokenDictionary), viewController: self)
+          UIAlertController.alertOK(title: "Authenticate User Failed", message: String(describing: tokenJSON), viewController: self)
         }
       }
     }
   }
   
   func dismiss() {
+    User.saveUser()
     Pools.shared.getPools()
     Pools.shared.joinPool()
-    User.saveUser()
     self.presentingViewController?.dismiss(animated: true, completion: nil)
   }
   
@@ -134,7 +146,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
           User.saveUser()
           self.authenticate()
         } else {
-          UIAlertController.alertFailed(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)
+          UIAlertController.alertOK(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)
         }
       })
     }

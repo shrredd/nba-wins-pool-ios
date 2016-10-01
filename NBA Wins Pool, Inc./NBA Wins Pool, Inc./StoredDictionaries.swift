@@ -8,8 +8,8 @@
 
 import Foundation
 
-class StoredDictionaries {
-  var bases = [DictionaryBase]()
+class StoredDictionaries<Item> where Item: DictionaryBase, Item: Equatable {
+  var items = [Item]()
   
   let type: String
   var updated: String {
@@ -25,12 +25,12 @@ class StoredDictionaries {
   
   func load(array: [[String : AnyObject]]) {
     for dictionary in array {
-      let base = dictionaryBase(dictionary: dictionary)
-      if let index = bases.index(of: base) {
-        let oldBase = bases[index]
-        oldBase.dictionary = base.dictionary
+      let newItem = Item(dictionary: dictionary)
+      if let index = items.index(of: newItem) {
+        let oldItem = items[index]
+        oldItem.dictionary = newItem.dictionary
       } else {
-        bases.append(base)
+        items.append(newItem)
       }
     }
     
@@ -38,38 +38,34 @@ class StoredDictionaries {
     NotificationCenter.default.post(name: Notification.Name(rawValue: updated), object: self)
   }
   
-  func dictionaryBase(dictionary: [String : AnyObject]) -> DictionaryBase {
-    return DictionaryBase(dictionary: dictionary)
-  }
-  
-  func add(base: DictionaryBase) {
-    if let index = bases.index(of: base) {
-      let oldBase = bases[index]
-      oldBase.dictionary = base.dictionary
+  func add(_ item: Item) {
+    if let index = items.index(of: item) {
+      let oldItem = items[index]
+      oldItem.dictionary = item.dictionary
     } else {
-      bases.append(base)
+      items.append(item)
     }
     
     save()
     NotificationCenter.default.post(name: Notification.Name(rawValue: updated), object: nil)
   }
   
-  func remove(base: DictionaryBase) {
-    if let index = bases.index(of: base) {
-      bases.remove(at: index)
+  func remove(_ item: Item) {
+    if let index = items.index(of: item) {
+      items.remove(at: index)
     }
     save()
   }
   
   func removeAll() {
-    bases = [DictionaryBase]()
+    items = [Item]()
     save()
   }
   
   func save() {
     var dictionaries = [[String : AnyObject]]()
-    for base in bases {
-      dictionaries.append(base.dictionary)
+    for item in items {
+      dictionaries.append(item.dictionary)
     }
     
     UserDefaults.standard.set(dictionaries, forKey: type)

@@ -9,11 +9,21 @@
 import UIKit
 
 extension UIAlertController {
-  static func alertFailed(title: String, message: String, viewController: UIViewController) {
+  static func visibleViewController() -> UIViewController? {
+    return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController
+  }
+  
+  static func alertOK(title: String, message: String, viewController: UIViewController? = nil) {
+    
     let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
     let OKAction = UIAlertAction(title: "OK", style: .default)
     alertController.addAction(OKAction)
     
-    viewController.present(alertController, animated: true)
+    var vc = viewController
+    if viewController == nil {
+      vc = visibleViewController()
+    }
+    
+    vc?.present(alertController, animated: true)
   }
 }

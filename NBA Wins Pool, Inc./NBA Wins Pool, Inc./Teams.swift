@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Teams: StoredDictionaries {
+class Teams: StoredDictionaries<Team> {
   
   static let shared = Teams()
   static let standingsDate = "standings_date"
@@ -19,7 +19,7 @@ class Teams: StoredDictionaries {
     super.init(type: "teams")
     dateUpdated = UserDefaults.standard.object(forKey: Teams.standingsDate) as? String
     
-    if teams.count == 0 {
+    if items.count == 0 {
       Backend.getTeams { [unowned self] (teamDictionaries, success) in
         if success, let array = teamDictionaries as? [[String : AnyObject]] {
           self.load(array: array)
@@ -28,14 +28,6 @@ class Teams: StoredDictionaries {
     }
     
     Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getStandings), userInfo: nil, repeats: true)
-  }
-  
-  override func dictionaryBase(dictionary: [String : AnyObject]) -> DictionaryBase {
-    return Team(dictionary: dictionary)
-  }
-  
-  var teams: [Team] {
-    return bases as! [Team]
   }
   
   @objc func getStandings() {

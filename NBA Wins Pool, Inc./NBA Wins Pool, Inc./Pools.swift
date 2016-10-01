@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Pools: StoredDictionaries {
+class Pools: StoredDictionaries<Pool> {
   
   static let shared = Pools()
   var idForInvitedPool: Int?
@@ -19,32 +19,29 @@ class Pools: StoredDictionaries {
     Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getPools), userInfo: nil, repeats: true)
   }
   
-  override func dictionaryBase(dictionary: [String : AnyObject]) -> DictionaryBase {
-    return Pool(dictionary: dictionary)
-  }
-  
-  var pools: [Pool] {
-    return bases as! [Pool]
-  }
-  
-  func add(pool: Pool) {
-    super.add(base: pool)
-  }
-  
-  func remove(pool: Pool) {
-    super.remove(base: pool)
-  }
-  
   @objc func getPools() {
     if let user = User.shared {
       if let token = user.token {
         Backend.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
           if success, let array = poolsArray as? [[String : AnyObject]] {
             self.load(array: array)
-          } else if let vc = Pools.visibleViewController() {
-            UIAlertController.alertFailed(title: "GET Pools Failed", message: String(describing: poolsArray), viewController: vc)
+            self.getPoolStatuses()
+          } else if poolsArray != nil {
+            UIAlertController.alertOK(title: "GET Pools Failed", message: String(describing: poolsArray))
           }
         })
+      }
+    }
+  }
+  
+  func getPoolStatuses() {
+    for pool in items {
+      if let draft = pool.draft {
+        if !draft.isComplete && draft.userWithPick != User.shared! {
+          pool.getPoolStatus()
+        }
+      } else {
+        pool.getPoolStatus()
       }
     }
   }
@@ -55,18 +52,14 @@ class Pools: StoredDictionaries {
         if let id = idForInvitedPool {
           Backend.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (poolDictionary, success) in
             if success, let dictionary = poolDictionary as? [String : AnyObject] {
-              self.add(pool: Pool(dictionary: dictionary))
+              self.add(Pool(dictionary: dictionary))
               self.idForInvitedPool = nil
-            } else if let vc = Pools.visibleViewController() {
-              UIAlertController.alertFailed(title: "Failed to Join Pool", message: String(describing: poolDictionary), viewController: vc)
+            } else {
+              UIAlertController.alertOK(title: "Failed to Join Pool", message: String(describing: poolDictionary))
             }
           })
         }
       }
     }
-  }
-  
-  static func visibleViewController() -> UIViewController? {
-    return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController
   }
 }

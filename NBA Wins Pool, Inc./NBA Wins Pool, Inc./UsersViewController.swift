@@ -1,5 +1,5 @@
 //
-//  PlayersViewController.swift
+//  UsersViewController.swift
 //  NBA Wins Pool, Inc.
 //
 //  Created by John Benz Jessen on 9/4/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayersViewController: UITableViewController {
+class UsersViewController: UITableViewController {
   
   var pool: Pool!
   
@@ -30,10 +30,11 @@ class PlayersViewController: UITableViewController {
   
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerTableViewCell", for: indexPath) as! PlayerTableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
     let user = pool.users[indexPath.row]
     cell.nameLabel?.text = user.username
-    cell.recordLabel?.text = "25 wins | 25 losses (50%)"
+    let record = pool.record(user: user)
+    cell.recordLabel?.text = "\(record.wins) wins | \(record.losses) losses (\(record.percentage*100.0)%)"
     
     return cell
   }

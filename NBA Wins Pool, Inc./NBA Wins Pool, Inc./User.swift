@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: DictionaryBase, Hashable {
+class User: DictionaryBase, Hashable, CustomStringConvertible {
   static var shared = loadSavedUser()
   
   static let loggedInUser = "logged_in_user"
@@ -53,5 +53,24 @@ class User: DictionaryBase, Hashable {
   
   var hashValue: Int {
     return username.hashValue
+  }
+  
+  // MARK: CustomStringConvertible
+  
+  var description: String {
+    var printMe = ""
+    if let name = username {
+      printMe += name + " "
+    }
+    
+    if let mail = email {
+      printMe += mail + " "
+    }
+    
+    if let auth = token {
+      printMe += auth
+    }
+    
+    return printMe
   }
 }
