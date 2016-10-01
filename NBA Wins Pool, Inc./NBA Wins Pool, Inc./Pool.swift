@@ -11,39 +11,31 @@ import Foundation
 class Pool: Equatable {
   static let name = "name"
   static let id = "id"
-  static let size = "size"
-  static let usersAndTeams = "usersAndTeams"
+  static let maxSize = "max_size"
+  static let members = "members"
   
   let name: String
-  let id: String
-  let size: Int
+  let id: Int
+  let maxSize: Int
   var users = [User]()
-  var usersToTeams = [User : [Team]]()
   
-  init(name: String, id: String, size: Int) {
+  init(name: String, id: Int, maxSize: Int) {
     self.name = name
     self.id = id
-    self.size = size
+    self.maxSize = maxSize
   }
   
   init?(dictionary: [String : AnyObject]) {
-    if let sizeString = dictionary[Pool.size] as? String,
+    if let maxSize = dictionary[Pool.maxSize] as? Int,
       let name = dictionary[Pool.name] as? String,
-      let id = dictionary[Pool.id] as? String,
-      let usernamesToTeamIDs = dictionary[Pool.usersAndTeams] as? [String : [String]] {
-      self.size = Int(sizeString)!
+      let id = dictionary[Pool.id] as? Int,
+      let members = dictionary[Pool.members] as? [[String : AnyObject]] {
+      self.maxSize = maxSize
       self.name = name
       self.id = id
-      for (username, teamIDs) in usernamesToTeamIDs {
-        if let user = Users.shared.get(username: username) {
-          self.users.append(user)
-          var teams = [Team]()
-          for id in teamIDs {
-            if let team = Teams.shared.team(id: id) {
-              teams.append(team)
-            }
-          }
-          usersToTeams[user] = teams
+      for memberDictionary in members {
+        if let user = User(dictionary: memberDictionary) {
+          users.append(user)
         }
       }
     } else {
@@ -52,35 +44,25 @@ class Pool: Equatable {
   }
   
   var dictionary: [String : AnyObject] {
-    var usernamesToTeamIDs = [String : [String]]()
     
+    var members = [[String : AnyObject]]()
     for user in users {
-      if let username = user.username, let teams = usersToTeams[user] {
-        var teamIDs = [String]()
-        for team in teams {
-          teamIDs.append(team.id)
-        }
-        usernamesToTeamIDs[username] = teamIDs
+      if let dictionary = user.dictionary {
+        members.append(dictionary)
       }
     }
     
     return [Pool.name : name as AnyObject,
             Pool.id : id as AnyObject,
-            Pool.size : String(size) as AnyObject,
-            Pool.usersAndTeams : usernamesToTeamIDs as AnyObject]
+            Pool.maxSize : maxSize as AnyObject,
+            Pool.members : members as AnyObject]
   }
   
   static func ==(poolA: Pool, poolB: Pool) -> Bool {
-    return poolA.name == poolB.name && poolA.id == poolB.id && poolA.size == poolB.size
-  }
-  
-  
-  func teams(user: User) -> [Team]? {
-    return usersToTeams[user]
+    return poolA.name == poolB.name && poolA.id == poolB.id && poolA.maxSize == poolB.maxSize
   }
   
   func add(user: User) {
     users.append(user)
-    Pools.shared.savePoolUsers()
   }
 }

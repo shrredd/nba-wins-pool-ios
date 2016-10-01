@@ -56,19 +56,17 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     
     if let name = poolNameTextField.text,
       let size = numberOfPlayersSegment.titleForSegment(at: numberOfPlayersSegment.selectedSegmentIndex),
-      let user = Users.shared.loggedInUser {
-      Backend.createPool(name: name, size: size, creator: user, completion: { [unowned self] (id) in
-        if id != nil {
-          if let sizeInt = Int(size) {
-            let pool = Pool(name: name, id: id!, size: sizeInt)
+      let user = User.shared {
+      Backend.createPool(name: name, size: size, username: user.username, completion: { [unowned self] (poolDictionary, success) in
+        if success, let dictionary = poolDictionary as? [String : AnyObject] {
+          if let pool = Pool(dictionary: dictionary) {
             Pools.shared.add(pool: pool)
-            pool.add(user: user)
-            
             _ = self.navigationController?.popViewController(animated: true)
           }
         } else {
-          UIAlertController.alertFailed(title: "Create Pool Failed", message: "Make sure you are connected to the internet and try again.", viewController: self)
+          UIAlertController.alertFailed(title: "Create Pool Failed", message: String(describing: poolDictionary), viewController: self)
         }
+        
       })
     }
   }

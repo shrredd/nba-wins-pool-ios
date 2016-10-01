@@ -13,11 +13,16 @@ class Backend {
   static let poolHost = "https://steph-curry-mvp.herokuapp.com/api/v1/"
   static let accounts = "accounts/"
   static let auth = "auth/"
+  static let pools = "pools/"
   
   static let userName = "username"
   static let userPassword = "password"
   static let userEmail = "email"
   static let userToken = "token"
+  
+  static let poolName = "name"
+  static let poolSize = "max_size"
+  static let poolMembers = "members"
   
   // MARK: user creation and authentication
   
@@ -68,23 +73,60 @@ class Backend {
     
   }
   
-  static func getUserDetails(username: String, token: String, completion: @escaping (AnyObject?, Bool) ->Void) {
-    requestJSON(httpMethod: "GET", host: poolHost, endPoint: accounts+username+"/", fields: ["Authorization" : "Token " + token]) { (JSON, statusCode, error) in
-      if let status = statusCode {
-        if status.isIn200s() {
-          completion(JSON, true)
-          return
-        }
-      }
-      
-      completion(JSON, false)
+  static func getUserDetails(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
+    requestJSON(httpMethod: "GET", host: poolHost, endPoint: accounts + username + "/",
+                fields: ["Authorization" : "Token " + token]) { (JSON, statusCode, error) in
+                  if let status = statusCode {
+                    if status.isIn200s() {
+                      completion(JSON, true)
+                      return
+                    }
+                  }
+                  
+                  completion(JSON, false)
     }
   }
   
   // MARK: pool backend
   
-  static func createPool(name: String, size: String, creator: User, completion: (String?) -> Void) {
-    completion("pool_id")
+  static func createPool(name: String, size: String, username: String, completion: @escaping (AnyObject?, Bool) -> Void) {
+    let members = [username]
+    let JSONObject: [String : AnyObject] = [poolName : name as AnyObject,
+                                            poolSize : size as AnyObject,
+                                            poolMembers : members as AnyObject]
+    
+    do {
+      let body = try JSONSerialization.data(withJSONObject: JSONObject)
+      
+      requestJSON(httpMethod: "POST", host: poolHost, endPoint: pools,
+                  fields: ["Content-Type" : "application/json"], body: body) { (JSON, statusCode, error) in
+                    if let status = statusCode {
+                      if status.isIn200s() {
+                        completion(JSON, true)
+                        return
+                      }
+                    }
+                    
+                    completion(JSON, false)
+      }
+      
+    } catch {
+      completion(nil, false)
+    }
+  }
+  
+  static func getPools(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
+    requestJSON(httpMethod: "GET", host: poolHost, endPoint: username + "/" + pools,
+                fields: ["Authorization" : "Token " + token]) { (JSON, statusCode, error) in
+                  if let status = statusCode {
+                    if status.isIn200s() {
+                      completion(JSON, true)
+                      return
+                    }
+                  }
+                  
+                  completion(JSON, false)
+    }
   }
   
   static func joinPool(id: String, player: User, completion: (Bool) -> Void) {

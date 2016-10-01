@@ -16,15 +16,23 @@ class Pools {
   
   init() {
     if let array = UserDefaults.standard.object(forKey: Pools.pools) as? [[String : AnyObject]] {
-      for dictionary in array {
-        if let pool = Pool(dictionary: dictionary) {
-          pools.append(pool)
-        }
-      }
+      loadPools(array: array)
     }
   }
   
   var pools = [Pool]()
+  
+  func loadPools(array: [[String : AnyObject]]) {
+    for dictionary in array {
+      if let pool = Pool(dictionary: dictionary) {
+        if !pools.contains(pool) {
+          pools.append(pool)
+        }
+      }
+    }
+    savePools()
+    NotificationCenter.default.post(name: Notification.Name(rawValue: Pools.poolsUpdated), object: nil)
+  }
   
   func add(pool: Pool) {
     if !pools.contains(pool) {
@@ -53,19 +61,6 @@ class Pools {
     }
     
     UserDefaults.standard.set(dictionaries, forKey: Pools.pools)
-    UserDefaults.standard.synchronize()
-  }
-  
-  func savePoolUsers() {
-    var dictionary = [String : [String]]()
-    for pool in pools {
-      var array = [String]()
-      for user in pool.users {
-        array.append(user.username)
-      }
-      dictionary[pool.id] = array
-    }
-    
     UserDefaults.standard.synchronize()
   }
 }

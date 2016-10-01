@@ -19,7 +19,6 @@
 		C2784BCF1D9642F300C6DA1F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */; };
 		C2784BD01D9642F300C6DA1F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */; };
 		C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BD11D9662F000C6DA1F /* AlertExtension.swift */; };
-		C2784BD41D9735CF00C6DA1F /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BD31D9735CF00C6DA1F /* Users.swift */; };
 		C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */; };
 		C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B51D7BF81E0062D5FF /* Pool.swift */; };
 		C2A343B81D7C01220062D5FF /* PlayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B71D7C01220062D5FF /* PlayersViewController.swift */; };
@@ -44,7 +43,6 @@
 		C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		C2784BD11D9662F000C6DA1F /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
-		C2784BD31D9735CF00C6DA1F /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolsViewController.swift; sourceTree = "<group>"; };
 		C2A343B51D7BF81E0062D5FF /* Pool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
 		C2A343B71D7C01220062D5FF /* PlayersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				C26DB54B1D7BF67A00BF5EFF /* Team.swift */,
 				C2A771E91D83F88400B2DC13 /* Pools.swift */,
 				C2A343B51D7BF81E0062D5FF /* Pool.swift */,
-				C2784BD31D9735CF00C6DA1F /* Users.swift */,
 				C2784BC11D950D5600C6DA1F /* User.swift */,
 				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
 				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
@@ -207,7 +204,6 @@
 				C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */,
 				C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */,
 				C2784BC21D950D5600C6DA1F /* User.swift in Sources */,
-				C2784BD41D9735CF00C6DA1F /* Users.swift in Sources */,
 				C22CF6511D8DF07F00008CBB /* PlayerTableViewCell.swift in Sources */,
 				C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */,
 				C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */,

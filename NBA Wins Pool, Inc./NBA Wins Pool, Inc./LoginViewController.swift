@@ -84,32 +84,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     return true
   }
   
-  func authenticate(email: String?) {
+  func authenticate() {
     if let username = usernameTextField.text, let password = passwordTextField.text {
       Backend.authenticateUser(username: username, password: password) { [unowned self] (tokenDictionary, success) in
-        if success {
-          if let dictionary = tokenDictionary as? [String : String] {
-            if let token = dictionary["token"] {
-              let user = User(username: username, email: email, token: token)
-              Users.shared.loggedInUser = user
-              Users.shared.add(user: user)
-              if email == nil {
-                Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userDictionary, success) in
-                  if success {
-                    if let dictionary = userDictionary as? [String : String] {
-                      if let userEmail = dictionary["email"] {
-                        user.email = userEmail
-                        Users.shared.save()
-                        self.presentingViewController?.dismiss(animated: true, completion: nil)
-                      }
-                    }
-                  } else {
-                    UIAlertController.alertFailed(title: "GET User Details Failed", message: String(describing: userDictionary), viewController: self)
+        if success, let dictionary = tokenDictionary as? [String : String] {
+          if let token = dictionary["token"] {
+            if let user = User.shared {
+              user.token = token
+              self.dismiss()
+            } else {
+              Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userDictionary, success) in
+                if success, let dictionary = userDictionary as? [String : AnyObject] {
+                  if let user = User(dictionary: dictionary) {
+                    user.token = token
+                    User.shared = user
+                    self.dismiss()
                   }
-                })
-              } else {
-                self.presentingViewController?.dismiss(animated: true, completion: nil)
-              }
+                } else {
+                  UIAlertController.alertFailed(title: "GET User Details Failed", message: String(describing: userDictionary), viewController: self)
+                }
+                
+              })
             }
           }
         } else {
@@ -119,15 +114,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
   }
   
+  func dismiss() {
+    AppDelegate.getPools()
+    User.saveUser()
+    self.presentingViewController?.dismiss(animated: true, completion: nil)
+  }
+  
   @IBAction func submitPressed(_ sender: UIButton) {
-    authenticate(email: nil)
+    authenticate()
   }
   
   @IBAction func createPressed(_ sender: UIButton) {
     if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text {
       Backend.createUser(username: username, password: password, email: email, completion: { [unowned self] (userDictionary, success) in
-        if success {
-          self.authenticate(email: email)
+        if success, let dictionary = userDictionary as? [String : AnyObject] {
+          if let user = User(dictionary: dictionary) {
+            User.shared = user
+            User.saveUser()
+            self.authenticate()
+          }
         } else {
           UIAlertController.alertFailed(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)
         }

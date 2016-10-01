@@ -29,7 +29,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     tableView.delegate = self
     tableView.reloadData()
     
-    if Users.shared.loggedInUser == nil {
+    if User.shared == nil {
       let loginViewController = LoginViewController()
       present(loginViewController, animated: false, completion: nil)
     }
@@ -42,7 +42,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    if let name = Users.shared.loggedInUser?.username {
+    if let name = User.shared?.username {
       self.title = name + "\'s Pools"
     }
   }
@@ -64,13 +64,13 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     
     let pool = Pools.shared.pools[indexPath.row]
     cell.nameLabel?.text = pool.name
-    cell.membersLabel?.text = "\(pool.users.count)/\(pool.size) members"
+    cell.membersLabel?.text = "\(pool.users.count)/\(pool.maxSize) members"
     
     let button = cell.button
-    if let user = Users.shared.loggedInUser {
+    if let user = User.shared {
       if !pool.users.contains(user) {
         button?.setTitle("Join", for: .normal)
-      } else if pool.users.count != pool.size {
+      } else if pool.users.count != pool.maxSize {
         button?.setTitle("Invite", for: .normal)
       } else {
         button?.isHidden = true
@@ -92,7 +92,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
 
   func invite(pool: Pool) {
     let message = "Join our NBA wins pool ->"
-    let string = Pool.name + "=" + pool.name + "&" + Pool.id + "=" + pool.id + "&" + Pool.size + "=\(pool.size)"
+    let string = Pool.name + "=" + pool.name + "&" + Pool.id + "=\(pool.id)" + "&" + Pool.maxSize + "=\(pool.maxSize)"
     
     if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
       if let url = URL(string: "NBAWinsPool://?" + escapedString) {
@@ -108,11 +108,11 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   func poolCellButtonPressed(cell: PoolTableViewCell) {
     if let indexPath = tableView.indexPath(for: cell) {
-      if let user = Users.shared.loggedInUser {
+      if let user = User.shared {
         let pool = Pools.shared.pools[indexPath.row]
         if !pool.users.contains(user) {
           // join
-        } else if pool.users.count != pool.size {
+        } else if pool.users.count != pool.maxSize {
           invite(pool: pool)
         }
       }
@@ -122,14 +122,11 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   // MARK: button callbacks
   
   @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
-    if let user = Users.shared.loggedInUser {
-      Users.shared.loggedInUser = nil
-      Users.shared.remove(user: user)
-      Pools.shared.removeAllPools()
-      
-      let loginViewController = LoginViewController()
-      present(loginViewController, animated: true, completion: nil)
-    }
+    User.shared = nil
+    Pools.shared.removeAllPools()
+    
+    let loginViewController = LoginViewController()
+    present(loginViewController, animated: true, completion: nil)
   }
   
   

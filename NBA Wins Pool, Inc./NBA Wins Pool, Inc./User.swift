@@ -9,6 +9,9 @@
 import Foundation
 
 class User: Equatable, Hashable {
+  static var shared = loadSavedUser()
+  
+  static let loggedInUser = "logged_in_user"
   static let username = "username"
   static let email = "email"
   static let token = "token"
@@ -17,25 +20,37 @@ class User: Equatable, Hashable {
   var email: String?
   var token: String?
   
-  init(username: String, email: String? = nil, token: String? = nil) {
-    self.username = username
-    self.token = token
+  static func loadSavedUser() -> User? {
+    if let dictionary = UserDefaults.standard.object(forKey: loggedInUser) as? [String: AnyObject] {
+      return User(dictionary: dictionary)
+    } else {
+      return nil
+    }
   }
   
-  init?(dictionary: [String: String]) {
+  static func saveUser() {
+    if let dictionary = shared?.dictionary {
+      UserDefaults.standard.set(dictionary, forKey: loggedInUser)
+      UserDefaults.standard.synchronize()
+    }
+  }
+  
+  init?(dictionary: [String: AnyObject]) {
     for (key, value) in dictionary {
-      switch key {
-      case "token":
-        self.token = value
-        break
-      case "username":
-        self.username = value
-        break
-      case "email":
-        self.email = value
-        break
-      default:
-        break
+      if let stringValue = value as? String {
+        switch key {
+        case "token":
+          self.token = stringValue
+          break
+        case "username":
+          self.username = stringValue
+          break
+        case "email":
+          self.email = stringValue
+          break
+        default:
+          break
+        }
       }
     }
     
@@ -44,22 +59,21 @@ class User: Equatable, Hashable {
     }
   }
   
-  var dictionary: [String : String]? {
-    if username == nil {
+  var dictionary: [String : AnyObject]? {
+    if let name = username {
+      var dictionary: [String : AnyObject] = [User.username : name as AnyObject]
+      if let mail = email {
+        dictionary[User.email] = mail as AnyObject?
+      }
+      
+      if let auth = token {
+        dictionary[User.token] = auth as AnyObject?
+      }
+      
+      return dictionary
+    } else {
       return nil
     }
-    
-    var dictionary = [User.username : username!]
-    
-    if email != nil {
-      dictionary[User.email] = email!
-    }
-    
-    if token != nil {
-      dictionary[User.token] = token!
-    }
-    
-    return dictionary
   }
   
   // MARK: Equatable

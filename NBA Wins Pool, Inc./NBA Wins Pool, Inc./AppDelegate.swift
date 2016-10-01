@@ -13,16 +13,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool { 
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    AppDelegate.getPools()
     return true
+  }
+  
+  static func getPools() {
+    if let user = User.shared {
+      if let token = user.token {
+        Backend.getPools(username: user.username, token: token, completion: { (poolsArray, success) in
+          if success, let array = poolsArray as? [[String : AnyObject]] {
+            Pools.shared.loadPools(array: array)
+          } else if let vc = (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController {
+            UIAlertController.alertFailed(title: "GET Pools Failed", message: String(describing: poolsArray), viewController: vc)
+          }
+        })
+      }
+    }
   }
   
   func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
     if let scheme = url.scheme {
       if scheme == "NBAWinsPool" || scheme == "nbawinspool" {
         var name: String?
-        var id: String?
-        var size: Int?
+        var id: Int?
+        var maxSize: Int?
         
         if let string = url.query?.removingPercentEncoding {
           let queries = string.components(separatedBy: "&")
@@ -36,11 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
               name = value
               break
             case Pool.id:
-              id = value
+              if let idInt = Int(value) {
+                id = idInt
+              }
               break
-            case Pool.size:
+            case Pool.maxSize:
               if let sizeInt = Int(value) {
-                size = sizeInt
+                maxSize = sizeInt
               }
               break
             default:
@@ -49,8 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           }
         }
         
-        if name != nil && id != nil && size != nil {
-          let pool = Pool(name: name!, id: id!, size: size!)
+        if name != nil && id != nil && maxSize != nil {
+          let pool = Pool(name: name!, id: id!, maxSize: maxSize!)
           Pools.shared.add(pool: pool)
         }
       }
@@ -74,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func applicationDidBecomeActive(_ application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
   }
   
   func applicationWillTerminate(_ application: UIApplication) {
