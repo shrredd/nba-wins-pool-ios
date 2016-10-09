@@ -27,6 +27,17 @@ class Draft: DictionaryBase {
     return selections.count == picks.count
   }
   
+  var unselectedTeams: [Team] {
+    var teams = [Team]()
+    for team in Teams.shared.items {
+      if !selections.contains(team) {
+        teams.append(team)
+      }
+    }
+    
+    return teams
+  }
+  
   override func didSetDictionary(oldValue: [String : AnyObject]) {
     super.didSetDictionary(oldValue: oldValue)
     

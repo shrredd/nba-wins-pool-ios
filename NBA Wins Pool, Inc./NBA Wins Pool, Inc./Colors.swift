@@ -9,27 +9,31 @@
 import UIKit
 
 extension UIColor {
-  static func pinkishRed() -> UIColor {
-    return UIColor(red: 255, green: 0, blue: 91, alpha:1)
+  
+  convenience init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+    self.init(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1)
   }
   
-  static func blueishGray() -> UIColor {
-    return UIColor(red: 95, green: 100, blue: 132, alpha:1)
+  static var pinkishRed: UIColor {
+    return UIColor(red: 255, green: 0, blue: 91)
   }
   
-  static func almostBlackGray() -> UIColor {
-    return UIColor(red: 36, green: 38, blue: 51, alpha:1)
+  static var blueishGray: UIColor {
+    return UIColor(red: 95.0/255.0, green: 100.0/255.0, blue: 132.0/255.0, alpha:1)
   }
   
-  static func lightBlueishGray() -> UIColor {
-    return UIColor(red: 173, green: 177, blue: 204, alpha:1)
+  static var almostBlackGray: UIColor {
+    return UIColor(red: 36.0/255.0, green: 38.0/255.0, blue: 51.0/255.0, alpha:1)
   }
   
-  static func basketballOrange() -> UIColor {
-    return UIColor(red: 229, green: 138, blue: 37, alpha:1)
+  static var lightBlueishGray: UIColor {
+    return UIColor(red: 173.0/255.0, green: 177.0/255.0, blue: 204.0/255.0, alpha:1)
+  }
+  
+  static var basketballOrange: UIColor {
+    return UIColor(red: 229.0/255.0, green: 138.0/255.0, blue: 37.0/255.0, alpha:1)
   }
 }
-
 
 extension CALayer {
   func setBorderColorFromUIColor(color: UIColor) {

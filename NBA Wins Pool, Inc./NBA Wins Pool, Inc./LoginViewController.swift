@@ -127,7 +127,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   }
   
   func dismiss() {
-    User.saveUser()
+    User.save()
     Pools.shared.getPools()
     Pools.shared.joinPool()
     self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if success, let dictionary = userDictionary as? [String : AnyObject] {
           let user = User(dictionary: dictionary)
           User.shared = user
-          User.saveUser()
+          User.save()
           self.authenticate()
         } else {
           UIAlertController.alertOK(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)

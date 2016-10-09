@@ -39,6 +39,9 @@ class UsersViewController: UITableViewController {
     return cell
   }
   
+  @IBAction func backPressed(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
   
   /*
    // Override to support conditional editing of the table view.

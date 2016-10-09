@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21483671DA9CCB3005ED687 /* DraftViewController.swift */; };
+		C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C21483681DA9CCB3005ED687 /* DraftViewController.xib */; };
+		C214836E1DA9D001005ED687 /* DraftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */; };
+		C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */; };
 		C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF64C1D8DD71B00008CBB /* Colors.swift */; };
 		C22CF6511D8DF07F00008CBB /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */; };
 		C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */; };
@@ -32,6 +36,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C21483671DA9CCB3005ED687 /* DraftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftViewController.swift; sourceTree = "<group>"; };
+		C21483681DA9CCB3005ED687 /* DraftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftViewController.xib; sourceTree = "<group>"; };
+		C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftTableViewCell.swift; sourceTree = "<group>"; };
+		C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftTableViewCell.xib; sourceTree = "<group>"; };
 		C22CF64C1D8DD71B00008CBB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		C26DB5341D7BF66800BF5EFF /* NBA Wins Pool, Inc..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NBA Wins Pool, Inc..app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +77,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C214836B1DA9CF98005ED687 /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				C21483671DA9CCB3005ED687 /* DraftViewController.swift */,
+				C21483681DA9CCB3005ED687 /* DraftViewController.xib */,
+				C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */,
+				C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */,
+			);
+			name = Draft;
+			sourceTree = "<group>";
+		};
 		C22CF64E1D8DF04F00008CBB /* Pools */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +134,7 @@
 				C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */,
 				C22CF64E1D8DF04F00008CBB /* Pools */,
 				C22CF64F1D8DF06600008CBB /* Users */,
+				C214836B1DA9CF98005ED687 /* Draft */,
 				C2A343B91D7C05F40062D5FF /* CreateViewController.swift */,
 				C2A771F11D84E4CB00B2DC13 /* Backend.swift */,
 				C26DB54A1D7BF67A00BF5EFF /* Teams.swift */,
@@ -192,8 +212,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2784BD01D9642F300C6DA1F /* LoginViewController.xib in Resources */,
+				C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */,
 				C26DB5421D7BF66800BF5EFF /* LaunchScreen.storyboard in Resources */,
 				C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */,
+				C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */,
 				C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,10 +230,12 @@
 				C2A808331DA04C4200C02C15 /* DictionaryBase.swift in Sources */,
 				C2A343BA1D7C05F40062D5FF /* CreateViewController.swift in Sources */,
 				C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */,
+				C214836E1DA9D001005ED687 /* DraftTableViewCell.swift in Sources */,
 				C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */,
 				C2784BCF1D9642F300C6DA1F /* LoginViewController.swift in Sources */,
 				C2A343B81D7C01220062D5FF /* UsersViewController.swift in Sources */,
 				C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */,
+				C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */,
 				C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */,
 				C2784BC21D950D5600C6DA1F /* User.swift in Sources */,
 				C22CF6511D8DF07F00008CBB /* UserTableViewCell.swift in Sources */,

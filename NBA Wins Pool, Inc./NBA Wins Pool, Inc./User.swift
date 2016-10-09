@@ -28,11 +28,15 @@ class User: DictionaryBase, Hashable, CustomStringConvertible {
     }
   }
   
-  static func saveUser() {
+  static func save() {
     if let dictionary = shared?.dictionary {
       UserDefaults.standard.set(dictionary, forKey: loggedInUser)
-      UserDefaults.standard.synchronize()
+    } else {
+      UserDefaults.standard.removeObject(forKey: loggedInUser)
     }
+    
+    
+    UserDefaults.standard.synchronize()
   }
   
   override func didSetDictionary(oldValue: [String : AnyObject]) {

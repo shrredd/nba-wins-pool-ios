@@ -73,13 +73,18 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
         let record = pool.record(user: User.shared!)
         button.setTitle("\(record.wins)-\(record.losses) (\(record.percentage*100.0)%)", for: .normal)
       } else if let username = pool.draft?.userWithPick?.username {
-        button.setTitle(username + "'s pick", for: .normal)
+        if let name = User.shared?.username, name == username {
+          button.setTitle("Your pick!", for: .normal)
+        } else {
+          button.setTitle(username + "'s pick", for: .normal)
+        }
       } else {
         button.setTitle("Waiting for draft status...", for: .normal)
       }
       
-      button.isUserInteractionEnabled = !pool.isFull
-      button.isEnabled = !pool.isFull
+      let enabled = !pool.isFull || pool.draft?.picks.count != pool.draft?.selections.count
+      button.isUserInteractionEnabled = enabled
+      button.isEnabled = enabled
     }
     
     return cell
@@ -114,6 +119,10 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
       let pool = Pools.shared.items[indexPath.row]
       if pool.users.count != pool.maxSize {
         invite(pool: pool)
+      } else if pool.draft?.selections.count != pool.draft?.picks.count {
+        let viewController = DraftViewController()
+        viewController.draft = pool.draft
+        navigationController?.pushViewController(viewController, animated: true)
       }
     }
   }
@@ -122,6 +131,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   
   @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
     User.shared = nil
+    User.save()
     Pools.shared.removeAll()
     
     let loginViewController = LoginViewController()

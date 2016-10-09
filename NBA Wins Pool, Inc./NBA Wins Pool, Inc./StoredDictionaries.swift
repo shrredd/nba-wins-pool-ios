@@ -60,6 +60,7 @@ class StoredDictionaries<Item> where Item: DictionaryBase, Item: Equatable {
   func removeAll() {
     items = [Item]()
     save()
+    NotificationCenter.default.post(name: Notification.Name(rawValue: updated), object: nil)
   }
   
   func save() {

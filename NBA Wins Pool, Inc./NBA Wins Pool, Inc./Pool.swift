@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Pool: DictionaryBase, Equatable {
+class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   static let name = "name"
   static let id = "id"
   static let maxSize = "max_size"
@@ -20,6 +20,7 @@ class Pool: DictionaryBase, Equatable {
   var id: Int!
   var maxSize: Int!
   var users = [User]()
+  
   var draft: Draft? {
     didSet {
       if let oldCount = oldValue?.picks.count, let newCount = draft?.picks.count  {
@@ -37,7 +38,7 @@ class Pool: DictionaryBase, Equatable {
   func teams(user: User) -> [Team] {
     var teams = [Team]()
     if let d = draft {
-      for (index, u) in d.picks.enumerated() {
+      for (index, u) in d.picks.enumerated() where index < d.selections.count {
         if user == u {
           teams.append(d.selections[index])
         }
@@ -65,12 +66,11 @@ class Pool: DictionaryBase, Equatable {
     self.maxSize = dictionary[Pool.maxSize] as? Int
     self.name = dictionary[Pool.name] as? String
     self.id = dictionary[Pool.id] as? Int
+    users.removeAll()
     if let members = dictionary[Pool.members] as? [[String : AnyObject]] {
       for memberDictionary in members {
         users.append(User(dictionary: memberDictionary))
       }
-    } else {
-      users.removeAll()
     }
     
     if let draftStatus = dictionary[Draft.status] as? [[String : AnyObject]] {
@@ -78,15 +78,62 @@ class Pool: DictionaryBase, Equatable {
     }
   }
   
-  func getPoolStatus() {
-    Backend.getPoolStatus(id: id) { [unowned self] (poolDictionary, success) in
+  func getPoolInfo() {
+    Backend.getPoolInfo(id: id) { [unowned self] (poolDictionary, success) in
       if success, let dict = poolDictionary as? [String : AnyObject] {
         self.dictionary = dict
       } else {
-        UIAlertController.alertOK(title: "GET Draft Status Failed", message: String(describing: poolDictionary))
+        UIAlertController.alertOK(title: "GET Pool Info Failed", message: String(describing: poolDictionary))
       }
     }
   }
+  
+  func getDraftStatus() {
+    Backend.getDraftStatus(id: id) { (draftArray, success) in
+      if success, let array  = draftArray as? [[String : AnyObject]] {
+        self.dictionary = ["draft_status" : array as AnyObject]
+      } else {
+        UIAlertController.alertOK(title: "GET Draft Status Failed", message: String(describing: draftArray))
+      }
+    }
+  }
+  
+  func pick(team: String) {
+    if let token = User.shared?.token {
+      Backend.pickTeam(poolID: id, teamID: team, token: token, completion: { (draftArray, success) in
+        if success, let array  = draftArray as? [[String : AnyObject]] {
+          self.dictionary = ["draft_status" : array as AnyObject]
+        } else {
+          UIAlertController.alertOK(title: "Failed to Make Pick", message: String(describing: draftArray))
+        }
+      })
+    }
+  }
+  
+  // MARK: CustomStringConvertible
+  
+  var description: String {
+    var printMe = ""
+    
+    
+    if let n = name {
+      printMe += n + " "
+    }
+    
+    if let i = id {
+      printMe += String(describing: i) + " "
+    }
+    
+    if let size = maxSize {
+      printMe += String(describing: size) + " "
+    }
+    
+    printMe += String(describing: users)
+    
+    return printMe
+  }
+  
+  // MARK: Equatable
   
   static func ==(poolA: Pool, poolB: Pool) -> Bool {
     return poolA.id == poolB.id

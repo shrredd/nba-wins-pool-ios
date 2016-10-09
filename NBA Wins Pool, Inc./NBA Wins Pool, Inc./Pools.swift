@@ -25,7 +25,7 @@ class Pools: StoredDictionaries<Pool> {
         Backend.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
           if success, let array = poolsArray as? [[String : AnyObject]] {
             self.load(array: array)
-            self.getPoolStatuses()
+            self.getInfoForAllPools()
           } else if poolsArray != nil {
             UIAlertController.alertOK(title: "GET Pools Failed", message: String(describing: poolsArray))
           }
@@ -34,14 +34,14 @@ class Pools: StoredDictionaries<Pool> {
     }
   }
   
-  func getPoolStatuses() {
+  func getInfoForAllPools() {
     for pool in items {
       if let draft = pool.draft {
         if !draft.isComplete && draft.userWithPick != User.shared! {
-          pool.getPoolStatus()
+          pool.getPoolInfo()
         }
       } else {
-        pool.getPoolStatus()
+        pool.getPoolInfo()
       }
     }
   }
@@ -50,12 +50,18 @@ class Pools: StoredDictionaries<Pool> {
     if let user = User.shared {
       if let token = user.token {
         if let id = idForInvitedPool {
-          Backend.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (poolDictionary, success) in
-            if success, let dictionary = poolDictionary as? [String : AnyObject] {
-              self.add(Pool(dictionary: dictionary))
+          Backend.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (membersArray, success) in
+            if success {
               self.idForInvitedPool = nil
+              Backend.getPoolInfo(id: id, completion: { (poolDictionary, success) in
+                if success, let dictionary = poolDictionary as? [String : AnyObject] {
+                  self.add(Pool(dictionary: dictionary))
+                } else {
+                  UIAlertController.alertOK(title: "Failed to get pool status", message: String(describing: poolDictionary))
+                }
+              })
             } else {
-              UIAlertController.alertOK(title: "Failed to Join Pool", message: String(describing: poolDictionary))
+              UIAlertController.alertOK(title: "Failed to Join Pool", message: String(describing: membersArray))
             }
           })
         }

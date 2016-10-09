@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.14117647059999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PoolTableViewCell" rowHeight="196" id="gqY-SA-PMD" customClass="PoolTableViewCell" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PoolTableViewCell" rowHeight="196" id="gqY-SA-PMD" customClass="PoolTableViewCell" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="65" width="375" height="196"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gqY-SA-PMD" id="uzk-ku-wOP">
@@ -211,13 +211,13 @@
         <!--Leaderboard-->
         <scene sceneID="R0n-kY-dZm">
             <objects>
-                <tableViewController id="iOa-Mf-ghu" customClass="PlayersViewController" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iOa-Mf-ghu" customClass="UsersViewController" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="1GG-vs-T5C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14117647059999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayerTableViewCell" rowHeight="120" id="lrU-LP-uxR" customClass="PlayerTableViewCell" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCell" rowHeight="120" id="lrU-LP-uxR" customClass="UserTableViewCell" customModule="NBA_Wins_Pool__Inc_" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lrU-LP-uxR" id="glu-PQ-aEc">
@@ -255,6 +255,9 @@
                     <navigationItem key="navigationItem" title="Leaderboard" id="h45-Cs-JMA">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Kv4-cL-xJP">
                             <color key="tintColor" red="1" green="0.0" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="backPressed:" destination="iOa-Mf-ghu" id="fXx-fg-pf9"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
