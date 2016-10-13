@@ -13,6 +13,7 @@
 		C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */; };
 		C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF64C1D8DD71B00008CBB /* Colors.swift */; };
 		C22CF6511D8DF07F00008CBB /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */; };
+		C2370B851DAB159D00BD4F2B /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */; };
 		C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */; };
 		C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53B1D7BF66800BF5EFF /* Main.storyboard */; };
 		C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */; };
@@ -33,6 +34,9 @@
 		C2A808331DA04C4200C02C15 /* DictionaryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808321DA04C4200C02C15 /* DictionaryBase.swift */; };
 		C2A808351DA05C0800C02C15 /* StoredDictionaries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808341DA05C0800C02C15 /* StoredDictionaries.swift */; };
 		C2A808371DA069AE00C02C15 /* Draft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A808361DA069AE00C02C15 /* Draft.swift */; };
+		C2EF2C131DAB180E00EA63B6 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */; };
+		C2EF2C141DAB180E00EA63B6 /* PickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */; };
+		C2EF2C161DAB1A5E00EA63B6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,7 @@
 		C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftTableViewCell.xib; sourceTree = "<group>"; };
 		C22CF64C1D8DD71B00008CBB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C22CF6501D8DF07F00008CBB /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		C26DB5341D7BF66800BF5EFF /* NBA Wins Pool, Inc..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NBA Wins Pool, Inc..app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C26DB53C1D7BF66800BF5EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,6 +69,9 @@
 		C2A808321DA04C4200C02C15 /* DictionaryBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryBase.swift; sourceTree = "<group>"; };
 		C2A808341DA05C0800C02C15 /* StoredDictionaries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredDictionaries.swift; sourceTree = "<group>"; };
 		C2A808361DA069AE00C02C15 /* Draft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Draft.swift; sourceTree = "<group>"; };
+		C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
+		C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickViewController.xib; sourceTree = "<group>"; };
+		C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,8 @@
 				C21483681DA9CCB3005ED687 /* DraftViewController.xib */,
 				C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */,
 				C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */,
+				C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */,
+				C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */,
 			);
 			name = Draft;
 			sourceTree = "<group>";
@@ -143,6 +153,8 @@
 				C2A808321DA04C4200C02C15 /* DictionaryBase.swift */,
 				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
 				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
+				C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */,
+				C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */,
 				C26DB53B1D7BF66800BF5EFF /* Main.storyboard */,
 				C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */,
 				C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */,
@@ -215,6 +227,7 @@
 				C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */,
 				C26DB5421D7BF66800BF5EFF /* LaunchScreen.storyboard in Resources */,
 				C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */,
+				C2EF2C141DAB180E00EA63B6 /* PickViewController.xib in Resources */,
 				C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */,
 				C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */,
 			);
@@ -234,6 +247,7 @@
 				C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */,
 				C2784BCF1D9642F300C6DA1F /* LoginViewController.swift in Sources */,
 				C2A343B81D7C01220062D5FF /* UsersViewController.swift in Sources */,
+				C2370B851DAB159D00BD4F2B /* UINavigationControllerExtension.swift in Sources */,
 				C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */,
 				C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */,
 				C2A771F21D84E4CB00B2DC13 /* Backend.swift in Sources */,
@@ -244,6 +258,8 @@
 				C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */,
 				C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */,
 				C2A771EA1D83F88400B2DC13 /* Pools.swift in Sources */,
+				C2EF2C131DAB180E00EA63B6 /* PickViewController.swift in Sources */,
+				C2EF2C161DAB1A5E00EA63B6 /* UIViewExtension.swift in Sources */,
 				C2A808371DA069AE00C02C15 /* Draft.swift in Sources */,
 				C26DB54E1D7BF67A00BF5EFF /* Team.swift in Sources */,
 				C26DB54D1D7BF67A00BF5EFF /* Teams.swift in Sources */,

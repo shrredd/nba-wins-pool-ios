@@ -28,13 +28,17 @@ class UsersViewController: UITableViewController {
     return pool.users.count
   }
   
-  
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
     let user = pool.users[indexPath.row]
     cell.nameLabel?.text = user.username
     let record = pool.record(user: user)
     cell.recordLabel?.text = "\(record.wins) wins | \(record.losses) losses (\(record.percentage*100.0)%)"
+    var teams = [Team]()
+    for (index, team) in Teams.shared.items.enumerated() where index < 5 {
+      teams.append(team)
+    }
+    cell.teams = teams
     
     return cell
   }

@@ -23,9 +23,26 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   
   var draft: Draft? {
     didSet {
-      if let oldCount = oldValue?.picks.count, let newCount = draft?.picks.count  {
-        if newCount > oldCount {
-          NotificationCenter.default.post(name: Notification.Name(rawValue: Pool.didUpdateDraft), object: self)
+      if let oldCount = oldValue?.selections.count, let d = draft, d.selections.count > oldCount {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Pool.didUpdateDraft), object: self)
+        if let team = d.selections.last, let index = d.selections.index(of: team) {
+          let user = d.picks[index]
+          var message = "The draft is over. Good luck!"
+          if d.selections.count < 30 {
+            let nextUser = d.picks[index+1]
+            var name = nextUser.username + "'s"
+            if let thisUser = User.shared, thisUser == nextUser {
+              name = "your"
+            }
+            message = "It's " + name + " pick!"
+          }
+          
+          var username = user.username
+          if let thisUser = User.shared, thisUser == user {
+            username = "You"
+          }
+          
+          UIAlertController.alertOK(title: username! + " picked the " + team.fullName + "!", message: message)
         }
       }
     }

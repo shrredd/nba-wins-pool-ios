@@ -10,7 +10,7 @@ import UIKit
 
 class DraftViewController: UITableViewController {
   
-  var draft: Draft!
+  var pool: Pool!
   var unselectedTeams: [Team]!
   
   init() {
@@ -29,22 +29,41 @@ class DraftViewController: UITableViewController {
     let nib = UINib(nibName: "DraftTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "DraftTableViewCell")
     
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(closePressed))
-    self.navigationItem.leftBarButtonItem?.tintColor = UIColor.pinkishRed
+    navigationController?.addBackButton(viewController: self)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
+    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pool.didUpdateDraft), object: nil)
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  func reloadData() {
+    tableView.reloadData()
   }
   
   // MARK: - Table view data source
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    unselectedTeams = draft.unselectedTeams
+    if let draft = pool.draft {
+      unselectedTeams = draft.unselectedTeams
+    }
     return 2
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if section == 0 {
       return unselectedTeams.count
-    } else {
+    } else if let draft = pool.draft {
       return draft.picks.count
+    } else {
+      return 0
     }
   }
   
@@ -58,27 +77,30 @@ class DraftViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "DraftTableViewCell", for: indexPath) as! DraftTableViewCell
-    if indexPath.section == 0 {
-      let team = draft.unselectedTeams[indexPath.row]
-      cell.pick.isHidden = true
-      cell.label.text = team.fullName
-      cell.emoji.text = team.emoji
-      cell.contentView.backgroundColor = team.primaryColor
-    } else {
-      if indexPath.row < draft.selections.count {
-        let team = draft.selections[indexPath.row]
+    
+    if let draft = pool.draft {
+      if indexPath.section == 0 {
+        let team = draft.unselectedTeams[indexPath.row]
+        cell.pick.isHidden = true
         cell.label.text = team.fullName
         cell.emoji.text = team.emoji
         cell.contentView.backgroundColor = team.primaryColor
       } else {
-        cell.label.text = "--"
-        cell.emoji.text = "🏀"
-        cell.contentView.backgroundColor = UIColor.almostBlackGray
+        if indexPath.row < draft.selections.count {
+          let team = draft.selections[indexPath.row]
+          cell.label.text = team.fullName
+          cell.emoji.text = team.emoji
+          cell.contentView.backgroundColor = team.primaryColor
+        } else {
+          cell.label.text = "--"
+          cell.emoji.text = "🏀"
+          cell.contentView.backgroundColor = UIColor.almostBlackGray
+        }
+        cell.pick.isHidden = false
+        cell.pick.text = "\(indexPath.row + 1). " + draft.picks[indexPath.row].username
       }
-      cell.pick.isHidden = false
-      cell.pick.text = "\(indexPath.row + 1). " + draft.picks[indexPath.row].username
     }
-    
+
     return cell
   }
   
@@ -91,22 +113,24 @@ class DraftViewController: UITableViewController {
     }
   }
   
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    if let draft = pool.draft {
+      return indexPath.section == 0 && draft.userWithPick == User.shared
+    }
     
+    return false
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let team = unselectedTeams[indexPath.row]
+    let pickViewController = PickViewController()
+    pickViewController.pool = pool
+    pickViewController.team = team
+    navigationController?.pushViewController(pickViewController, animated: true)
   }
   
   func closePressed() {
     _ = navigationController?.popViewController(animated: true)
   }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
   
 }

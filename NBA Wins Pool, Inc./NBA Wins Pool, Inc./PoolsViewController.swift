@@ -24,7 +24,8 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     noPoolsLabel = label
     
     NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.shared.updated), object: nil)
-    
+    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pool.didUpdateDraft), object: nil)
+
     tableView.dataSource = self
     tableView.delegate = self
     tableView.reloadData()
@@ -121,7 +122,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
         invite(pool: pool)
       } else if pool.draft?.selections.count != pool.draft?.picks.count {
         let viewController = DraftViewController()
-        viewController.draft = pool.draft
+        viewController.pool = pool
         navigationController?.pushViewController(viewController, animated: true)
       }
     }

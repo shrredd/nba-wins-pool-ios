@@ -44,7 +44,7 @@ class Draft: DictionaryBase {
     if let dictionaries = dictionary[Draft.status] as? [[String : AnyObject]] {
       let sortedDictionaries = dictionaries.sorted(by: { (dictionaryA, dictionaryB) -> Bool in
         if let numberA = dictionaryA[Draft.pickNumber] as? Int, let numberB = dictionaryB[Draft.pickNumber] as? Int {
-          return numberA > numberB
+          return numberA < numberB
         }
         
         return true

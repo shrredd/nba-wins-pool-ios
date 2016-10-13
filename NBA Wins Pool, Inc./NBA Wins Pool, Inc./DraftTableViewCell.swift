@@ -17,17 +17,8 @@ class DraftTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    setup(gradientView: leftGradient, leftward: true)
-    setup(gradientView: rightGradient, leftward: false)
-  }
-  
-  func setup(gradientView: UIView, leftward: Bool) {
-    let gradient: CAGradientLayer = CAGradientLayer()
-    gradient.frame = leftGradient.bounds
-    gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-    gradient.startPoint = CGPoint(x: leftward ? 1 : 0, y: 0.5)
-    gradient.endPoint = CGPoint(x: leftward ? 0 : 1, y: 0.5)
-    gradientView.layer.insertSublayer(gradient, at: 0)
+    leftGradient.addGradient(from: UIColor.black, to: UIColor.clear, direction: .left)
+    rightGradient.addGradient(from: UIColor.clear, to: UIColor.black, direction: .right)
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {

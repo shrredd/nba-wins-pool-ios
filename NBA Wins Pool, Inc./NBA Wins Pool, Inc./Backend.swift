@@ -173,7 +173,6 @@ class Backend {
         }
       }
       
-      
       let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         DispatchQueue.main.async {
           if error != nil {

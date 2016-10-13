@@ -31,8 +31,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     usernameTextField.delegate = self
     passwordTextField.delegate = self
     emailTextField.delegate = self
-    submitButton.setTitleColor(UIColor.lightGray, for: .disabled)
-    createButton.setTitleColor(UIColor.lightGray, for: .disabled)
     submitButton.layer.cornerRadius = 4.0
     createButton.layer.cornerRadius = 4.0
     backgroundView.layer.cornerRadius = 4.0
@@ -65,6 +63,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     submitButton.isEnabled = usernameCount > 0 && passwordCount > 8
     createButton.isEnabled = submitButton.isEnabled && emailValid
+    refresh(button: submitButton)
+    refresh(button: createButton)
+  }
+  
+  func refresh(button: UIButton) {
+    button.backgroundColor = button.isEnabled ? UIColor.pinkishRed : UIColor.lightGray
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
