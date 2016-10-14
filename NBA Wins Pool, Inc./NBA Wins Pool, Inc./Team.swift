@@ -71,6 +71,10 @@ struct Record: CustomStringConvertible {
     return Double(wins) / Double(wins + losses)
   }
   
+  var asString: String {
+    return "\(wins)-\(losses)"
+  }
+  
   public static func +(lhs: Record, rhs: Record) -> Record {
     return Record(wins: lhs.wins + rhs.wins, losses: lhs.losses + rhs.losses)
   }
@@ -283,7 +287,7 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable {
     }
     if let papg = dictionary["points_allowed_per_game"] as? String {
       if let double = Double(papg) {
-        self.pointDifferentialPerGame = double
+        self.pointsAllowedPerGame = double
       }
     }
     if let pdpg = dictionary["point_differential_per_game"] as? String {

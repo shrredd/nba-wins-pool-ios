@@ -82,22 +82,17 @@ class DraftViewController: UITableViewController {
       if indexPath.section == 0 {
         let team = draft.unselectedTeams[indexPath.row]
         cell.pick.isHidden = true
-        cell.label.text = team.fullName
-        cell.emoji.text = team.emoji
-        cell.contentView.backgroundColor = team.primaryColor
+        cell.set(team: team)
       } else {
         if indexPath.row < draft.selections.count {
           let team = draft.selections[indexPath.row]
-          cell.label.text = team.fullName
-          cell.emoji.text = team.emoji
-          cell.contentView.backgroundColor = team.primaryColor
+          cell.set(team: team)
         } else {
-          cell.label.text = "--"
-          cell.emoji.text = "🏀"
-          cell.contentView.backgroundColor = UIColor.almostBlackGray
+          cell.set(team: nil)
         }
         cell.pick.isHidden = false
         cell.pick.text = "\(indexPath.row + 1). " + draft.picks[indexPath.row].username
+        cell.record.isHidden = true
       }
     }
 

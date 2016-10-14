@@ -12,8 +12,25 @@ class DraftTableViewCell: UITableViewCell {
   @IBOutlet weak var pick: UILabel!
   @IBOutlet weak var label: UILabel!
   @IBOutlet weak var emoji: UILabel!
+  @IBOutlet weak var record: UILabel!
   @IBOutlet weak var leftGradient: UIView!
   @IBOutlet weak var rightGradient: UIView!
+  
+  func set(team: Team?) {
+    record.text = nil
+    if let t = team {
+      label.text = t.fullName
+      emoji.text = t.emoji
+      contentView.backgroundColor = t.primaryColor
+      if let r = team?.record {
+        record.text = "\(r.wins)-\(r.losses) (\(String(format: "%.2f", r.percentage*100.0)))"
+      }
+    } else {
+      label.text = "--"
+      emoji.text = "🏀"
+      contentView.backgroundColor = UIColor.almostBlackGray
+    }
+  }
   
   override func awakeFromNib() {
     super.awakeFromNib()

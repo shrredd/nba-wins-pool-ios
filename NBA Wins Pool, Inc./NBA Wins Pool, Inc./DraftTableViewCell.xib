@@ -22,6 +22,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="25-25 (50%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suv-xI-MTJ">
+                        <frame key="frameInset" minX="30" minY="79" width="315" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9T-UC-Ko3">
                         <frame key="frameInset" minY="0.0%" width="100" height="120"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -31,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles Lakers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7x-60-7xL">
-                        <frame key="frameInset" minX="48.39%" minY="58.86%" width="344" height="40"/>
+                        <frame key="frameInset" minX="48.39%" minY="50.00%" width="344" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,6 +59,7 @@
                 <outlet property="label" destination="e7x-60-7xL" id="H0J-nm-F60"/>
                 <outlet property="leftGradient" destination="A9T-UC-Ko3" id="6xc-bD-7Co"/>
                 <outlet property="pick" destination="rOG-yA-FnF" id="FA5-VS-Mdh"/>
+                <outlet property="record" destination="suv-xI-MTJ" id="c57-Lt-Vkc"/>
                 <outlet property="rightGradient" destination="ZcM-uE-f7b" id="hhZ-3h-Zv6"/>
             </connections>
             <point key="canvasLocation" x="50.5" y="87"/>
