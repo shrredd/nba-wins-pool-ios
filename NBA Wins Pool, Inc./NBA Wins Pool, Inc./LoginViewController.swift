@@ -18,6 +18,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var submitButton: UIButton!
   @IBOutlet weak var createButton: UIButton!
   
+  var backgroundViewOrigin: CGFloat!
+  
   init() {
     super.init(nibName: String(describing: LoginViewController.self), bundle: nil)
   }
@@ -28,6 +30,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    backgroundViewOrigin = backgroundView.frame.origin.y
     usernameTextField.delegate = self
     passwordTextField.delegate = self
     emailTextField.delegate = self
@@ -77,12 +80,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   // MARK: UITextFieldDelegate
   
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    animateOffset(up: textField == emailTextField)
+    return true
+  }
+  
+  func animateOffset(up: Bool) {
+    var offset: CGFloat = 0
+    
+    if up {
+      offset = backgroundViewOrigin - 200.0 - backgroundView.frame.origin.y
+    } else {
+      offset = backgroundViewOrigin - backgroundView.frame.origin.y
+    }
+    
+    UIView.animate(withDuration: 0.3) {
+      for subview in self.view.subviews {
+        subview.center = CGPoint(x: subview.center.x, y: subview.center.y + offset)
+      }
+    }
+  }
+  
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     if string.contains(" ") {
       return false
     }
     
-    if let text = textField.text{
+    if let text = textField.text {
       let nsString = text as NSString
       let newString = nsString.replacingCharacters(in: range, with: string)
       textField.text = newString
@@ -96,8 +120,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == usernameTextField {
       passwordTextField.becomeFirstResponder()
+    } else if textField == passwordTextField {
+      emailTextField.becomeFirstResponder()
     } else {
       self.view.endEditing(true)
+      animateOffset(up: false)
     }
     return true
   }

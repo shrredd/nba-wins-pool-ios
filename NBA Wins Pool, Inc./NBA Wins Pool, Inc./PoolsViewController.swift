@@ -72,7 +72,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
         button.setTitle("Invite", for: .normal)
       } else if let draft = pool.draft, draft.isComplete {
         let record = pool.record(user: User.shared!)
-        button.setTitle("\(record.wins)-\(record.losses) (\(record.percentage*100.0)%)", for: .normal)
+        button.setTitle("\(record.wins)-\(record.losses) (\(String(format: "%.2f", record.percentage*100.0))%)", for: .normal)
       } else if let username = pool.draft?.userWithPick?.username {
         if let name = User.shared?.username, name == username {
           button.setTitle("Your pick!", for: .normal)
