@@ -118,7 +118,7 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   }
   
   func getPoolInfo() {
-    Backend.getPoolInfo(id: id) { [unowned self] (poolDictionary, success) in
+    Backend.shared.getPoolInfo(id: id) { [unowned self] (poolDictionary, success) in
       if success, let dict = poolDictionary as? [String : AnyObject] {
         self.dictionary = dict
       } else {
@@ -128,7 +128,7 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   }
   
   func getDraftStatus() {
-    Backend.getDraftStatus(id: id) { (draftArray, success) in
+    Backend.shared.getDraftStatus(id: id) { (draftArray, success) in
       if success, let array  = draftArray as? [[String : AnyObject]] {
         self.dictionary = ["draft_status" : array as AnyObject]
       } else {
@@ -139,7 +139,7 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   
   func pick(team: String) {
     if let token = User.shared?.token {
-      Backend.pickTeam(poolID: id, teamID: team, token: token, completion: { (draftArray, success) in
+      Backend.shared.pickTeam(poolID: id, teamID: team, token: token, completion: { (draftArray, success) in
         if success, let array  = draftArray as? [[String : AnyObject]] {
           self.dictionary = ["draft_status" : array as AnyObject]
         } else {

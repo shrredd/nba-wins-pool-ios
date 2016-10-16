@@ -20,7 +20,7 @@ class Teams: StoredDictionaries<Team> {
     dateUpdated = UserDefaults.standard.object(forKey: Teams.standingsDate) as? String
     
     if items.count == 0 {
-      Backend.getTeams { [unowned self] (teamDictionaries, success) in
+      Backend.shared.getTeams { [unowned self] (teamDictionaries, success) in
         if success, let array = teamDictionaries as? [[String : AnyObject]] {
           self.load(array: array)
         }
@@ -31,7 +31,7 @@ class Teams: StoredDictionaries<Team> {
   }
   
   @objc func getStandings() {
-    Backend.getStandings { [unowned self] (standingsDictionary, success) in
+    Backend.shared.getStandings { [unowned self] (standingsDictionary, success) in
       if success, let dictionary = standingsDictionary as? [String : AnyObject] {
         if let date = dictionary[Teams.standingsDate] as? String {
           if date != self.dateUpdated {

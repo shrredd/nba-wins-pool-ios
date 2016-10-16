@@ -135,13 +135,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   func authenticate() {
     if let username = usernameTextField.text, let password = passwordTextField.text {
-      Backend.authenticateUser(username: username, password: password) { [unowned self] (tokenJSON, success) in
+      Backend.shared.authenticateUser(username: username, password: password) { [unowned self] (tokenJSON, success) in
         if success, let tokenDictionary = tokenJSON as? [String : AnyObject] {
           if let user = User.shared {
             user.dictionary = tokenDictionary
             self.dismiss()
           } else if let token = tokenDictionary["token"] as? String {
-            Backend.getUserDetails(username: username, token: token, completion: { [unowned self] (userJSON, success) in
+            Backend.shared.getUserDetails(username: username, token: token, completion: { [unowned self] (userJSON, success) in
               if success, let userDictionary = userJSON as? [String : AnyObject] {
                 let user = User(dictionary: userDictionary)
                 user.dictionary = tokenDictionary
@@ -174,7 +174,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   @IBAction func createPressed(_ sender: UIButton) {
     if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text {
-      Backend.createUser(username: username, password: password, email: email, completion: { [unowned self] (userDictionary, success) in
+      Backend.shared.createUser(username: username, password: password, email: email, completion: { [unowned self] (userDictionary, success) in
         if success, let dictionary = userDictionary as? [String : AnyObject] {
           let user = User(dictionary: dictionary)
           User.shared = user

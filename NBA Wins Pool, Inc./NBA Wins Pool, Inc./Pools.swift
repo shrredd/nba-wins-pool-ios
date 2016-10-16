@@ -23,7 +23,7 @@ class Pools: StoredDictionaries<Pool> {
   @objc func getPools() {
     if let user = User.shared {
       if let token = user.token {
-        Backend.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
+        Backend.shared.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
           if success, let array = poolsArray as? [[String : AnyObject]] {
             self.load(array: array)
           } else if poolsArray != nil {
@@ -50,10 +50,10 @@ class Pools: StoredDictionaries<Pool> {
     if let user = User.shared {
       if let token = user.token {
         if let id = idForInvitedPool {
-          Backend.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (membersArray, success) in
+          Backend.shared.joinPool(id: id, username: user.username, token: token, completion: { [unowned self] (membersArray, success) in
             if success {
               self.idForInvitedPool = nil
-              Backend.getPoolInfo(id: id, completion: { (poolDictionary, success) in
+              Backend.shared.getPoolInfo(id: id, completion: { (poolDictionary, success) in
                 if success, let dictionary = poolDictionary as? [String : AnyObject] {
                   self.add(Pool(dictionary: dictionary))
                 } else {
