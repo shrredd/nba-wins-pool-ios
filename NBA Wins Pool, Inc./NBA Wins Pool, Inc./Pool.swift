@@ -83,11 +83,33 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
     self.maxSize = dictionary[Pool.maxSize] as? Int
     self.name = dictionary[Pool.name] as? String
     self.id = dictionary[Pool.id] as? Int
+    
+    let count = users.count
     users.removeAll()
     if let members = dictionary[Pool.members] as? [[String : AnyObject]] {
       for memberDictionary in members {
         users.append(User(dictionary: memberDictionary))
       }
+    }
+    
+    if count != 0 && users.count != count && users.count > 0 {
+      var message = ""
+      for (index, user) in users.enumerated() where index >= count {
+        if let username = user.username {
+          message += username
+          if index < users.count - 1 {
+            message += " and "
+          }
+        }
+      }
+      
+      message += " joined the pool!"
+      
+      if users.count == maxSize {
+        message += " The draft has begun..."
+      }
+      
+      UIAlertController.alertOK(title: "Pool Members Updated", message: message)
     }
     
     if let draftStatus = dictionary[Draft.status] as? [[String : AnyObject]] {

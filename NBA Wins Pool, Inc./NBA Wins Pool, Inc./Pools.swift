@@ -17,6 +17,7 @@ class Pools: StoredDictionaries<Pool> {
     super.init(type: "pools")
     
     Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getPools), userInfo: nil, repeats: true)
+    Timer.scheduledTimer(timeInterval: 8.0, target: self, selector: #selector(getInfoForAllPools), userInfo: nil, repeats: true)
   }
   
   @objc func getPools() {
@@ -25,7 +26,6 @@ class Pools: StoredDictionaries<Pool> {
         Backend.getPools(username: user.username, token: token, completion: { [unowned self] (poolsArray, success) in
           if success, let array = poolsArray as? [[String : AnyObject]] {
             self.load(array: array)
-            self.getInfoForAllPools()
           } else if poolsArray != nil {
             UIAlertController.alertOK(title: "GET Pools Failed", message: String(describing: poolsArray))
           }
@@ -34,7 +34,7 @@ class Pools: StoredDictionaries<Pool> {
     }
   }
   
-  func getInfoForAllPools() {
+  @objc func getInfoForAllPools() {
     for pool in items {
       if let draft = pool.draft {
         if !draft.isComplete && draft.userWithPick != User.shared! {
