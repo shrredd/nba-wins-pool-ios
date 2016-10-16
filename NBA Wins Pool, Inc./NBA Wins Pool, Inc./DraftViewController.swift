@@ -92,9 +92,9 @@ class DraftViewController: UITableViewController {
         }
         cell.pick.isHidden = false
         cell.pick.text = "\(indexPath.row + 1). " + draft.picks[indexPath.row].username
-        cell.record.isHidden = true
       }
     }
+    cell.record.isHidden = true
 
     return cell
   }

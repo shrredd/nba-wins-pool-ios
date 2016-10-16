@@ -37,7 +37,7 @@ class UsersViewController: UITableViewController {
     let user = users[indexPath.row]
     cell.nameLabel?.text = user.username
     let record = pool.record(user: user)
-    cell.recordLabel?.text = "\(record.wins)-\(record.losses) (\(String(format: "%.2f", record.percentage*100.0)))"
+    cell.recordLabel?.text = "\(record.wins)-\(record.losses) (\(String(format: "%.1f", record.percentage*100.0)))"
     cell.teams = pool.teams(user: user)
     
     return cell

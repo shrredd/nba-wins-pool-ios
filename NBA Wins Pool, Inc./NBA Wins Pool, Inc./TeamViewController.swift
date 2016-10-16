@@ -31,7 +31,7 @@ class TeamViewController: UIViewController {
     emoji.backgroundColor = team.primaryColor
     
     if let r = team.record {
-      record.text = "\(r.wins)-\(r.losses) (\(String(format: "%.2f", r.percentage*100.0)))"
+      record.text = "\(r.wins)-\(r.losses) (\(String(format: "%.1f", r.percentage*100.0)))"
     }
     
     rank.text = "Rank \(team.rank!)"

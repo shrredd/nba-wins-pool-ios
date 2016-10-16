@@ -17,8 +17,6 @@ class PickViewController: UIViewController {
   @IBOutlet weak var teamName: UILabel!
   @IBOutlet weak var teamRecord: UILabel!
   @IBOutlet weak var button: UIButton!
-  @IBOutlet weak var topGradient: UIView!
-  @IBOutlet weak var bottomGradient: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,12 +26,10 @@ class PickViewController: UIViewController {
     emoji.backgroundColor = team.primaryColor
     button.layer.cornerRadius = 4.0
     teamName.text = team.fullName
-    if let record = team.record {
-      teamRecord.text = record.asString
+    if let r = team.record {
+      teamRecord.text = "\(r.wins)-\(r.losses) (\(String(format: "%.1f", r.percentage*100.0)))"
     }
-    topGradient.addGradient(from: UIColor.black, to: UIColor.clear, direction: .down)
-    bottomGradient.addGradient(from: UIColor.clear, to: UIColor.black, direction: .up)
-    
+
     navigationController?.addBackButton(viewController: self)
   }
   
