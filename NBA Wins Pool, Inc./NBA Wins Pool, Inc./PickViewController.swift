@@ -28,7 +28,9 @@ class PickViewController: UIViewController {
     emoji.backgroundColor = team.primaryColor
     button.layer.cornerRadius = 4.0
     teamName.text = team.fullName
-    teamRecord.text = "Last Year's Record: ?-?"
+    if let record = team.record {
+      teamRecord.text = record.asString
+    }
     topGradient.addGradient(from: UIColor.black, to: UIColor.clear, direction: .down)
     bottomGradient.addGradient(from: UIColor.clear, to: UIColor.black, direction: .up)
     

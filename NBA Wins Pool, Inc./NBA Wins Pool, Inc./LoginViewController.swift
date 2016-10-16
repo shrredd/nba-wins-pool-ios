@@ -78,6 +78,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     return .lightContent
   }
   
+//  override var prefersStatusBarHidden: Bool {
+//    return true
+//  }
+  
   // MARK: UITextFieldDelegate
   
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

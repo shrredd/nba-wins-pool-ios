@@ -124,7 +124,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t5h-oe-zIf">
-                                <frame key="frameInset" minX="9.73%" width="80.00%" height="54" maxY="55"/>
+                                <frame key="frameInset" minX="9.60%" width="80.00%" height="54" maxY="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
@@ -297,7 +297,7 @@
             <objects>
                 <navigationController id="zzd-lX-IeA" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="3jx-bN-Uh3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="3jx-bN-Uh3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -64,12 +64,17 @@ class StoredDictionaries<Item> where Item: DictionaryBase, Item: Equatable {
   }
   
   func save() {
-    var dictionaries = [[String : AnyObject]]()
-    for item in items {
-      dictionaries.append(item.dictionary)
+    if items.count == 0 {
+      UserDefaults.standard.removeObject(forKey: type)
+    } else {
+      var dictionaries = [[String : AnyObject]]()
+      for item in items {
+        dictionaries.append(item.dictionary)
+      }
+      
+      UserDefaults.standard.set(dictionaries, forKey: type)
     }
     
-    UserDefaults.standard.set(dictionaries, forKey: type)
     UserDefaults.standard.synchronize()
   }
   
