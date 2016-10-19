@@ -9,10 +9,7 @@
 import UIKit
 
 extension UIAlertController {
-  static func visibleViewController() -> UIViewController? {
-    return (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController
-  }
-  
+
   static func alertOK(title: String, message: String, viewController: UIViewController? = nil) {
     
     let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -21,7 +18,10 @@ extension UIAlertController {
     
     var vc = viewController
     if viewController == nil {
-      vc = visibleViewController()
+      vc = (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController
+      if let presented = vc?.presentedViewController {
+        vc = presented
+      }
     }
     
     vc?.present(alertController, animated: true)

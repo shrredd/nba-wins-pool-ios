@@ -92,11 +92,11 @@ class Backend {
   let standingsEnpoint = "nba/standings.json"
   
   func getTeams(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: teamHost, endPoint: teamsEndpoint, fields: ["User-Agent" : "NBAWinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
+    requestJSON(host: teamHost, endPoint: teamsEndpoint, fields: ["User-Agent" : "WinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
   }
   
   func getStandings(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: teamHost, endPoint: standingsEnpoint, fields: ["User-Agent" : "NBAWinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
+    requestJSON(host: teamHost, endPoint: standingsEnpoint, fields: ["User-Agent" : "WinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
   }
   
   // MARK: helper functions

@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
     if let scheme = url.scheme {
-      if scheme == "NBAWinsPool" || scheme == "nbawinspool" {
+      if scheme == "WinsPool" || scheme == "winspool" {
         if let string = url.query?.removingPercentEncoding {
           let queries = string.components(separatedBy: "&")
           for query in queries {

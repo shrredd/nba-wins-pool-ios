@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Wins Pool</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,10 +22,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.nbawinspool.NBA-Wins-Pool</string>
+			<string>com.johnbj.winspool</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>NBAWinsPool</string>
+				<string>WinsPool</string>
 			</array>
 		</dict>
 	</array>
@@ -39,10 +41,14 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -52,9 +58,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIStatusBarHidden</key>
-	<true/>
-	<key>CFBundleDisplayName</key>
-	<string>Wins Pool</string>
 </dict>
 </plist>

@@ -100,11 +100,11 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   }
 
   func invite(pool: Pool) {
-    let message = "Join our NBA wins pool ->"
+    let message = "Join our wins pool ->"
     let string = Pool.id + "=\(pool.id!)"
     
     if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-      if let url = URL(string: "NBAWinsPool://?" + escapedString) {
+      if let url = URL(string: "WinsPool://?" + escapedString) {
         let activityViewController = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
         present(activityViewController, animated: true, completion: {
           
