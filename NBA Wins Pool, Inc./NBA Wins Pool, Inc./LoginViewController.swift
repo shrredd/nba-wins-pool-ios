@@ -30,11 +30,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = "Sign In"
         accountButton.setTitle("need an account?", for: .normal)
         submitButton.setTitle("Sign In", for: .normal)
+        passwordTextField.returnKeyType = .done
         height += passwordTextField.frame.maxY
       case .create:
         titleLabel.text = "Register"
         accountButton.setTitle("have an account?", for: .normal)
         submitButton.setTitle("Register", for: .normal)
+        passwordTextField.returnKeyType = .next
         height += emailTextField.frame.maxY
       }
       
@@ -124,7 +126,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == usernameTextField {
       passwordTextField.becomeFirstResponder()
-    } else if textField == passwordTextField {
+    } else if state == .create && textField == passwordTextField {
       emailTextField.becomeFirstResponder()
     } else {
       self.view.endEditing(true)

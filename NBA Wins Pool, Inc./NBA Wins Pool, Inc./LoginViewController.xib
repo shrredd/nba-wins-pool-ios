@@ -91,7 +91,6 @@
                             </state>
                             <connections>
                                 <action selector="accountPressed:" destination="-1" eventType="touchUpInside" id="SGm-SU-MDa"/>
-                                <action selector="submitPressed:" destination="-1" eventType="touchUpInside" id="h0a-Sz-kWj"/>
                             </connections>
                         </button>
                     </subviews>
