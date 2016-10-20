@@ -67,8 +67,14 @@ class Backend {
   
   func joinPool(id: Int, username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
     let JSONObject = ["username" : username as AnyObject]
-    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/" + "\(id)/members/",
+    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(id)/members/",
       fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
+  }
+//  http://localhost:3000/api/v1/pools/42/members/
+  func leavePool(id: Int, token: String, completion: @escaping (Bool) -> Void) {
+    request(httpMethod: "DELETE", host: poolHost, endPoint: "pools/\(id)/members/", fields: ["Authorization" : "Token " + token]) { (data, statusCode, error) in
+      completion((statusCode != nil) ? statusCode!.isIn200s() : false)
+    }
   }
   
   func getPoolInfo(id: Int, completion: @escaping (AnyObject?, Bool) -> Void) {

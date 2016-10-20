@@ -94,8 +94,16 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   // Override to support editing the table view.
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      Pools.shared.remove(Pools.shared.items[indexPath.row])
+      let pool = Pools.shared.items[indexPath.row]
+      Pools.shared.remove(pool)
       tableView.deleteRows(at: [indexPath], with: .fade)
+      if let token = User.shared?.token {
+        Backend.shared.leavePool(id: pool.id, token: token, completion: { (success) in
+          if (!success) {
+            UIAlertController.alertOK(title: "Delete Pool Failed", message: "We could not remove you from the pool you just deleted. Expect the pool to reappear unexpectedly...I blame Shravan.")
+          }
+        })
+      }
     }
   }
 
