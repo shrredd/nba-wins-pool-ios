@@ -23,8 +23,10 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     view.addSubview(label)
     noPoolsLabel = label
     
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.shared.updated), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pool.didUpdateDraft), object: nil)
+    let center = NotificationCenter.default
+    center.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pools.shared.updated), object: nil)
+    center.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Teams.shared.updated), object: nil)
+    center.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pool.didUpdateDraft), object: nil)
 
     tableView.dataSource = self
     tableView.delegate = self
