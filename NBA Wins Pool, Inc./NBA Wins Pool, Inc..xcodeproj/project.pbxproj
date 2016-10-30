@@ -20,6 +20,7 @@
 		C26DB5421D7BF66800BF5EFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */; };
 		C26DB54D1D7BF67A00BF5EFF /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB54A1D7BF67A00BF5EFF /* Teams.swift */; };
 		C26DB54E1D7BF67A00BF5EFF /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB54B1D7BF67A00BF5EFF /* Team.swift */; };
+		C274E8511DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */; };
 		C2784BC21D950D5600C6DA1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BC11D950D5600C6DA1F /* User.swift */; };
 		C2784BCF1D9642F300C6DA1F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */; };
 		C2784BD01D9642F300C6DA1F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */; };
@@ -58,6 +59,7 @@
 		C26DB5431D7BF66800BF5EFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C26DB54A1D7BF67A00BF5EFF /* Teams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
 		C26DB54B1D7BF67A00BF5EFF /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenterExtension.swift; sourceTree = "<group>"; };
 		C2784BC11D950D5600C6DA1F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
 				C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */,
 				C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */,
+				C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */,
 				C26DB53B1D7BF66800BF5EFF /* Main.storyboard */,
 				C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */,
 				C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */,
@@ -207,13 +210,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "NBA Wins Pool, Inc.";
 				TargetAttributes = {
 					C26DB5331D7BF66800BF5EFF = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = PB64TVTV9M;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -275,6 +286,7 @@
 				C2EF2CBA1DB0B9F000EA63B6 /* TeamViewController.swift in Sources */,
 				C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */,
 				C2A808351DA05C0800C02C15 /* StoredDictionaries.swift in Sources */,
+				C274E8511DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift in Sources */,
 				C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */,
 				C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */,
 				C2A771EA1D83F88400B2DC13 /* Pools.swift in Sources */,
@@ -326,6 +338,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -348,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -376,6 +389,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -392,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -407,7 +421,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PB64TVTV9M;
 				INFOPLIST_FILE = "NBA Wins Pool, Inc./Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnbj.winspool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -421,7 +435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = PB64TVTV9M;
 				INFOPLIST_FILE = "NBA Wins Pool, Inc./Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnbj.winspool;
 				PRODUCT_NAME = "$(TARGET_NAME)";

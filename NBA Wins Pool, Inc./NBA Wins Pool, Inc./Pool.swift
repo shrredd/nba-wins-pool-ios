@@ -21,6 +21,12 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   var maxSize: Int!
   var users = [User]()
   
+  var sortedUsers: [User] {
+    return users.sorted(by: { (userA, userB) -> Bool in
+      return record(user: userA).percentage > record(user: userB).percentage
+    })
+  }
+  
   var draft: Draft? {
     didSet {
       if let oldCount = oldValue?.selections.count, let d = draft, d.selections.count > oldCount {

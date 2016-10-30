@@ -191,8 +191,8 @@ class Backend {
       
       let task = self.session.dataTask(with: request) { (data, response, error) in
         DispatchQueue.main.async {
-          if error != nil {
-            print(error)
+          if let e = error {
+            print(e)
           }
           
           if let httpResponse = response as? HTTPURLResponse {

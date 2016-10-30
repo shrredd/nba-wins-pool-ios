@@ -40,9 +40,7 @@ class UsersViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    users = pool.users.sorted(by: { (userA, userB) -> Bool in
-      return pool.record(user: userA).percentage > pool.record(user: userB).percentage
-    })
+    users = pool.sortedUsers
     return users.count
   }
   
