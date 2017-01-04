@@ -55,7 +55,7 @@ class TeamViewController: UIViewController {
     
     rank.text = "\(team.rank!)"
     gamesBack.text = team.gamesBack == 0 ? "-" : String(format: "%.1f", team.gamesBack!)
-    streak.text = team.streakType == .Winning ? "Won" : "Lost" + " \(team.streak!)"
+    streak.text = (team.streakType == .Winning ? "Won" : "Lost") + " \(team.streak!)"
     lastTen.text = team.lastTenRecord?.asString
     homeRecord.text = team.homeRecord?.asString
     roadRecord.text = team.awayRecord?.asString

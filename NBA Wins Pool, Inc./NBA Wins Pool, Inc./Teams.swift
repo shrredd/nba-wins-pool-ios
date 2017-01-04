@@ -93,7 +93,7 @@ class Teams: StoredDictionaries<Team> {
           let sortedUsers = pool.sortedUsers
           if let newRank = sortedUsers.index(of: user), let oldRank = poolRankings[pool.id] {
             if newRank != oldRank {
-              let didRise = newRank > oldRank
+              let didRise = newRank < oldRank
               let title = (didRise ? "You're moving up in " : "Uh oh, you got passed in ") + pool.name
               let body = "Your rank in the pool is now \(newRank + 1)"
               UNUserNotificationCenter.current().addNotification(title: title, body: body)
