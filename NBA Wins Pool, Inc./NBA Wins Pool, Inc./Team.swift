@@ -204,9 +204,9 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
       case .hornets:
         return "🐝"
       case .bulls:
-        return "🐄"
+        return "💩"
       case .cavaliers:
-        return "🏆"
+        return "🤺"
       case .mavericks:
         return "🐴"
       case .nuggets:
@@ -214,11 +214,11 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
       case .pistons:
         return "🚙"
       case .warriors:
-        return "⚔"
+        return "🏆"
       case .rockets:
         return "🚀"
       case .pacers:
-        return "👩‍👩‍👧‍👧"
+        return "⚰️"
       case .clippers:
         return "⛵️"
       case .lakers:
@@ -236,17 +236,17 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
       case .knicks:
         return "🗽"
       case .thunder:
-        return "🌪"
+        return "🌩"
       case .magic:
-        return "🕴"
+        return "🔮"
       case .sixers:
-        return "💩"
+        return "🚑"
       case .suns:
         return "🌞"
       case .blazers:
-        return "⛏"
+        return "🌲"
       case .kings:
-        return "👑"
+        return "🕳"
       case .spurs:
         return "🐎"
       case .raptors:
@@ -254,7 +254,7 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
       case .jazz:
         return "🎷"
       case .wizards:
-        return "💫"
+        return "🔫"
       }
     }
     
