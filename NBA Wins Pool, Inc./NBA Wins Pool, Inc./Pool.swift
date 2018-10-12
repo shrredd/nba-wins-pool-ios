@@ -86,10 +86,16 @@ class Pool: DictionaryBase, Equatable, CustomStringConvertible {
   override func didSetDictionary(oldValue: [String : AnyObject]) {
     super.didSetDictionary(oldValue: oldValue)
     
-    self.maxSize = dictionary[Pool.maxSize] as? Int
-    self.name = dictionary[Pool.name] as? String
-    self.id = dictionary[Pool.id] as? Int
-    
+    if let maxSize = dictionary[Pool.maxSize] as? Int {
+      self.maxSize = maxSize
+    }
+    if let name = dictionary[Pool.name] as? String {
+      self.name = name
+    }
+    if let id = dictionary[Pool.id] as? Int {
+      self.id = id
+    }
+
     let count = users.count
     users.removeAll()
     if let members = dictionary[Pool.members] as? [[String : AnyObject]] {

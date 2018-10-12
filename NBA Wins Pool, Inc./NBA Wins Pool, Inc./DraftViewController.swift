@@ -44,7 +44,7 @@ class DraftViewController: UITableViewController {
     NotificationCenter.default.removeObserver(self)
   }
   
-  func reloadData() {
+  @objc func reloadData() {
     tableView.reloadData()
   }
   

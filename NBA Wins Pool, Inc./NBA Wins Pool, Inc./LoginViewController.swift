@@ -66,20 +66,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   var isValid: Bool {
     var usernameCount = 0
     if let text = usernameTextField.text {
-      usernameCount += text.characters.count
+      usernameCount += text.count
     }
     
     var passwordCount = 0
     if let text = passwordTextField.text {
-      passwordCount += text.characters.count
+      passwordCount += text.count
     }
     
     var isEmailValid = false
     if let text = emailTextField.text {
       var components = text.components(separatedBy: "@")
-      if components[0].characters.count > 0 && components.count == 2 {
+      if components[0].count > 0 && components.count == 2 {
         let rightComponents = components[1].components(separatedBy: ".")
-        if rightComponents.count == 2 && rightComponents[0].characters.count > 0 && rightComponents[1].characters.count > 2 {
+        if rightComponents.count == 2 && rightComponents[0].count > 0 && rightComponents[1].count > 2 {
           isEmailValid = true
         }
       }

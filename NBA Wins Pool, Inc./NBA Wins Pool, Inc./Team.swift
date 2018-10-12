@@ -193,72 +193,70 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
   }
   
   var emoji: String {
-    if let team = TeamIdentifier(rawValue: id) {
-      switch team {
-      case .hawks:
-        return "🐣"
-      case .celtics:
-        return "☘"
-      case .nets:
-        return "🚽"
-      case .hornets:
-        return "🐝"
-      case .bulls:
-        return "💩"
-      case .cavaliers:
-        return "🤺"
-      case .mavericks:
-        return "🐴"
-      case .nuggets:
-        return "💰"
-      case .pistons:
-        return "🚙"
-      case .warriors:
-        return "🏆"
-      case .rockets:
-        return "🚀"
-      case .pacers:
-        return "⚰️"
-      case .clippers:
-        return "⛵️"
-      case .lakers:
-        return "🌊"
-      case .grizzlies:
-        return "🐻"
-      case .heat:
-        return "🔥"
-      case .bucks:
-        return "🦄"
-      case .timberwolves:
-        return "🐺"
-      case .pelicans:
-        return "🎭"
-      case .knicks:
-        return "🗽"
-      case .thunder:
-        return "🌩"
-      case .magic:
-        return "🔮"
-      case .sixers:
-        return "🚑"
-      case .suns:
-        return "🌞"
-      case .blazers:
-        return "🌲"
-      case .kings:
-        return "🕳"
-      case .spurs:
-        return "🐎"
-      case .raptors:
-        return "🇨🇦"
-      case .jazz:
-        return "🎷"
-      case .wizards:
-        return "🔫"
-      }
-    }
+    guard let team = TeamIdentifier(rawValue: id) else { return "?" }
     
-    return "?"
+    switch team {
+    case .hawks:
+      return "🎰"
+    case .celtics:
+      return "☘"
+    case .nets:
+      return "🚽"
+    case .hornets:
+      return "🤢"
+    case .bulls:
+      return "💩"
+    case .cavaliers:
+      return "⚰️"
+    case .mavericks:
+      return "🐖"
+    case .nuggets:
+      return "🃏"
+    case .pistons:
+      return "🏚"
+    case .warriors:
+      return "🏆"
+    case .rockets:
+      return "🚀"
+    case .pacers:
+      return "👨‍👨‍👦‍👦"
+    case .clippers:
+      return "🛶"
+    case .lakers:
+      return "⭐️"
+    case .grizzlies:
+      return "🧟‍♂️"
+    case .heat:
+      return "🛒"
+    case .bucks:
+      return "🦌"
+    case .timberwolves:
+      return "💣"
+    case .pelicans:
+      return "💅🏾"
+    case .knicks:
+      return "🤡"
+    case .thunder:
+      return "⛈"
+    case .magic:
+      return "🗑"
+    case .sixers:
+      return "🔔"
+    case .suns:
+      return "🤰"
+    case .blazers:
+      return "👣"
+    case .kings:
+      return "🕳"
+    case .spurs:
+      return "🚑"
+    case .raptors:
+      return "🇨🇦"
+    case .jazz:
+      return "🎷"
+    case .wizards:
+      return "🔫"
+    }
   }
   
   override func didSetDictionary(oldValue: [String : AnyObject]) {
@@ -334,7 +332,7 @@ class Team: DictionaryBase, CustomStringConvertible, Equatable, Hashable {
   // MARK: CustomStringConvertible
   
   var description: String {
-    return id + " \(record)"
+    return id + " \(record?.description ?? "nil")"
   }
   
 }

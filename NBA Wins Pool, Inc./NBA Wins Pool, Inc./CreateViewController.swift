@@ -27,7 +27,7 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
   
   func refreshCreatePoolEnabled() {
     var nameHasCharacters = false
-    if let count = poolNameTextField.text?.characters.count {
+    if let count = poolNameTextField.text?.count {
       nameHasCharacters = count > 0
     }
     

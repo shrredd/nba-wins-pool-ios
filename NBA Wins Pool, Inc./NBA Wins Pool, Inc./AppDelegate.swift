@@ -14,10 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     UIApplication.shared.isStatusBarHidden = false
     UIApplication.shared.statusBarStyle = .default
-    UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+    UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
 
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
       if !accepted {
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Teams.shared.getStandings(result: completionHandler)
   }
   
-  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     if let scheme = url.scheme {
       if scheme == "WinsPool" || scheme == "winspool" {
         if let string = url.query?.removingPercentEncoding {

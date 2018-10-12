@@ -38,7 +38,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     }
   }
   
-  func reloadData() {
+  @objc func reloadData() {
     tableView.reloadData()
   }
   
@@ -94,7 +94,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
   }
   
   // Override to support editing the table view.
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       let pool = Pools.shared.items[indexPath.row]
       Pools.shared.remove(pool)

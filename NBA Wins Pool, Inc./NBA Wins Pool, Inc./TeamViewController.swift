@@ -40,7 +40,7 @@ class TeamViewController: UIViewController {
     NotificationCenter.default.removeObserver(self)
   }
   
-  func reloadData() {
+  @objc func reloadData() {
     refreshUI()
   }
   
