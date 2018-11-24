@@ -9,17 +9,28 @@
 import UserNotifications
 
 extension UNUserNotificationCenter {
-  func addNotification(title: String, body: String) {
+  static func addNotification(id: String, title: String, body: String) {
     let content = UNMutableNotificationContent()
     content.title = title
     content.body = body
     content.sound = UNNotificationSound.default
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-    let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
-    UNUserNotificationCenter.current().add(request) { (error : Error?) in
-      if let e = error {
-        print(e)
-      }
+    
+    let request = UNNotificationRequest(identifier: id, content: content, trigger: nil)
+    current().add(request) { (error) in
+      print(error?.localizedDescription ?? "nil")
     }
   }
+  
+  static func addNotificationForTeam(_ team: Team, winning: Bool) {
+    addNotification(id: team.id.rawValue,
+                    title: "The \(team.name) \(winning ? "Won!" : "Lost :(")",
+      body: "Their record is now \(team.record?.asString ?? "a mystery").")
+  }
+  
+  static func addNotificationForPool(_ pool: Pool, rank: Int, rising: Bool) {
+    addNotification(id: "\(pool.id)",
+      title: "\(rising ? "You're moving up" : "Uh oh, you got passed") in \(pool.name)",
+      body: "Your rank in \(pool.name) is now \(rank)")
+  }
+  
 }

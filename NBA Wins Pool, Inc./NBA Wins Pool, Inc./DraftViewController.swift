@@ -11,7 +11,8 @@ import UIKit
 class DraftViewController: UITableViewController {
   
   var pool: Pool!
-  var unselectedTeams: [Team]!
+  var picks = [Pool.Pick]()
+  var teams = [Team]()
   
   init() {
     super.init(nibName: String(describing: DraftViewController.self), bundle: nil)
@@ -34,36 +35,33 @@ class DraftViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    tableView.reloadData()
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Pool.didUpdateDraft), object: nil)
+    Pools.shared.delegate = self
+    reloadData()
   }
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    
-    NotificationCenter.default.removeObserver(self)
+    Pools.shared.delegate = nil
   }
   
   @objc func reloadData() {
+    picks = pool.picksSortedByDraftNumber.filter { $0.team != nil }
+    let selectedTeams = picks.map { Teams.shared.idToTeam[$0.team!.team_id]! }
+    teams = Teams.shared.teams.subtracting(selectedTeams).sorted { $0.name < $1.name }    
     tableView.reloadData()
   }
   
   // MARK: - Table view data source
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    if let draft = pool.draft {
-      unselectedTeams = draft.unselectedTeams
-    }
     return 2
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if section == 0 {
-      return unselectedTeams.count
-    } else if let draft = pool.draft {
-      return draft.picks.count
-    } else {
-      return 0
+    switch section {
+    case 0: return teams.count
+    case 1: return picks.count
+    default: return 0
     }
   }
   
@@ -77,22 +75,19 @@ class DraftViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "DraftTableViewCell", for: indexPath) as! DraftTableViewCell
-    
-    if let draft = pool.draft {
-      if indexPath.section == 0 {
-        let team = draft.unselectedTeams[indexPath.row]
-        cell.pick.isHidden = true
+    if indexPath.section == 0 {
+      let team = teams[indexPath.row]
+      cell.pick.isHidden = true
+      cell.set(team: team)
+    } else {
+      if indexPath.row < picks.count {
+        let team = Teams.shared.idToTeam[picks[indexPath.row].team?.team_id ?? ""]
         cell.set(team: team)
       } else {
-        if indexPath.row < draft.selections.count {
-          let team = draft.selections[indexPath.row]
-          cell.set(team: team)
-        } else {
-          cell.set(team: nil)
-        }
-        cell.pick.isHidden = false
-        cell.pick.text = "\(indexPath.row + 1). " + draft.picks[indexPath.row].username
+        cell.set(team: nil)
       }
+      cell.pick.isHidden = false
+      cell.pick.text = "\(indexPath.row + 1). \(picks[indexPath.row].user.username)"
     }
     cell.record.isHidden = true
 
@@ -109,15 +104,11 @@ class DraftViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-    if let draft = pool.draft {
-      return indexPath.section == 0 && draft.userWithPick == User.shared
-    }
-    
-    return false
+    return indexPath.section == 0 && pool.userWithPick == User.shared
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let team = unselectedTeams[indexPath.row]
+    let team = teams[indexPath.row]
     let pickViewController = PickViewController()
     pickViewController.pool = pool
     pickViewController.team = team
@@ -127,5 +118,10 @@ class DraftViewController: UITableViewController {
   func closePressed() {
     _ = navigationController?.popViewController(animated: true)
   }
-  
+}
+
+extension DraftViewController: PoolsDelegate {
+  func pools(_ pools: Pools, didUpdatePool pool: Pool) {
+    reloadData()
+  }
 }

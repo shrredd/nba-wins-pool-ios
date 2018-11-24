@@ -25,17 +25,20 @@ class PickViewController: UIViewController {
     emoji.text = team.emoji
     emoji.backgroundColor = team.primaryColor
     button.layer.cornerRadius = 4.0
-    teamName.text = team.fullName
-    if let r = team.record {
-      teamRecord.text = "\(r.wins)-\(r.losses) (\(String(format: "%.1f", r.percentage*100.0)))"
-    }
+    teamName.text = team.name
+    let r = team.record
+    teamRecord.text = "\(r?.wins ?? 0)-\(r?.losses ?? 0) (\(String(format: "%.1f", (r?.percentage ?? 0)*100.0)))"
 
     navigationController?.addBackButton(viewController: self)
   }
   
   @IBAction func confirmPressed(_ sender: UIButton) {
-    pool.pick(team: team.id)
-    _ = navigationController?.popViewController(animated: true)
+    Pools.shared.pickTeamWithId(team!.id.rawValue, forPoolWithId: pool.id) { (success) in
+      if !success {
+        UIAlertController.alertOK(title: "Failed to Make Pick")
+      }
+    }
+    navigationController?.popViewController(animated: true)
   }
   
 }

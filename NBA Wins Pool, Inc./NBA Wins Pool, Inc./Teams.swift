@@ -9,110 +9,93 @@
 import UIKit
 import UserNotifications
 
-class Teams: StoredDictionaries<Team> {
-  
+class Teams {
   static let shared = Teams()
-  static let standingsDate = "standings_date"
   
-  var dateUpdated: String?
+  var idToTeam = [String : Team]()
+  var teams: Set<Team> {
+    return Set(idToTeam.values)
+  }
+  weak var delegate: TeamsDelegate?
   
   init() {
-    super.init(type: "teams")
-    dateUpdated = UserDefaults.standard.object(forKey: Teams.standingsDate) as? String
-    
-    if items.count == 0 {
-      Backend.shared.getTeams { [unowned self] (teamDictionaries, success) in
-        if success, let array = teamDictionaries as? [[String : AnyObject]] {
-          self.load(array: array)
-        }
-      }
-    }
-    
-    Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
-  }
-  
-  @objc func refresh() {
+    Team.Id.allCases.forEach { self.idToTeam[$0.rawValue] = Team(id: $0) }
+    load()
+    Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(getStandings), userInfo: nil, repeats: true)
     getStandings()
   }
   
-  func getStandings(result: ((UIBackgroundFetchResult) -> Void)? = nil) {
-    
-    var teamRecords = [String : Record]()
-    for team in items {
-      if let record = team.record {
-        teamRecords[team.id] = record
-      }
-    }
-    
-    var poolRankings = [Int : Int]()
-    
-    if let user = User.shared {
-      for pool in Pools.shared.items {
-        let sortedUsers = pool.sortedUsers
-        poolRankings[pool.id] = sortedUsers.index(of: user)
-      }
-    }
-    
-    Backend.shared.getStandings { [unowned self] (standingsDictionary, success) in
-      var updated = false
-      if success, let dictionary = standingsDictionary as? [String : AnyObject] {
-        if let date = dictionary[Teams.standingsDate] as? String {
-          if date != self.dateUpdated {
-            if let standings = dictionary["standing"] as? [[String : AnyObject]] {
-              self.load(array: standings)
-              updated = true
-            }
-          }
+  func load() {
+    if let data = UserDefaults.standard.value(forKey: "teams") as? Data {
+      do {
+        let teams = try JSONDecoder().decode([Team].self, from: data)
+        for team in teams {
+          idToTeam[team.id.rawValue] = team
         }
-      }
-      
-      if let user = User.shared {
-        var userTeams = Set<Team>()
-        for pool in Pools.shared.items {
-          for team in pool.teams(user: user) {
-            userTeams.insert(team)
-          }
-        }
-        
-        for team in self.items {
-          if let name = team.fullName {
-            if userTeams.contains(team) {
-              if let oldRecord = teamRecords[team.id], let newRecord = team.record {
-                if newRecord != oldRecord {
-                  let didWin = newRecord.wins > oldRecord.wins
-                  let title = "The \(name) " + (didWin ? "Won! :D" : "Lost :(")
-                  let body = "Their record is now \(newRecord.asString)."
-                  UNUserNotificationCenter.current().addNotification(title: title, body: body)
-                }
-              }
-            }
-          }
-        }
-        
-        for pool in Pools.shared.items {
-          let sortedUsers = pool.sortedUsers
-          if let newRank = sortedUsers.index(of: user), let oldRank = poolRankings[pool.id] {
-            if newRank != oldRank {
-              let didRise = newRank < oldRank
-              let title = (didRise ? "You're moving up in " : "Uh oh, you got passed in ") + pool.name
-              let body = "Your rank in the pool is now \(newRank + 1)"
-              UNUserNotificationCenter.current().addNotification(title: title, body: body)
-            }
-          }
-          
-        }
-      }
-      
-      var fetchResult: UIBackgroundFetchResult = .noData
-      if !success {
-        fetchResult = .failed
-      } else if updated {
-        fetchResult = .newData
-      }
-      
-      if let r = result {
-        r(fetchResult)
+      } catch {
+        print(error)
       }
     }
   }
+  
+  func updateTeamWithId(_ id: Team.Id, record: Record) -> Bool {
+    guard let team = idToTeam[id.rawValue], team.record != record  else { return false }
+    team.record = record
+    save()
+    delegate?.teams(self, didUpdateTeam: team)
+    return true
+  }
+  
+  func save() {
+    do {
+      let data = try JSONEncoder().encode(Array(idToTeam.values))
+      UserDefaults.standard.set(data, forKey: "teams")
+      UserDefaults.standard.synchronize()
+    } catch {
+      print(error)
+    }
+  }
+  
+  @objc func getStandings(result: ((UIBackgroundFetchResult) -> Void)? = nil) {
+    
+    NBA.shared.getStandings { [weak self] (success, standings) in
+      var didUpdate = false
+      if success, let s = standings {
+        // save rankings
+        var poolRankings = [Int : Int]()
+        if let user = User.shared {
+          for pool in Pools.shared.pools {
+            let sortedUsers = pool.membersSortedByWinPercentage
+            poolRankings[pool.id] = sortedUsers.index(of: user)
+          }
+        }
+        
+        // update standings
+        var standings = s.league.standard.conference.east
+        standings.append(contentsOf: s.league.standard.conference.west)
+        standings.forEach {
+          if let id = $0.toTeamId() {
+            let record = Record(wins: $0.wins, losses: $0.losses)
+            didUpdate = (self?.updateTeamWithId(id, record: record) ?? false) || didUpdate
+          }
+        }
+        
+        // check for changes in rankings
+        if let user = User.shared {
+          for pool in Pools.shared.pools {
+            let members = pool.membersSortedByWinPercentage
+            if let newRank = members.index(of: user), let oldRank = poolRankings[pool.id], newRank != oldRank {
+              UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
+            }
+          }
+        }
+      }
+      
+      result?(success ? (didUpdate ? .newData : .noData) : .failed)
+    }
+  }
+}
+
+protocol TeamsDelegate: class {
+  func teams(_ teams: Teams, didUpdateTeam team: Team)
 }

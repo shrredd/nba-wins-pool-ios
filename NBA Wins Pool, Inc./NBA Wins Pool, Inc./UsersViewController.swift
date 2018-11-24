@@ -11,7 +11,7 @@ import UIKit
 class UsersViewController: UITableViewController {
   
   var pool: Pool!
-  var users: [User]!
+  var users = [User]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,15 +21,17 @@ class UsersViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Teams.shared.updated), object: nil)
+    Teams.shared.delegate = self
+    reloadData()
   }
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    NotificationCenter.default.removeObserver(self)
+    Teams.shared.delegate = nil
   }
   
   @objc func reloadData() {
+    users = pool.membersSortedByWinPercentage
     tableView.reloadData()
   }
   
@@ -40,7 +42,6 @@ class UsersViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    users = pool.sortedUsers
     return users.count
   }
   
@@ -48,9 +49,9 @@ class UsersViewController: UITableViewController {
     let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
     let user = users[indexPath.row]
     cell.nameLabel?.text = user.username
-    let record = pool.record(user: user)
+    let record = pool.recordForUser(user)
     cell.recordLabel?.text = "\(record.wins)-\(record.losses) (\(String(format: "%.1f", record.percentage*100.0)))"
-    cell.teams = pool.teams(user: user)
+    cell.teams = Array(pool.teamsForUser(user))
     
     return cell
   }
@@ -67,4 +68,10 @@ class UsersViewController: UITableViewController {
     }
   }
   
+}
+
+extension UsersViewController: TeamsDelegate {
+  func teams(_ teams: Teams, didUpdateTeam team: Team) {
+    reloadData()
+  }
 }

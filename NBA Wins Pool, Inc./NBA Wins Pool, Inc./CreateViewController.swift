@@ -56,17 +56,14 @@ class CreateViewController: UIViewController, UITextFieldDelegate {
     
     if let name = poolNameTextField.text,
       let size = numberOfPlayersSegment.titleForSegment(at: numberOfPlayersSegment.selectedSegmentIndex),
-      let user = User.shared {
-      Backend.shared.createPool(name: name, size: size, username: user.username, completion: { [unowned self] (poolDictionary, success) in
-        if success, let dictionary = poolDictionary as? [String : AnyObject] {
-          let pool = Pool(dictionary: dictionary)
-          Pools.shared.add(pool)
+      let username = User.shared?.username {
+      Pools.shared.createPoolWithName(name, size: size, username: username) { (success) in
+        if success {
           _ = self.navigationController?.popViewController(animated: true)
         } else {
-          UIAlertController.alertOK(title: "Create Pool Failed", message: String(describing: poolDictionary), viewController: self)
+          UIAlertController.alertOK(title: "Create Pool Failed", message: "Fail", viewController: self)
         }
-        
-      })
+      }
     }
   }
   

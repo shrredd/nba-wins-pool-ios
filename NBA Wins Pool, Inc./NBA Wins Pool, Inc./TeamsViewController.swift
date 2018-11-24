@@ -12,11 +12,11 @@ class TeamsViewController: UITableViewController {
   
   var pool: Pool!
   var user: User!
-  var teams: [Team]!
+  var teams = [Team]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "\(user.username!)'s Teams"
+    title = "\(user.username)'s Teams"
     let nib = UINib(nibName: "DraftTableViewCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "DraftTableViewCell")
     navigationController?.addBackButton(viewController: self)
@@ -24,15 +24,17 @@ class TeamsViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: Teams.shared.updated), object: nil)
+    Teams.shared.delegate = self
+    reloadData()
   }
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    NotificationCenter.default.removeObserver(self)
+    Teams.shared.delegate = nil
   }
   
   @objc func reloadData() {
+    teams = pool.teamsForUser(user).sorted { $0.record?.percentage ?? 0 > $1.record?.percentage ?? 0 }
     tableView.reloadData()
   }
   
@@ -43,9 +45,6 @@ class TeamsViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    teams = pool.teams(user: user).sorted(by: { (teamA, teamB) -> Bool in
-      return teamA.record?.percentage ?? 0 > teamB.record?.percentage ?? 0
-    })
     return teams.count
   }
   
@@ -54,8 +53,8 @@ class TeamsViewController: UITableViewController {
     
     let team = teams[indexPath.row]
     cell.set(team: team)
-    
-    if let index = pool.draft?.selections.index(of: team) {
+    let selectedTeams = pool.draft_status?.map { Teams.shared.idToTeam[$0.team?.team_id ?? ""] } ?? []
+    if let index = selectedTeams.index(of: team) {
       cell.pick.text = "Pick: \(index + 1)"
       cell.pick.isHidden = false
     } else {
@@ -64,12 +63,10 @@ class TeamsViewController: UITableViewController {
     
     return cell
   }
-  
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let team = teams[indexPath.row]
-    let teamViewController = TeamViewController()
-    teamViewController.team = team
-    navigationController?.pushViewController(teamViewController, animated: true)
+}
+
+extension TeamsViewController: TeamsDelegate {
+  func teams(_ teams: Teams, didUpdateTeam team: Team) {
+    reloadData()
   }
-  
 }

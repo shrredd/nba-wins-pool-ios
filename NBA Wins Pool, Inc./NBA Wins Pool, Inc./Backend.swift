@@ -6,7 +6,7 @@
 //  Copyright © 2016 NBA Wins Pool, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Backend {
   
@@ -25,95 +25,80 @@ class Backend {
   
   init() {
     let config = URLSessionConfiguration.default
-    config.requestCachePolicy = .reloadIgnoringLocalCacheData
     self.session = URLSession(configuration: config)
   }
   
   // MARK: user creation and authentication
   
-  func createUser(username: String, password: String, email: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = [userName : username as AnyObject,
-                      userPassword : password as AnyObject,
-                      userEmail : email as AnyObject]
+  func createUser(username: String, password: String, email: String, completion: @escaping (Bool, User?) -> Void) {
+    let JSONObject: [String : Any] = [userName : username,
+                                      userPassword : password,
+                                      userEmail : email]
     uploadJSON(host: poolHost, endPoint: accounts, JSONObject: JSONObject, completion: completion)
   }
   
-  func authenticateUser(username: String, password: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = [userName : username as AnyObject,
-                      userPassword : password as AnyObject]
+  func authenticateUser(username: String, password: String, completion: @escaping (Bool, User.Token?) -> Void) {
+    let JSONObject = [userName : username as Any,
+                      userPassword : password as Any]
     uploadJSON(host: poolHost, endPoint: auth, JSONObject: JSONObject, completion: completion)
   }
   
-  func getUserDetails(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: poolHost, endPoint: accounts + username + "/",
+  func getUserDetails(username: String, token: String, completion: @escaping (Bool, User?) -> Void) {
+    request(host: poolHost, endPoint: accounts + username + "/",
                 fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
   // MARK: pool backend
   
-  func createPool(name: String, size: String, username: String, completion: @escaping (AnyObject?, Bool) -> Void) {
+  func createPool(name: String, size: String, username: String, completion: @escaping (Bool, Pool?) -> Void) {
     let members = [username]
-    let JSONObject = ["name" : name as AnyObject,
-                      "max_size" : size as AnyObject,
-                      "members" : members as AnyObject]
+    let JSONObject = ["name" : name as Any,
+                      "max_size" : size as Any,
+                      "members" : members as Any]
     
     uploadJSON(host: poolHost, endPoint: "pools/", JSONObject: JSONObject, completion: completion)
   }
   
-  func getPools(username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: poolHost, endPoint: username + "/pools/",
-                fields: ["Authorization" : "Token " + token], completion: completion)
+  func getPools(username: String, token: String, completion: @escaping (Bool, [Pool]?) -> Void) {
+    request(host: poolHost, endPoint: username + "/pools/",
+            fields: ["Authorization" : "Token " + token], completion: completion)
   }
   
-  func joinPool(id: Int, username: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = ["username" : username as AnyObject]
+  func joinPool(id: Int, username: String, token: String, completion: @escaping (Bool, Pool?) -> Void) {
+    let JSONObject = ["username" : username as Any]
     uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(id)/members/",
       fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
   }
-//  http://localhost:3000/api/v1/pools/42/members/
+  //  http://localhost:3000/api/v1/pools/42/members/
   func leavePool(id: Int, token: String, completion: @escaping (Bool) -> Void) {
-    request(httpMethod: "DELETE", host: poolHost, endPoint: "pools/\(id)/members/", fields: ["Authorization" : "Token " + token]) { (data, statusCode, error) in
-      completion((statusCode != nil) ? statusCode!.isIn200s() : false)
+    request(httpMethod: "DELETE", host: poolHost, endPoint: "pools/\(id)/members/", fields: ["Authorization" : "Token " + token]) { (success, data) in
+      completion(success)
     }
   }
   
-  func getPoolInfo(id: Int, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: poolHost, endPoint: "pools/\(id)", completion: completion)
+  func getPoolWithId(_ id: Int, completion: @escaping (Bool, Pool?) -> Void) {
+    request(host: poolHost, endPoint: "pools/\(id)", completion: completion)
   }
   
-  func getDraftStatus(id: Int, completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: poolHost, endPoint: "pools/\(id)/draft/", completion: completion)
+  func getPicksForPoolId(_ id: Int, completion: @escaping (Bool, [Pool.Pick]?) -> Void) {
+    request(host: poolHost, endPoint: "pools/\(id)/draft/", completion: completion)
   }
   
-  func pickTeam(poolID: Int, teamID: String, token: String, completion: @escaping (AnyObject?, Bool) -> Void) {
-    let JSONObject = ["team_id" : teamID as AnyObject]
-    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(poolID)/draft/",
+  func pickTeamWithId(_ teamId: String, forPoolWithId poolId: Int, token: String, completion: @escaping (Bool, [Pool.Pick]?) -> Void) {
+    let JSONObject = ["team_id" : teamId as Any]
+    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(poolId)/draft/",
       fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
-  }
-  
-  // MARK: team backend
-  
-  let teamHost = "https://erikberg.com/"
-  let teamsEndpoint = "nba/teams.json"
-  let standingsEnpoint = "nba/standings.json"
-  
-  func getTeams(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: teamHost, endPoint: teamsEndpoint, fields: ["User-Agent" : "WinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
-  }
-  
-  func getStandings(completion: @escaping (AnyObject?, Bool) -> Void) {
-    requestJSON(host: teamHost, endPoint: standingsEnpoint, fields: ["User-Agent" : "WinsPool/1.0 (benz.jessen@gmail.com)"], completion: completion)
   }
   
   // MARK: helper functions
   
-  func uploadJSON(httpMethod: String = "POST",
-                         host: String,
-                         endPoint: String,
-                         parameters: [String : String]? = nil,
-                         fields: [String : String]? = nil,
-                         JSONObject: [String : AnyObject],
-                         completion: @escaping (AnyObject?, Bool) -> Void) {
+  func uploadJSON<T: Decodable>(httpMethod: String = "POST",
+                                host: String,
+                                endPoint: String,
+                                parameters: [String : String]? = nil,
+                                fields: [String : String]? = nil,
+                                JSONObject: [String : Any],
+                                completion: @escaping (Bool, T?) -> Void) {
     
     do {
       let body = try JSONSerialization.data(withJSONObject: JSONObject)
@@ -125,48 +110,40 @@ class Backend {
         }
       }
       
-      requestJSON(httpMethod: httpMethod, host: host, endPoint: endPoint, fields: dictionary, body: body, completion: completion)
+      
+      request(httpMethod: httpMethod, host: host, endPoint: endPoint, fields: dictionary, body: body, completion: completion)
     } catch {
-      completion(nil, false)
+      completion(false, nil)
     }
   }
   
-  func requestJSON(httpMethod: String = "GET",
-                          host: String,
-                          endPoint: String,
-                          parameters: [String : String]? = nil,
-                          fields: [String : String]? = nil,
-                          body: Data? = nil,
-                          completion: @escaping (AnyObject?, Bool) -> Void) {
-    request(httpMethod: httpMethod, host: host, endPoint: endPoint, parameters: parameters, fields: fields, body: body) { (data, statusCode, error) in
-      var JSON: AnyObject? = nil
-      if let JSONData = data {
+  func request<T: Decodable>(httpMethod: String = "GET",
+                             host: String,
+                             endPoint: String,
+                             parameters: [String : String]? = nil,
+                             fields: [String : String]? = nil,
+                             body: Data? = nil,
+                             completion: @escaping (Bool, T?) -> Void) {
+    request(httpMethod: httpMethod, host: host, endPoint: endPoint, parameters: parameters, fields: fields, body: body) { (success, data) in
+      var t: T?
+      if success, let d = data {
         do {
-          JSON = try JSONSerialization.jsonObject(with: JSONData) as AnyObject
+          t = try JSONDecoder().decode(T.self, from: d)
         } catch {
           print(error)
-          JSON = nil
         }
       }
-      
-      if let status = statusCode {
-        if status.isIn200s() {
-          completion(JSON, true)
-          return
-        }
-      }
-      
-      completion(JSON, false)
+      completion(success, t)
     }
   }
   
-  func request(httpMethod: String,
-                      host: String,
-                      endPoint: String,
-                      parameters: [String : String]? = nil,
-                      fields: [String : String]? = nil,
-                      body: Data? = nil,
-                      completion: @escaping (Data?, Int?, Error?) -> Void) {
+  func request(httpMethod: String = "GET",
+               host: String,
+               endPoint: String,
+               parameters: [String : String]? = nil,
+               fields: [String : String]? = nil,
+               body: Data? = nil,
+               completion: @escaping (Bool, Data?) -> Void) {
     var string = ""
     var separator = "?"
     
@@ -177,34 +154,33 @@ class Backend {
       }
     }
     
-    if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
-      let url = URL(string: host + endPoint + escapedString)
-      var request = URLRequest(url: url!)
-      request.httpBody = body
-      request.cachePolicy = .reloadIgnoringLocalCacheData
-      request.httpMethod = httpMethod
-      if let headerFields = fields {
-        for (key, value) in headerFields {
-          request.addValue(value, forHTTPHeaderField: key)
-        }
+    var components = URLComponents(string: host + endPoint)!
+    components.queryItems = parameters?.map { URLQueryItem(name: $0, value: $1) }
+    components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+    var request = URLRequest(url: components.url!)
+    request.httpBody = body
+    request.cachePolicy = .reloadIgnoringLocalCacheData
+    request.httpMethod = httpMethod
+    if let headerFields = fields {
+      for (key, value) in headerFields {
+        request.addValue(value, forHTTPHeaderField: key)
       }
-      
-      let task = self.session.dataTask(with: request) { (data, response, error) in
-        DispatchQueue.main.async {
-          if let e = error {
-            print(e)
-          }
-          
-          if let httpResponse = response as? HTTPURLResponse {
-            completion(data, httpResponse.statusCode, error)
-          } else {
-            completion(data, nil, error)
-          }
-          
-        }
-      }
-      task.resume()
     }
+    
+    let task = self.session.dataTask(with: request) { (data, response, error) in
+      DispatchQueue.main.async {
+        if let e = error {
+          print(e)
+        }
+        
+        let success = ((response as? HTTPURLResponse)?.statusCode.isIn200s() ?? true) && error == nil
+        if !success, let d = data, let string = String(data: d, encoding: .utf8), string != "" {
+          UIAlertController.alertOK(title: "Request Failed", message: string)
+        }
+        completion(success, data)
+      }
+    }
+    task.resume()
   }
 }
 

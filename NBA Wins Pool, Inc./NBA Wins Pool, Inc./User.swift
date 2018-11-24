@@ -8,64 +8,71 @@
 
 import Foundation
 
-class User: DictionaryBase, Hashable, CustomStringConvertible {
+class User: Codable {
   static var shared = loadSavedUser()
   
-  static let loggedInUser = "logged_in_user"
-  static let username = "username"
-  static let email = "email"
-  static let token = "token"
+  struct Token: Codable {
+    let token: String
+  }
   
-  var username: String!
+  let username: String
   var email: String?
   var token: String?
   
   static func loadSavedUser() -> User? {
-    if let dictionary = UserDefaults.standard.object(forKey: loggedInUser) as? [String: AnyObject] {
-      return User(dictionary: dictionary)
-    } else {
-      return nil
+    guard let data = UserDefaults.standard.object(forKey: "logged_in_user") else { return nil }
+    
+    if let dictionary = data as? [String : Any] {
+      do {
+        let data = try JSONSerialization.data(withJSONObject: dictionary)
+        return try JSONDecoder().decode(User.self, from: data)
+      } catch {
+        print(error)
+      }
     }
+    if let d = data as? Data {
+      do {
+        return try JSONDecoder().decode(User.self, from: d)
+      } catch {
+        print(error)
+      }
+    }
+    return nil
   }
   
   static func save() {
-    if let dictionary = shared?.dictionary {
-      UserDefaults.standard.set(dictionary, forKey: loggedInUser)
-    } else {
-      UserDefaults.standard.removeObject(forKey: loggedInUser)
+    guard let user = shared else {
+      UserDefaults.standard.removeObject(forKey: "logged_in_user")
+      UserDefaults.standard.synchronize()
+      return
     }
     
-    
-    UserDefaults.standard.synchronize()
+    do {
+      let data = try JSONEncoder().encode(user)
+      UserDefaults.standard.set(data, forKey: "logged_in_user")
+      UserDefaults.standard.synchronize()
+    } catch {
+      print(error)
+    }
   }
-  
-  override func didSetDictionary(oldValue: [String : AnyObject]) {
-    super.didSetDictionary(oldValue: oldValue)
-    
-    self.username = dictionary[User.username] as? String
-    self.email = dictionary[User.email] as? String
-    self.token = dictionary[User.token] as? String
-  }
-  
-  // MARK: Equatable
-  
+}
+
+extension User: Equatable {
   static func ==(userA: User, userB: User) -> Bool {
     return userA.username == userB.username
   }
-  
-  // MARK: Hashable
-  
+}
+
+extension User: Hashable {
   var hashValue: Int {
     return username.hashValue
   }
-  
-  // MARK: CustomStringConvertible
-  
+}
+
+extension User: CustomStringConvertible {
   var description: String {
     var printMe = ""
-    if let name = username {
-      printMe += name + " "
-    }
+    printMe += username + " "
     
     if let mail = email {
       printMe += mail + " "

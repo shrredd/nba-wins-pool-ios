@@ -136,45 +136,38 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
   
   func authenticate() {
     if let username = usernameTextField.text, let password = passwordTextField.text {
-      Backend.shared.authenticateUser(username: username, password: password) { [unowned self] (tokenJSON, success) in
-        if success, let tokenDictionary = tokenJSON as? [String : AnyObject] {
+      Backend.shared.authenticateUser(username: username, password: password) { [weak self] (success, token) in
+        if success, let t = token?.token {
           if let user = User.shared {
-            user.dictionary = tokenDictionary
-            self.dismiss()
-          } else if let token = tokenDictionary["token"] as? String {
-            Backend.shared.getUserDetails(username: username, token: token, completion: { [unowned self] (userJSON, success) in
-              if success, let userDictionary = userJSON as? [String : AnyObject] {
-                let user = User(dictionary: userDictionary)
-                user.dictionary = tokenDictionary
-                User.shared = user
-                self.dismiss()
-                
+            user.token = t
+            self?.dismiss()
+          } else {
+            Backend.shared.getUserDetails(username: username, token: t, completion: { (success, user) in
+              if success, let u = user {
+                User.shared = u
+                u.token = t
+                self?.dismiss()
               } else {
-                UIAlertController.alertOK(title: "GET User Details Failed", message: String(describing: userJSON), viewController: self)
+                UIAlertController.alertOK(title: "Authenticate User Failed", message: "fail", viewController: self)
               }
-              
-              })
+            })
           }
         } else {
-          UIAlertController.alertOK(title: "Authenticate User Failed", message: String(describing: tokenJSON), viewController: self)
+          UIAlertController.alertOK(title: "Authenticate User Failed", message: "fail", viewController: self)
         }
       }
     }
   }
   
   func create() {
-    if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text {
-      Backend.shared.createUser(username: username, password: password, email: email, completion: { [unowned self] (userDictionary, success) in
-        if success, let dictionary = userDictionary as? [String : AnyObject] {
-          let user = User(dictionary: dictionary)
-          User.shared = user
-          User.save()
-          self.authenticate()
-        } else {
-          UIAlertController.alertOK(title: "Create User Failed", message: String(describing: userDictionary), viewController: self)
-        }
-        })
-    }
+    guard let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text else { return }
+    Backend.shared.createUser(username: username, password: password, email: email, completion: { [weak self] (success, user) in
+      if success, let u = user {
+        User.shared = u
+        User.save()
+        self?.authenticate()
+      }
+    })
   }
   
   func dismiss() {

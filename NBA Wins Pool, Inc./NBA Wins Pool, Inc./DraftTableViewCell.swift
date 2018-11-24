@@ -17,7 +17,7 @@ class DraftTableViewCell: UITableViewCell {
   func set(team: Team?) {
     record.text = nil
     if let t = team {
-      label.text = t.fullName
+      label.text = t.name
       emoji.text = t.emoji
       contentView.backgroundColor = t.primaryColor
       if let r = team?.record {
@@ -28,12 +28,5 @@ class DraftTableViewCell: UITableViewCell {
       emoji.text = "🏀"
       contentView.backgroundColor = UIColor.almostBlackGray
     }
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
-  
+  }  
 }

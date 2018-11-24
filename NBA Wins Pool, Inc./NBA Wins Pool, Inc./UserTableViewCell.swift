@@ -14,7 +14,7 @@ class UserTableViewCell: UITableViewCell {
   @IBOutlet weak var recordLabel: UILabel!
   
   var labels = [UILabel]()
-  var teams: [Team]! {
+  var teams = [Team]() {
     didSet {
       for label in labels {
         label.removeFromSuperview()

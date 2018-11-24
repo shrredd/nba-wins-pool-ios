@@ -10,9 +10,9 @@ import UIKit
 
 extension UIAlertController {
 
-  static func alertOK(title: String, message: String, viewController: UIViewController? = nil) {
+  static func alertOK(title: String, message: String? = nil, viewController: UIViewController? = nil) {
     
-    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let alertController = UIAlertController(title: title, message: message ?? "Unknown error.", preferredStyle: .alert)
     let OKAction = UIAlertAction(title: "OK", style: .default)
     alertController.addAction(OKAction)
     
