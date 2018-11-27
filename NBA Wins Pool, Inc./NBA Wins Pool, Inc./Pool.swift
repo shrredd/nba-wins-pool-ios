@@ -10,12 +10,12 @@ import UIKit
 
 class Pool: Codable {
   struct Pick: Codable {
-    struct Team: Codable {
+    struct TeamId: Codable {
       let team_id: String
     }
     let draft_pick_number: Int
     let user: User
-    var team: Team?
+    var team: TeamId?
   }
   
   let name: String
@@ -44,7 +44,7 @@ class Pool: Codable {
               message = "It's \(pick.user == User.shared ? "your" : "\(pick.user.username)'s") pick!"
               break
             }
-            pickedTeamName = Teams.shared.idToTeam[pick.team?.team_id ?? ""]?.name
+            pickedTeamName = pick.getTeam()?.name
             userWhoPicked = pick.user == User.shared ? "You" : pick.user.username
           }
           UIAlertController.alertOK(title: "\(userWhoPicked ?? "?") picked the \(pickedTeamName ?? "?")!", message: message)
@@ -73,14 +73,27 @@ extension Pool {
     return picksSortedByDraftNumber.last?.team != nil
   }
   
+  func picksForUser(_ user: User) -> [Pick]? {
+    return draft_status?.filter { $0.user == user }
+  }
+  
   func teamsForUser(_ user: User) -> Set<Team> {
-    return Set(draft_status?.filter { $0.team != nil && $0.user == user }.map { Teams.shared.idToTeam[$0.team!.team_id]! } ?? [])
+    return Set(draft_status?.filter { $0.team != nil && $0.user == user }.map { $0.getTeam()! } ?? [])
   }
   
   func recordForUser(_ user: User) -> Record {
     var record = Record(wins: 0, losses: 0)
     teamsForUser(user).forEach { record = record + ($0.record ?? Record(wins: 0, losses: 0)) }
     return record
+  }
+}
+
+extension Pool.Pick {
+  func getTeam() -> Team? {
+    guard let id = team?.team_id else {
+      return nil
+    }
+    return Teams.shared.idToTeam[id]
   }
 }
 
@@ -112,8 +125,8 @@ extension Pool.Pick: Equatable {
   }
 }
 
-extension Pool.Pick.Team: Equatable {
-  static func == (lhs: Pool.Pick.Team, rhs: Pool.Pick.Team) -> Bool {
+extension Pool.Pick.TeamId: Equatable {
+  static func == (lhs: Pool.Pick.TeamId, rhs: Pool.Pick.TeamId) -> Bool {
     return lhs.team_id == rhs.team_id
   }
 }

@@ -12,7 +12,7 @@ class TeamsViewController: UITableViewController {
   
   var pool: Pool!
   var user: User!
-  var teams = [Team]()
+  var picks = [Pool.Pick]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,7 +34,7 @@ class TeamsViewController: UITableViewController {
   }
   
   @objc func reloadData() {
-    teams = pool.teamsForUser(user).sorted { $0.record?.percentage ?? 0 > $1.record?.percentage ?? 0 }
+    picks = pool.picksForUser(user)?.sorted { $0.getTeam()?.record?.percentage ?? 0 > $1.getTeam()?.record?.percentage ?? 0 } ?? []
     tableView.reloadData()
   }
   
@@ -45,21 +45,15 @@ class TeamsViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return teams.count
+    return picks.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "DraftTableViewCell", for: indexPath) as! DraftTableViewCell
     
-    let team = teams[indexPath.row]
-    cell.set(team: team)
-    let selectedTeams = pool.draft_status?.map { Teams.shared.idToTeam[$0.team?.team_id ?? ""] } ?? []
-    if let index = selectedTeams.index(of: team) {
-      cell.pick.text = "Pick: \(index + 1)"
-      cell.pick.isHidden = false
-    } else {
-      cell.pick.isHidden = true
-    }
+    let pick = picks[indexPath.row]
+    cell.set(team: pick.getTeam())
+    cell.pick.text = "Pick: \(pick.draft_pick_number)"
     
     return cell
   }

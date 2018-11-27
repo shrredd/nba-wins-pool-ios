@@ -81,7 +81,7 @@ class DraftViewController: UITableViewController {
       cell.set(team: team)
     } else {
       if indexPath.row < picks.count {
-        let team = Teams.shared.idToTeam[picks[indexPath.row].team?.team_id ?? ""]
+        let team = picks[indexPath.row].getTeam()
         cell.set(team: team)
       } else {
         cell.set(team: nil)
