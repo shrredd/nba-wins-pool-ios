@@ -131,7 +131,7 @@ extension NBA.Team: Equatable {
 }
 
 extension NBA.Team: Hashable {
-  var hashValue: Int {
-    return teamId.hashValue
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(teamId)
   }
 }

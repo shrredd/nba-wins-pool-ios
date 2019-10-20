@@ -76,7 +76,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var isEmailValid = false
     if let text = emailTextField.text {
-      var components = text.components(separatedBy: "@")
+      let components = text.components(separatedBy: "@")
       if components[0].count > 0 && components.count == 2 {
         let rightComponents = components[1].components(separatedBy: ".")
         if rightComponents.count == 2 && rightComponents[0].count > 0 && rightComponents[1].count > 2 {

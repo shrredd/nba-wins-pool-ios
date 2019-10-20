@@ -64,8 +64,8 @@ extension User: Equatable {
 }
 
 extension User: Hashable {
-  var hashValue: Int {
-    return username.hashValue
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(username)
   }
 }
 

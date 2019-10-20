@@ -66,7 +66,7 @@ class Teams {
         if let user = User.shared {
           for pool in Pools.shared.pools {
             let sortedUsers = pool.membersSortedByWinPercentage
-            poolRankings[pool.id] = sortedUsers.index(of: user)
+            poolRankings[pool.id] = sortedUsers.firstIndex(of: user)
           }
         }
         
@@ -84,7 +84,7 @@ class Teams {
         if let user = User.shared {
           for pool in Pools.shared.pools {
             let members = pool.membersSortedByWinPercentage
-            if let newRank = members.index(of: user), let oldRank = poolRankings[pool.id], newRank != oldRank {
+            if let newRank = members.firstIndex(of: user), let oldRank = poolRankings[pool.id], newRank != oldRank {
               UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
             }
           }

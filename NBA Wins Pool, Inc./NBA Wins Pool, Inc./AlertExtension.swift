@@ -18,7 +18,7 @@ extension UIAlertController {
     
     var vc = viewController
     if viewController == nil {
-      vc = (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.topViewController
+      vc = (UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController as? UINavigationController)?.topViewController
       if let presented = vc?.presentedViewController {
         vc = presented
       }
