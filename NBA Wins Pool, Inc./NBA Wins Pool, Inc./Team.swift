@@ -238,7 +238,7 @@ extension Team {
     case .hawks:
       return "🎰"
     case .celtics:
-      return "☘"
+      return "🇺🇸"
     case .nets:
       return "⏳"
     case .hornets:
@@ -252,21 +252,21 @@ extension Team {
     case .nuggets:
       return "🃏"
     case .pistons:
-      return "🏚"
+      return "🚙"
     case .warriors:
       return "🚑"
     case .rockets:
       return "🚀"
     case .pacers:
-      return "🏇"
+      return "🚶‍♂️"
     case .clippers:
-      return "🦞"
+      return "💾"
     case .lakers:
       return "🇨🇳"
     case .grizzlies:
       return "💩"
     case .heat:
-      return "🛢"
+      return "🔥"
     case .bucks:
       return "🦌"
     case .timberwolves:
@@ -284,13 +284,13 @@ extension Team {
     case .suns:
       return "🗑"
     case .blazers:
-      return "🔥"
+      return "🌲"
     case .kings:
       return "🕳"
     case .spurs:
       return "🌵"
     case .raptors:
-      return "🇨🇦"
+      return "🏆"
     case .jazz:
       return "🎷"
     case .wizards:
