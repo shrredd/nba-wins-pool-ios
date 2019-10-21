@@ -56,7 +56,7 @@ class Teams {
     }
   }
   
-  @objc func getStandings(result: ((UIBackgroundFetchResult) -> Void)? = nil) {
+  @objc func getStandings(completion: ((Bool) -> Void)? = nil) {
     
     NBA.shared.getStandings { [weak self] (success, standings) in
       var didUpdate = false
@@ -90,8 +90,7 @@ class Teams {
           }
         }
       }
-      
-      result?(success ? (didUpdate ? .newData : .noData) : .failed)
+      completion?(success)
     }
   }
 }

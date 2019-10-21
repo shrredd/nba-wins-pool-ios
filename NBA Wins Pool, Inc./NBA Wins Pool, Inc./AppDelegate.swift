@@ -8,17 +8,23 @@
 
 import UIKit
 import UserNotifications
+import BackgroundTasks
+
+fileprivate let backgroundTaskIdentifier = "com.johnbj.winspool.standings.refresh"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
-  
+
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     UIApplication.shared.isStatusBarHidden = false
     UIApplication.shared.statusBarStyle = .default
-    UIApplication.shared.setMinimumBackgroundFetchInterval(3600.0/2.0)
-
+    
+    BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: nil) { task in
+      self.handleAppRefresh(task: task as! BGAppRefreshTask)
+    }
+    
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
       if !accepted {
         print("Notification access denied.")
@@ -34,8 +40,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
-  func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-    Teams.shared.getStandings(result: completionHandler)
+  func scheduleAppRefresh() {
+    let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
+    request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 10)
+    
+    do {
+      try BGTaskScheduler.shared.submit(request)
+    } catch {
+      print("Couldn't schedule app refresh: \(error)")
+    }
+  }
+  
+  func handleAppRefresh(task: BGAppRefreshTask) {
+    scheduleAppRefresh()
+    Teams.shared.getStandings { (success) in
+      task.setTaskCompleted(success: success)
+    }
   }
   
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

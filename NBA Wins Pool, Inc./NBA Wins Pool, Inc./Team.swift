@@ -240,55 +240,55 @@ extension Team {
     case .celtics:
       return "☘"
     case .nets:
-      return "🚽"
+      return "⏳"
     case .hornets:
-      return "🤢"
+      return "🚽"
     case .bulls:
-      return "💩"
+      return "🐄"
     case .cavaliers:
       return "⚰️"
     case .mavericks:
-      return "🐖"
+      return "👯‍♂️"
     case .nuggets:
       return "🃏"
     case .pistons:
       return "🏚"
     case .warriors:
-      return "🏆"
+      return "🚑"
     case .rockets:
       return "🚀"
     case .pacers:
-      return "👨‍👨‍👦‍👦"
+      return "🏇"
     case .clippers:
-      return "🛶"
+      return "🦞"
     case .lakers:
-      return "⭐️"
+      return "🇨🇳"
     case .grizzlies:
-      return "🧟‍♂️"
+      return "💩"
     case .heat:
-      return "🛒"
+      return "🛢"
     case .bucks:
       return "🦌"
     case .timberwolves:
-      return "💣"
+      return "🥔"
     case .pelicans:
-      return "💅🏾"
+      return "🙏🏿"
     case .knicks:
       return "🤡"
     case .thunder:
-      return "⛈"
+      return "🏚"
     case .magic:
-      return "🗑"
+      return "🧞‍♂️"
     case .sixers:
       return "🔔"
     case .suns:
-      return "🤰"
+      return "🗑"
     case .blazers:
-      return "👣"
+      return "🔥"
     case .kings:
       return "🕳"
     case .spurs:
-      return "🚑"
+      return "🌵"
     case .raptors:
       return "🇨🇦"
     case .jazz:
