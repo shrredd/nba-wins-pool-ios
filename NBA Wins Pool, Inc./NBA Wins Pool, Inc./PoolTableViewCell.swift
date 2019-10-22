@@ -15,7 +15,7 @@ class PoolTableViewCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var membersLabel: UILabel!
   
-  var delegate: PoolTableViewCellDelegate?
+  weak var delegate: PoolTableViewCellDelegate?
   
   @IBOutlet weak var buttonBackgroundView: UIView!
   override func layoutSubviews() {
@@ -36,6 +36,6 @@ class PoolTableViewCell: UITableViewCell {
   }
 }
 
-protocol PoolTableViewCellDelegate {
+protocol PoolTableViewCellDelegate: class {
   func poolCellButtonPressed(cell: PoolTableViewCell)
 }

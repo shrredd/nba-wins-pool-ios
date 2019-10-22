@@ -29,8 +29,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     tableView.reloadData()
     
     if User.shared == nil {
-      let loginViewController = LoginViewController()
-      present(loginViewController, animated: false, completion: nil)
+      presentLogin(animated: false)
     }
   }
   
@@ -154,11 +153,14 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     User.shared = nil
     User.save()
     Pools.shared.removeAll()
-    
-    let loginViewController = LoginViewController()
-    present(loginViewController, animated: true, completion: nil)
+    presentLogin(animated: true)
   }
   
+  func presentLogin(animated: Bool) {
+    let loginViewController = LoginViewController()
+    loginViewController.modalPresentationStyle = .fullScreen
+    parent?.present(loginViewController, animated: animated, completion: nil)
+  }
   
   // MARK: - Navigation
   

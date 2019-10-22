@@ -85,15 +85,13 @@ class Pools {
   }
   
   func leavePoolWithId(_ id: Int, completion: @escaping (Bool) -> Void) {
+    idToPool[id] = nil
+    save()
     guard let token = User.shared?.token else {
       completion(false)
       return
     }
-    Backend.shared.leavePool(id: id, token: token, completion: { [weak self] (success) in
-      if success {
-        self?.idToPool[id] = nil
-        self?.save()
-      }
+    Backend.shared.leavePool(id: id, token: token, completion: { (success) in
       completion(success)
     })
   }
@@ -160,6 +158,12 @@ class Pools {
   }
   
   func save() {
+    if idToPool.isEmpty {
+      UserDefaults.standard.removeObject(forKey: "pools")
+      UserDefaults.standard.synchronize()
+      return
+    }
+    
     do {
       let data = try JSONEncoder().encode(Array(idToPool.values))
       UserDefaults.standard.set(data, forKey: "pools")

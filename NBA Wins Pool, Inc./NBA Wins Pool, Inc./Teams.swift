@@ -21,8 +21,6 @@ class Teams {
   init() {
     Team.Id.allCases.forEach { self.idToTeam[$0.rawValue] = Team(id: $0) }
     load()
-    Timer.scheduledTimer(timeInterval: 120.0, target: self, selector: #selector(getStandings), userInfo: nil, repeats: true)
-    getStandings()
   }
   
   func load() {
@@ -38,12 +36,11 @@ class Teams {
     }
   }
   
-  func updateTeamWithId(_ id: Team.Id, record: Record) -> Bool {
-    guard let team = idToTeam[id.rawValue], team.record != record  else { return false }
+  func updateTeamWithId(_ id: Team.Id, record: Record) {
+    guard let team = idToTeam[id.rawValue], team.record != record  else { return }
     team.record = record
     save()
     delegate?.teams(self, didUpdateTeam: team)
-    return true
   }
   
   func save() {
@@ -57,40 +54,43 @@ class Teams {
   }
   
   @objc func getStandings(completion: ((Bool) -> Void)? = nil) {
-    
     NBA.shared.getStandings { [weak self] (success, standings) in
-      var didUpdate = false
-      if success, let s = standings {
-        // save rankings
-        var poolRankings = [Int : Int]()
-        if let user = User.shared {
-          for pool in Pools.shared.pools {
-            let sortedUsers = pool.membersSortedByWinPercentage
-            poolRankings[pool.id] = sortedUsers.firstIndex(of: user)
-          }
-        }
-        
-        // update standings
-        var standings = s.league.standard.conference.east
-        standings.append(contentsOf: s.league.standard.conference.west)
-        standings.forEach {
-          if let id = $0.toTeamId() {
-            let record = Record(wins: $0.wins, losses: $0.losses)
-            didUpdate = (self?.updateTeamWithId(id, record: record) ?? false) || didUpdate
-          }
-        }
-        
-        // check for changes in rankings
-        if let user = User.shared {
-          for pool in Pools.shared.pools {
-            let members = pool.membersSortedByWinPercentage
-            if let newRank = members.firstIndex(of: user), let oldRank = poolRankings[pool.id], newRank != oldRank {
-              UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
-            }
-          }
+      guard success, let s = standings else {
+        completion?(false)
+        return
+      }
+      
+      // update standings
+      var standings = s.league.standard.conference.east
+      standings.append(contentsOf: s.league.standard.conference.west)
+      standings.filter { $0.toTeamId() != nil }.forEach {
+        let id = $0.toTeamId()!
+        let record = Record(wins: $0.wins, losses: $0.losses)
+        self?.updateTeamWithId(id, record: record)
+      }
+      
+      guard let user = User.shared else {
+        completion?(true)
+        return
+      }
+      
+      let pools = Pools.shared.pools
+      
+      // save rankings
+      var poolRankings = [Int : Int]()
+      for pool in pools {
+        let sortedUsers = pool.membersSortedByWinPercentage
+        poolRankings[pool.id] = sortedUsers.firstIndex(of: user)
+      }
+      
+      // check for changes in rankings
+      for pool in pools {
+        let members = pool.membersSortedByWinPercentage
+        if let newRank = members.firstIndex(of: user), let oldRank = poolRankings[pool.id], newRank != oldRank {
+          UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
         }
       }
-      completion?(success)
+      completion?(true)
     }
   }
 }

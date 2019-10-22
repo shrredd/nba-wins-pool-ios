@@ -24,6 +24,7 @@ extension UIAlertController {
       }
     }
     
+    vc?.presentedViewController?.dismiss(animated: true, completion: nil)
     vc?.present(alertController, animated: true)
   }
 }

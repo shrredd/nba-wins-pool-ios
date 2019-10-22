@@ -159,24 +159,24 @@ class Backend {
     components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
     var request = URLRequest(url: components.url!)
     request.httpBody = body
-    request.cachePolicy = .reloadIgnoringLocalCacheData
     request.httpMethod = httpMethod
     if let headerFields = fields {
       for (key, value) in headerFields {
         request.addValue(value, forHTTPHeaderField: key)
       }
     }
-    
-    let task = self.session.dataTask(with: request) { (data, response, error) in
+    print("sending request=\(request)")
+    let task = session.dataTask(with: request) { (data, response, error) in
+      let success = ((response as? HTTPURLResponse)?.statusCode.isIn200s() ?? true) && error == nil
       DispatchQueue.main.async {
         if let e = error {
           print(e)
         }
         
-        let success = ((response as? HTTPURLResponse)?.statusCode.isIn200s() ?? true) && error == nil
-        if !success, let d = data, let string = String(data: d, encoding: .utf8), string != "" {
+        if !success, let d = data, let string = String(data: d, encoding: .utf8), !string.isEmpty {
           UIAlertController.alertOK(title: "Request Failed", message: string)
         }
+        print("received response=\(response?.description ?? "nil")")
         completion(success, data)
       }
     }
