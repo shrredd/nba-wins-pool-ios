@@ -207,7 +207,7 @@ extension Team {
     case .timberwolves:
       return "Minnesota Timberwolves"
     case .pelicans:
-      return "New Orleans Pelians"
+      return "New Orleans Pelicans"
     case .knicks:
       return "New York Knicks"
     case .thunder:

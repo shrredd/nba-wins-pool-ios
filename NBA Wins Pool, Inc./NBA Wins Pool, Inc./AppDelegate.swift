@@ -23,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIApplication.shared.statusBarStyle = .default
     
     BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: nil) { task in
-      self.scheduleAppRefresh()
       Teams.shared.getStandings { (success) in
         task.setTaskCompleted(success: success)
       }
+      self.scheduleAppRefresh()
     }
     
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
@@ -93,6 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func applicationWillResignActive(_ application: UIApplication) {
     standingsTimer?.invalidate()
+  }
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    scheduleAppRefresh()
   }
 }
 
