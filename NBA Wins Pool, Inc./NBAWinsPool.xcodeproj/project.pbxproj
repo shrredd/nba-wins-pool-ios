@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		31A311453C43CBB71EBBC1AF /* Pods_Wins_Pool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75570500938C4ABA06283664 /* Pods_Wins_Pool.framework */; };
+		7BCAC626219E6B7500751200 /* NBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCAC625219E6B7500751200 /* NBA.swift */; };
+		7BED390A2585A5B6001C9ABB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BED39092585A5B6001C9ABB /* GoogleService-Info.plist */; };
+		7BED3A062586EF25001C9ABB /* AuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED3A042586EF25001C9ABB /* AuthPickerViewController.swift */; };
+		7BED3A072586EF25001C9ABB /* AuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BED3A052586EF25001C9ABB /* AuthPickerViewController.xib */; };
+		7BED3A5925871B47001C9ABB /* FirebaseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED3A5825871B47001C9ABB /* FirebaseInterface.swift */; };
+		C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21483671DA9CCB3005ED687 /* DraftViewController.swift */; };
+		C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C21483681DA9CCB3005ED687 /* DraftViewController.xib */; };
+		C214836E1DA9D001005ED687 /* DraftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */; };
+		C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */; };
+		C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF64C1D8DD71B00008CBB /* Colors.swift */; };
+		C22CF6511D8DF07F00008CBB /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22CF6501D8DF07F00008CBB /* MemberTableViewCell.swift */; };
+		C2370B851DAB159D00BD4F2B /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */; };
+		C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */; };
+		C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53B1D7BF66800BF5EFF /* Main.storyboard */; };
+		C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */; };
+		C26DB5421D7BF66800BF5EFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */; };
+		C26DB54D1D7BF67A00BF5EFF /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB54A1D7BF67A00BF5EFF /* Teams.swift */; };
+		C26DB54E1D7BF67A00BF5EFF /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DB54B1D7BF67A00BF5EFF /* Team.swift */; };
+		C274E8511DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */; };
+		C2784BC21D950D5600C6DA1F /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BC11D950D5600C6DA1F /* Member.swift */; };
+		C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2784BD11D9662F000C6DA1F /* AlertExtension.swift */; };
+		C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */; };
+		C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B51D7BF81E0062D5FF /* Pool.swift */; };
+		C2A343B81D7C01220062D5FF /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B71D7C01220062D5FF /* MembersViewController.swift */; };
+		C2A343BA1D7C05F40062D5FF /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A343B91D7C05F40062D5FF /* CreateViewController.swift */; };
+		C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */; };
+		C2EF2C131DAB180E00EA63B6 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */; };
+		C2EF2C141DAB180E00EA63B6 /* PickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */; };
+		C2EF2C161DAB1A5E00EA63B6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */; };
+		C2EF2CB51DB0B2EA00EA63B6 /* TeamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF2CB41DB0B2EA00EA63B6 /* TeamsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		75570500938C4ABA06283664 /* Pods_Wins_Pool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wins_Pool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B67EBC62367A50E00F80013 /* Wins Pool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Wins Pool.entitlements"; sourceTree = "<group>"; };
+		7BCAC625219E6B7500751200 /* NBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBA.swift; sourceTree = "<group>"; };
+		7BED39092585A5B6001C9ABB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BED3A042586EF25001C9ABB /* AuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPickerViewController.swift; sourceTree = "<group>"; };
+		7BED3A052586EF25001C9ABB /* AuthPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthPickerViewController.xib; sourceTree = "<group>"; };
+		7BED3A5825871B47001C9ABB /* FirebaseInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseInterface.swift; sourceTree = "<group>"; };
+		7C065481488F5DEBDC016028 /* Pods-Wins Pool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wins Pool.release.xcconfig"; path = "Target Support Files/Pods-Wins Pool/Pods-Wins Pool.release.xcconfig"; sourceTree = "<group>"; };
+		C21483671DA9CCB3005ED687 /* DraftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftViewController.swift; sourceTree = "<group>"; };
+		C21483681DA9CCB3005ED687 /* DraftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftViewController.xib; sourceTree = "<group>"; };
+		C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraftTableViewCell.swift; sourceTree = "<group>"; };
+		C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraftTableViewCell.xib; sourceTree = "<group>"; };
+		C22CF64C1D8DD71B00008CBB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C22CF6501D8DF07F00008CBB /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		C26DB5341D7BF66800BF5EFF /* Wins Pool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wins Pool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C26DB53C1D7BF66800BF5EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C26DB5411D7BF66800BF5EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C26DB5431D7BF66800BF5EFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C26DB54A1D7BF67A00BF5EFF /* Teams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
+		C26DB54B1D7BF67A00BF5EFF /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenterExtension.swift; sourceTree = "<group>"; };
+		C2784BC11D950D5600C6DA1F /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		C2784BD11D9662F000C6DA1F /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
+		C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolsViewController.swift; sourceTree = "<group>"; };
+		C2A343B51D7BF81E0062D5FF /* Pool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
+		C2A343B71D7C01220062D5FF /* MembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		C2A343B91D7C05F40062D5FF /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		C2A771F11D84E4CB00B2DC13 /* Backend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolTableViewCell.swift; sourceTree = "<group>"; };
+		C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
+		C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickViewController.xib; sourceTree = "<group>"; };
+		C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		C2EF2CB41DB0B2EA00EA63B6 /* TeamsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamsViewController.swift; sourceTree = "<group>"; };
+		FD96963F9DFEA074CD3CF413 /* Pods-Wins Pool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wins Pool.debug.xcconfig"; path = "Target Support Files/Pods-Wins Pool/Pods-Wins Pool.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C26DB5311D7BF66800BF5EFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31A311453C43CBB71EBBC1AF /* Pods_Wins_Pool.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		88B1953D9B85A8731955CF77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75570500938C4ABA06283664 /* Pods_Wins_Pool.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C214836B1DA9CF98005ED687 /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				C21483671DA9CCB3005ED687 /* DraftViewController.swift */,
+				C21483681DA9CCB3005ED687 /* DraftViewController.xib */,
+				C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */,
+				C214836D1DA9D001005ED687 /* DraftTableViewCell.xib */,
+				C2EF2C111DAB180E00EA63B6 /* PickViewController.swift */,
+				C2EF2C121DAB180E00EA63B6 /* PickViewController.xib */,
+			);
+			name = Draft;
+			sourceTree = "<group>";
+		};
+		C22CF64E1D8DF04F00008CBB /* Pools */ = {
+			isa = PBXGroup;
+			children = (
+				C2A343B51D7BF81E0062D5FF /* Pool.swift */,
+				C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */,
+				C2A771F31D85052500B2DC13 /* PoolTableViewCell.swift */,
+				C2A343B91D7C05F40062D5FF /* CreateViewController.swift */,
+			);
+			name = Pools;
+			sourceTree = "<group>";
+		};
+		C22CF64F1D8DF06600008CBB /* Members */ = {
+			isa = PBXGroup;
+			children = (
+				C2784BC11D950D5600C6DA1F /* Member.swift */,
+				C2A343B71D7C01220062D5FF /* MembersViewController.swift */,
+				C22CF6501D8DF07F00008CBB /* MemberTableViewCell.swift */,
+			);
+			name = Members;
+			sourceTree = "<group>";
+		};
+		C26DB52B1D7BF66800BF5EFF = {
+			isa = PBXGroup;
+			children = (
+				7B67EBC62367A50E00F80013 /* Wins Pool.entitlements */,
+				C26DB5361D7BF66800BF5EFF /* NBAWinsPool */,
+				C26DB5351D7BF66800BF5EFF /* Products */,
+				CDABED39B685F59B333CAC85 /* Pods */,
+				88B1953D9B85A8731955CF77 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C26DB5351D7BF66800BF5EFF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C26DB5341D7BF66800BF5EFF /* Wins Pool.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C26DB5361D7BF66800BF5EFF /* NBAWinsPool */ = {
+			isa = PBXGroup;
+			children = (
+				C26DB5371D7BF66800BF5EFF /* AppDelegate.swift */,
+				C22CF64E1D8DF04F00008CBB /* Pools */,
+				C22CF64F1D8DF06600008CBB /* Members */,
+				C214836B1DA9CF98005ED687 /* Draft */,
+				C2EF2CB31DB0AEF300EA63B6 /* Teams */,
+				C2A771F11D84E4CB00B2DC13 /* Backend.swift */,
+				7BED3A5825871B47001C9ABB /* FirebaseInterface.swift */,
+				7BCAC625219E6B7500751200 /* NBA.swift */,
+				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
+				C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */,
+				C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */,
+				7BED3A042586EF25001C9ABB /* AuthPickerViewController.swift */,
+				7BED3A052586EF25001C9ABB /* AuthPickerViewController.xib */,
+				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
+				C2370B841DAB159D00BD4F2B /* UINavigationControllerExtension.swift */,
+				C2EF2C151DAB1A5E00EA63B6 /* UIViewExtension.swift */,
+				C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */,
+				C26DB53B1D7BF66800BF5EFF /* Main.storyboard */,
+				C26DB53E1D7BF66800BF5EFF /* Assets.xcassets */,
+				C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */,
+				C26DB5431D7BF66800BF5EFF /* Info.plist */,
+				7BED39092585A5B6001C9ABB /* GoogleService-Info.plist */,
+			);
+			path = NBAWinsPool;
+			sourceTree = "<group>";
+		};
+		C2EF2CB31DB0AEF300EA63B6 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				C26DB54A1D7BF67A00BF5EFF /* Teams.swift */,
+				C26DB54B1D7BF67A00BF5EFF /* Team.swift */,
+				C2EF2CB41DB0B2EA00EA63B6 /* TeamsViewController.swift */,
+			);
+			name = Teams;
+			sourceTree = "<group>";
+		};
+		CDABED39B685F59B333CAC85 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FD96963F9DFEA074CD3CF413 /* Pods-Wins Pool.debug.xcconfig */,
+				7C065481488F5DEBDC016028 /* Pods-Wins Pool.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C26DB5331D7BF66800BF5EFF /* Wins Pool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C26DB5461D7BF66800BF5EFF /* Build configuration list for PBXNativeTarget "Wins Pool" */;
+			buildPhases = (
+				A0FC7E105E9F9BC703E72B5F /* [CP] Check Pods Manifest.lock */,
+				C26DB5301D7BF66800BF5EFF /* Sources */,
+				C26DB5311D7BF66800BF5EFF /* Frameworks */,
+				C26DB5321D7BF66800BF5EFF /* Resources */,
+				DFBE86CAEAFD21313D722873 /* [CP] Embed Pods Frameworks */,
+				E45FF6BAFCE086A70160CD79 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Wins Pool";
+			productName = "NBA Wins Pool, Inc.";
+			productReference = C26DB5341D7BF66800BF5EFF /* Wins Pool.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C26DB52C1D7BF66800BF5EFF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 1220;
+				ORGANIZATIONNAME = "NBA Wins Pool, Inc.";
+				TargetAttributes = {
+					C26DB5331D7BF66800BF5EFF = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = VNMF7PAN38;
+						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C26DB52F1D7BF66800BF5EFF /* Build configuration list for PBXProject "NBAWinsPool" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C26DB52B1D7BF66800BF5EFF;
+			productRefGroup = C26DB5351D7BF66800BF5EFF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C26DB5331D7BF66800BF5EFF /* Wins Pool */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C26DB5321D7BF66800BF5EFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BED390A2585A5B6001C9ABB /* GoogleService-Info.plist in Resources */,
+				C214836F1DA9D001005ED687 /* DraftTableViewCell.xib in Resources */,
+				C26DB5421D7BF66800BF5EFF /* LaunchScreen.storyboard in Resources */,
+				C26DB53F1D7BF66800BF5EFF /* Assets.xcassets in Resources */,
+				C2EF2C141DAB180E00EA63B6 /* PickViewController.xib in Resources */,
+				C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */,
+				7BED3A072586EF25001C9ABB /* AuthPickerViewController.xib in Resources */,
+				C26DB53D1D7BF66800BF5EFF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A0FC7E105E9F9BC703E72B5F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Wins Pool-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFBE86CAEAFD21313D722873 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wins Pool/Pods-Wins Pool-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseFirestore/FirebaseFirestore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseFirestoreSwift/FirebaseFirestoreSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/abseil/absl.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseFirestore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseFirestoreSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/absl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wins Pool/Pods-Wins Pool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E45FF6BAFCE086A70160CD79 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Wins Pool/Pods-Wins Pool-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseEmailAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseEmailAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Wins Pool/Pods-Wins Pool-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C26DB5301D7BF66800BF5EFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2A343BA1D7C05F40062D5FF /* CreateViewController.swift in Sources */,
+				C22CF64D1D8DD71B00008CBB /* Colors.swift in Sources */,
+				C214836E1DA9D001005ED687 /* DraftTableViewCell.swift in Sources */,
+				C2A343B21D7BF7840062D5FF /* PoolsViewController.swift in Sources */,
+				C2A343B81D7C01220062D5FF /* MembersViewController.swift in Sources */,
+				C2370B851DAB159D00BD4F2B /* UINavigationControllerExtension.swift in Sources */,
+				C26DB5381D7BF66800BF5EFF /* AppDelegate.swift in Sources */,
+				C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */,
+				C2784BC21D950D5600C6DA1F /* Member.swift in Sources */,
+				C22CF6511D8DF07F00008CBB /* MemberTableViewCell.swift in Sources */,
+				C2EF2CB51DB0B2EA00EA63B6 /* TeamsViewController.swift in Sources */,
+				C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */,
+				7BCAC626219E6B7500751200 /* NBA.swift in Sources */,
+				C274E8511DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift in Sources */,
+				7BED3A062586EF25001C9ABB /* AuthPickerViewController.swift in Sources */,
+				C2784BD21D9662F000C6DA1F /* AlertExtension.swift in Sources */,
+				C2A343B61D7BF81E0062D5FF /* Pool.swift in Sources */,
+				C2EF2C131DAB180E00EA63B6 /* PickViewController.swift in Sources */,
+				C2EF2C161DAB1A5E00EA63B6 /* UIViewExtension.swift in Sources */,
+				C26DB54E1D7BF67A00BF5EFF /* Team.swift in Sources */,
+				7BED3A5925871B47001C9ABB /* FirebaseInterface.swift in Sources */,
+				C26DB54D1D7BF67A00BF5EFF /* Teams.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C26DB53B1D7BF66800BF5EFF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C26DB53C1D7BF66800BF5EFF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C26DB5401D7BF66800BF5EFF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C26DB5411D7BF66800BF5EFF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C26DB5441D7BF66800BF5EFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C26DB5451D7BF66800BF5EFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C26DB5471D7BF66800BF5EFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD96963F9DFEA074CD3CF413 /* Pods-Wins Pool.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Wins Pool.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = VNMF7PAN38;
+				INFOPLIST_FILE = NBAWinsPool/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnbj.winspool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C26DB5481D7BF66800BF5EFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C065481488F5DEBDC016028 /* Pods-Wins Pool.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Wins Pool.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = VNMF7PAN38;
+				INFOPLIST_FILE = NBAWinsPool/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnbj.winspool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C26DB52F1D7BF66800BF5EFF /* Build configuration list for PBXProject "NBAWinsPool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C26DB5441D7BF66800BF5EFF /* Debug */,
+				C26DB5451D7BF66800BF5EFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C26DB5461D7BF66800BF5EFF /* Build configuration list for PBXNativeTarget "Wins Pool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C26DB5471D7BF66800BF5EFF /* Debug */,
+				C26DB5481D7BF66800BF5EFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C26DB52C1D7BF66800BF5EFF /* Project object */;
+}
