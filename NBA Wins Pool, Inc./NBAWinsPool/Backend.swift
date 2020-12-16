@@ -28,68 +28,6 @@ class Backend {
     self.session = URLSession(configuration: config)
   }
   
-  // MARK: user creation and authentication
-  
-  func createUser(username: String, password: String, email: String, completion: @escaping (Bool, User?) -> Void) {
-    let JSONObject: [String : Any] = [userName : username,
-                                      userPassword : password,
-                                      userEmail : email]
-    uploadJSON(host: poolHost, endPoint: accounts, JSONObject: JSONObject, completion: completion)
-  }
-  
-  func authenticateUser(username: String, password: String, completion: @escaping (Bool, User.Token?) -> Void) {
-    let JSONObject = [userName : username as Any,
-                      userPassword : password as Any]
-    uploadJSON(host: poolHost, endPoint: auth, JSONObject: JSONObject, completion: completion)
-  }
-  
-  func getUserDetails(username: String, token: String, completion: @escaping (Bool, User?) -> Void) {
-    request(host: poolHost, endPoint: accounts + username + "/",
-                fields: ["Authorization" : "Token " + token], completion: completion)
-  }
-  
-  // MARK: pool backend
-  
-  func createPool(name: String, size: String, username: String, completion: @escaping (Bool, Pool?) -> Void) {
-    let members = [username]
-    let JSONObject = ["name" : name as Any,
-                      "max_size" : size as Any,
-                      "members" : members as Any]
-    
-    uploadJSON(host: poolHost, endPoint: "pools/", JSONObject: JSONObject, completion: completion)
-  }
-  
-  func getPools(username: String, token: String, completion: @escaping (Bool, [Pool]?) -> Void) {
-    request(host: poolHost, endPoint: username + "/pools/",
-            fields: ["Authorization" : "Token " + token], completion: completion)
-  }
-  
-  func joinPool(id: Int, username: String, token: String, completion: @escaping (Bool, Pool?) -> Void) {
-    let JSONObject = ["username" : username as Any]
-    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(id)/members/",
-      fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
-  }
-  //  http://localhost:3000/api/v1/pools/42/members/
-  func leavePool(id: Int, token: String, completion: @escaping (Bool) -> Void) {
-    request(httpMethod: "DELETE", host: poolHost, endPoint: "pools/\(id)/members/", fields: ["Authorization" : "Token " + token]) { (success, data) in
-      completion(success)
-    }
-  }
-  
-  func getPoolWithId(_ id: Int, completion: @escaping (Bool, Pool?) -> Void) {
-    request(host: poolHost, endPoint: "pools/\(id)", completion: completion)
-  }
-  
-  func getPicksForPoolId(_ id: Int, completion: @escaping (Bool, [Pool.Pick]?) -> Void) {
-    request(host: poolHost, endPoint: "pools/\(id)/draft/", completion: completion)
-  }
-  
-  func pickTeamWithId(_ teamId: String, forPoolWithId poolId: Int, token: String, completion: @escaping (Bool, [Pool.Pick]?) -> Void) {
-    let JSONObject = ["team_id" : teamId as Any]
-    uploadJSON(httpMethod: "PUT", host: poolHost, endPoint: "pools/\(poolId)/draft/",
-      fields: ["Authorization" : "Token " + token], JSONObject: JSONObject, completion: completion)
-  }
-  
   // MARK: helper functions
   
   func uploadJSON<T: Decodable>(httpMethod: String = "POST",

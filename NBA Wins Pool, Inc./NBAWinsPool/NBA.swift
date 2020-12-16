@@ -69,11 +69,10 @@ class NBA {
   }
   
   func getStandings(completion: @escaping (Bool, Standings?) -> Void) {
-    // TODO: fixme
-//    Backend.shared.request(host: "http://data.nba.net/10s/",
-//                           endPoint: "prod/v1/current/standings_conference.json",
-//                           parameters: ["fbclid" : "IwAR3HPj4FIv_fRQk6DSW2VvzE8hn_WrNLLGa9I5uQRpPAgcEwRGP6fWeyBTg"],
-//                           completion: completion)
+    Backend.shared.request(host: "http://data.nba.net/10s/",
+                           endPoint: "prod/v1/current/standings_conference.json",
+                           parameters: ["fbclid" : "IwAR3HPj4FIv_fRQk6DSW2VvzE8hn_WrNLLGa9I5uQRpPAgcEwRGP6fWeyBTg"],
+                           completion: completion)
   }
 }
 

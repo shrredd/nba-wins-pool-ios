@@ -13,6 +13,7 @@
 		7BED3A062586EF25001C9ABB /* AuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED3A042586EF25001C9ABB /* AuthPickerViewController.swift */; };
 		7BED3A072586EF25001C9ABB /* AuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BED3A052586EF25001C9ABB /* AuthPickerViewController.xib */; };
 		7BED3A5925871B47001C9ABB /* FirebaseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED3A5825871B47001C9ABB /* FirebaseInterface.swift */; };
+		7BED3B7F2589A9A5001C9ABB /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A771F11D84E4CB00B2DC13 /* Backend.swift */; };
 		C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21483671DA9CCB3005ED687 /* DraftViewController.swift */; };
 		C214836A1DA9CCB3005ED687 /* DraftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C21483681DA9CCB3005ED687 /* DraftViewController.xib */; };
 		C214836E1DA9D001005ED687 /* DraftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214836C1DA9D001005ED687 /* DraftTableViewCell.swift */; };
@@ -66,8 +67,6 @@
 		C26DB54B1D7BF67A00BF5EFF /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		C274E8501DC5AEFF0050AC0F /* UNUserNotificationCenterExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenterExtension.swift; sourceTree = "<group>"; };
 		C2784BC11D950D5600C6DA1F /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		C2784BD11D9662F000C6DA1F /* AlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		C2A343B11D7BF7840062D5FF /* PoolsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoolsViewController.swift; sourceTree = "<group>"; };
 		C2A343B51D7BF81E0062D5FF /* Pool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
@@ -167,8 +166,6 @@
 				7BED3A5825871B47001C9ABB /* FirebaseInterface.swift */,
 				7BCAC625219E6B7500751200 /* NBA.swift */,
 				C22CF64C1D8DD71B00008CBB /* Colors.swift */,
-				C2784BCD1D9642F300C6DA1F /* LoginViewController.swift */,
-				C2784BCE1D9642F300C6DA1F /* LoginViewController.xib */,
 				7BED3A042586EF25001C9ABB /* AuthPickerViewController.swift */,
 				7BED3A052586EF25001C9ABB /* AuthPickerViewController.xib */,
 				C2784BD11D9662F000C6DA1F /* AlertExtension.swift */,
@@ -238,7 +235,7 @@
 				TargetAttributes = {
 					C26DB5331D7BF66800BF5EFF = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = VNMF7PAN38;
+						DevelopmentTeam = PB64TVTV9M;
 						LastSwiftMigration = 1110;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -402,6 +399,7 @@
 				C21483691DA9CCB3005ED687 /* DraftViewController.swift in Sources */,
 				C2784BC21D950D5600C6DA1F /* Member.swift in Sources */,
 				C22CF6511D8DF07F00008CBB /* MemberTableViewCell.swift in Sources */,
+				7BED3B7F2589A9A5001C9ABB /* Backend.swift in Sources */,
 				C2EF2CB51DB0B2EA00EA63B6 /* TeamsViewController.swift in Sources */,
 				C2A771F41D85052500B2DC13 /* PoolTableViewCell.swift in Sources */,
 				7BCAC626219E6B7500751200 /* NBA.swift in Sources */,
@@ -563,9 +561,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
-				DEVELOPMENT_TEAM = VNMF7PAN38;
+				DEVELOPMENT_TEAM = PB64TVTV9M;
 				INFOPLIST_FILE = NBAWinsPool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.0;
@@ -586,9 +584,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
-				DEVELOPMENT_TEAM = VNMF7PAN38;
+				DEVELOPMENT_TEAM = PB64TVTV9M;
 				INFOPLIST_FILE = NBAWinsPool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.0;
