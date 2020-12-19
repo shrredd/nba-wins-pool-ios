@@ -45,30 +45,6 @@ struct Pool: Codable {
   }
 }
 
-//if oldValue != members {
-//  if let old = oldValue, let new = members, let newMember = Set(new).subtracting(old).first {
-//    let message = old.count == new.count ? "The draft has begun..." : "Tell your other friends to hurry up!"
-//    UIAlertController.alertOK(title: "\(newMember) joined \(name)!", message: message)
-//  }
-//}
-
-//if oldValue != picks {
-//  if let old = oldValue, let new = picks, old.filter({ $0.team != nil }).count != new.filter({$0.team != nil}).count {
-//    var message = "The draft is over. Good luck!"
-//    var pickedTeamName: String?
-//    var userWhoPicked: String?
-//    for pick in picksSortedByDraftNumber {
-//      if pick.team == nil {
-//        message = "It's \(pick.user == User.shared ? "your" : "\(pick.user.username)'s") pick!"
-//        break
-//      }
-//      pickedTeamName = pick.getTeam()?.name
-//      userWhoPicked = pick.user == User.shared ? "You" : pick.user.username
-//    }
-//    UIAlertController.alertOK(title: "\(userWhoPicked ?? "?") picked the \(pickedTeamName ?? "?")!", message: message)
-//  }
-//}
-
 extension Pool {
   static let sizeToDraftOrder = [
     2: [1, 2, 2, 1, 2, 1, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 1, 2, 1],

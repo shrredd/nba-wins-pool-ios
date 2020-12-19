@@ -84,18 +84,6 @@ class Team: Codable {
   }
 }
 
-//if let old = oldValue, let new = record {
-//  if let member = Member.currentMember {
-//    for pool in Pools.shared.pools {
-//      if pool.teamsForMember(member).contains(self) {
-//        let winning = (new.wins - old.wins) > (new.losses - old.losses)
-//        UNUserNotificationCenter.addNotificationForTeam(self, winning: winning)
-//        break
-//      }
-//    }
-//  }
-//}
-
 extension Team.Id: CaseIterable {}
 extension Team.Id: Codable {}
 
@@ -233,61 +221,61 @@ extension Team {
   var emoji: String {
     switch id {
     case .hawks:
-      return "🎰"
+      return "🕊"
     case .celtics:
-      return "🇺🇸"
+      return "🧑🏾‍🦽"
     case .nets:
-      return "⏳"
+      return "♟️"
     case .hornets:
-      return "🚽"
+      return "🐝"
     case .bulls:
-      return "🐄"
+      return "🧻"
     case .cavaliers:
       return "⚰️"
     case .mavericks:
-      return "👯‍♂️"
+      return "⛹️‍♂️"
     case .nuggets:
       return "🃏"
     case .pistons:
-      return "🚙"
-    case .warriors:
-      return "🚑"
-    case .rockets:
-      return "🚀"
-    case .pacers:
-      return "🚶‍♂️"
-    case .clippers:
-      return "💾"
-    case .lakers:
-      return "🇨🇳"
-    case .grizzlies:
       return "💩"
+    case .warriors:
+      return "🪦"
+    case .rockets:
+      return "🦿"
+    case .pacers:
+      return "🧖‍♂️"
+    case .clippers:
+      return "🧱"
+    case .lakers:
+      return "🏆"
+    case .grizzlies:
+      return "🧸"
     case .heat:
       return "🔥"
     case .bucks:
-      return "🦌"
+      return "🏺"
     case .timberwolves:
       return "🥔"
     case .pelicans:
-      return "🙏🏿"
+      return "🦤"
     case .knicks:
       return "🤡"
     case .thunder:
-      return "🏚"
+      return "🎰"
     case .magic:
-      return "🧞‍♂️"
+      return "🪄"
     case .sixers:
-      return "🔔"
+      return "🫂"
     case .suns:
-      return "🗑"
+      return "☀️"
     case .blazers:
-      return "🌲"
+      return "🪵"
     case .kings:
       return "🕳"
     case .spurs:
-      return "🌵"
+      return "🏚"
     case .raptors:
-      return "🏆"
+      return "🧣"
     case .jazz:
       return "🎷"
     case .wizards:

@@ -40,6 +40,7 @@ class MembersViewController: UITableViewController {
     listener = FirebaseInterface.addPoolListener(id: pool.id) { (updatedPool, error) in
       guard let p = updatedPool else { return }
       self.pool = p
+      UNUserNotificationCenter.addDraftPickNotification(pool: p)
       self.reloadData()
     }
   }

@@ -60,37 +60,55 @@ class Teams {
         return
       }
       
-      // update standings
-      var standings = s.league.standard.conference.east
-      standings.append(contentsOf: s.league.standard.conference.west)
-      standings.filter { $0.toTeamId() != nil }.forEach {
-        let id = $0.toTeamId()!
-        let record = Record(wins: $0.wins, losses: $0.losses)
-        self?.updateTeamWithId(id, record: record)
-      }
-      
       guard let member = Member.currentMember else {
         completion?(true)
         return
       }
       
-//      let pools = Pools.shared.pools
-//
-//      // save rankings
-//      var poolRankings = [String : Int]()
-//      for pool in pools {
-//        let sortedMembers = pool.membersSortedByWinPercentage
-//        poolRankings[pool.id] = sortedMembers.firstIndex(of: member)
-//      }
-//
-//      // check for changes in rankings
-//      for pool in pools {
-//        let members = pool.membersSortedByWinPercentage
-//        if let newRank = members.firstIndex(of: member), let oldRank = poolRankings[pool.id], newRank != oldRank {
-//          UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
-//        }
-//      }
-      completion?(true)
+      FirebaseInterface.getPools(member: member) { (result, error) in
+        let pools = result ?? []
+        let completePools = pools.filter { $0.isComplete }
+        completePools.forEach { UNUserNotificationCenter.addDraftPickNotification(pool: $0) }
+        
+        // save rankings
+        var poolRankings = [String : Int]()
+        for pool in completePools {
+          let sortedMembers = pool.membersSortedByWinPercentage
+          poolRankings[pool.id] = sortedMembers.firstIndex(of: member)
+        }
+        
+        // update standings
+        var standings = s.league.standard.conference.east
+        standings.append(contentsOf: s.league.standard.conference.west)
+        standings
+          .filter { $0.toTeamId() != nil }
+          .forEach {
+            let id = $0.toTeamId()!
+            let record = Record(wins: $0.wins, losses: $0.losses)
+            
+            // add notification for change in team record
+            if let team = self?.idToTeam[id.rawValue], let oldRecord = team.record, oldRecord != record {
+              for pool in completePools {
+                if pool.teamsForMember(member).contains(team) {
+                  let isWinning = (record.wins - oldRecord.wins) > (record.losses - oldRecord.losses)
+                  UNUserNotificationCenter.addNotificationForTeam(team, winning: isWinning)
+                  break
+                }
+              }
+            }
+            self?.updateTeamWithId(id, record: record)
+          }
+
+        // check for changes in rankings
+        for pool in completePools {
+          let members = pool.membersSortedByWinPercentage
+          if let newRank = members.firstIndex(of: member), let oldRank = poolRankings[pool.id], newRank != oldRank {
+            UNUserNotificationCenter.addNotificationForPool(pool, rank: newRank + 1, rising: newRank < oldRank)
+          }
+        }
+        
+        completion?(true)
+      }
     }
   }
 }

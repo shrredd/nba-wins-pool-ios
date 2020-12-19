@@ -159,15 +159,27 @@ struct FirebaseInterface {
   }
   
   static func addPoolsListener(member: Member, update: @escaping ([Pool]?, Error?) -> Void) -> ListenerRegistration {
-    return db.collection("pools").whereField("idToMember.\(member.id)", isEqualTo: ["id": member.id, "name": member.name])
-      .addSnapshotListener { (querySnapshot, error) in
-        if error != nil {
-          update(nil, error)
-          return
-        }
-        let pools = querySnapshot?.documents.compactMap { try? $0.data(as: Pool.self) }
-        update(pools, error)
+    let query = db.collection("pools").whereField("idToMember.\(member.id)", isEqualTo: ["id": member.id, "name": member.name])
+    return query.addSnapshotListener { (querySnapshot, error) in
+      if error != nil {
+        update(nil, error)
+        return
       }
+      let pools = querySnapshot?.documents.compactMap { try? $0.data(as: Pool.self) }
+      update(pools, error)
+    }
+  }
+  
+  static func getPools(member: Member, completion: @escaping ([Pool]?, Error?) -> Void) {
+    let query = db.collection("pools").whereField("idToMember.\(member.id)", isEqualTo: ["id": member.id, "name": member.name])
+    query.getDocuments { (querySnapshot, error) in
+      if error != nil {
+        completion(nil, error)
+        return
+      }
+      let pools = querySnapshot?.documents.compactMap { try? $0.data(as: Pool.self) }
+      completion(pools, error)
+    }
   }
   
 }

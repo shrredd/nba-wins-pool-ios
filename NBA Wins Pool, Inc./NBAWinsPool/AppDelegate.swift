@@ -35,10 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIApplication.shared.statusBarStyle = .default
     
     BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: nil) { task in
-      Teams.shared.getStandings { (success) in
-        task.setTaskCompleted(success: success)
-      }
-      self.scheduleAppRefresh()
+      self.handleAppRefresh(task: task as! BGAppRefreshTask)
     }
     
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
@@ -50,14 +47,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(e)
       }
     }
+    UNUserNotificationCenter.current().delegate = self
     
     Teams.shared.getStandings()
     return true
   }
   
+  func handleAppRefresh(task: BGAppRefreshTask) {
+    scheduleAppRefresh()
+    Teams.shared.getStandings { (success) in
+      task.setTaskCompleted(success: success)
+    }
+  }
+  
   func scheduleAppRefresh() {
     let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
-    request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 10)
+    request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 2)
     
     do {
       try BGTaskScheduler.shared.submit(request)
@@ -123,5 +128,11 @@ extension AppDelegate: FUIAuthDelegate {
   func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
     let viewController = AuthPickerViewController(nibName: "AuthPickerViewController", bundle: nil, authUI: authUI)
     return viewController
+  }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+  func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    completionHandler([.alert, .badge, .sound])
   }
 }

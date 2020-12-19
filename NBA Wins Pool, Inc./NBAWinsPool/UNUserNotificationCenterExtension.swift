@@ -24,13 +24,22 @@ extension UNUserNotificationCenter {
   static func addNotificationForTeam(_ team: Team, winning: Bool) {
     addNotification(id: team.id.rawValue,
                     title: "The \(team.name) \(winning ? "Won!" : "Lost :(")",
-      body: "Their record is now \(team.record?.asString ?? "a mystery").")
+                    body: "Their record is now \(team.record?.asString ?? "a mystery").")
   }
   
   static func addNotificationForPool(_ pool: Pool, rank: Int, rising: Bool) {
-    addNotification(id: "\(pool.id)",
-      title: "\(rising ? "You're moving up" : "Uh oh, you got passed") in \(pool.name)",
-      body: "Your rank in \(pool.name) is now \(rank)")
+    addNotification(id: pool.id,
+                    title: "\(rising ? "You're moving up" : "Uh oh, you got passed") in \(pool.name)",
+                    body: "Your rank in \(pool.name) is now \(rank).")
   }
   
+  static func addDraftPickNotification(pool: Pool) {
+//    guard let member = Member.currentMember,
+//          let pick = pool.currentPick,
+//          pick.member == member else { return }
+//    addNotification(id: "\(pool.id).\(pick.number)",
+//                    title: "It's your pick!",
+//                    body: "Time to make your selection with pick \(pick.number) in \(pool.name).")
+  }
 }
+

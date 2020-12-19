@@ -47,6 +47,7 @@ class DraftViewController: UITableViewController {
     listener = FirebaseInterface.addPoolListener(id: pool.id, update: { (updatedPool, error) in
       guard let p = updatedPool else { return }
       self.pool = p
+      UNUserNotificationCenter.addDraftPickNotification(pool: p)
       self.reloadData()
     })
   }
