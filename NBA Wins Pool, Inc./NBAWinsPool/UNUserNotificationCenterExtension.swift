@@ -21,10 +21,10 @@ extension UNUserNotificationCenter {
     }
   }
   
-  static func addNotificationForTeam(_ team: Team, winning: Bool) {
+  static func addNotificationForTeam(_ team: Team, record: Record, winning: Bool) {
     addNotification(id: team.id.rawValue,
                     title: "The \(team.name) \(winning ? "Won!" : "Lost :(")",
-                    body: "Their record is now \(team.record?.asString ?? "a mystery").")
+                    body: "Their record is now \(record.asString).")
   }
   
   static func addNotificationForPool(_ pool: Pool, rank: Int, rising: Bool) {

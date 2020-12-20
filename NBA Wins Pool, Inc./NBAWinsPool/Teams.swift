@@ -91,7 +91,7 @@ class Teams {
               for pool in completePools {
                 if pool.teamsForMember(member).contains(team) {
                   let isWinning = (record.wins - oldRecord.wins) > (record.losses - oldRecord.losses)
-                  UNUserNotificationCenter.addNotificationForTeam(team, winning: isWinning)
+                  UNUserNotificationCenter.addNotificationForTeam(team, record:record, winning: isWinning)
                   break
                 }
               }

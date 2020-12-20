@@ -54,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func handleAppRefresh(task: BGAppRefreshTask) {
-    UNUserNotificationCenter.addNotification(id: "test", title: "test", body: "test")
     scheduleAppRefresh()
     Teams.shared.getStandings { (success) in
       task.setTaskCompleted(success: success)
