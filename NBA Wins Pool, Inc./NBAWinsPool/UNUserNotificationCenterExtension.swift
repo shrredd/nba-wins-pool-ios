@@ -34,12 +34,16 @@ extension UNUserNotificationCenter {
   }
   
   static func addDraftPickNotification(pool: Pool) {
-//    guard let member = Member.currentMember,
-//          let pick = pool.currentPick,
-//          pick.member == member else { return }
-//    addNotification(id: "\(pool.id).\(pick.number)",
-//                    title: "It's your pick!",
-//                    body: "Time to make your selection with pick \(pick.number) in \(pool.name).")
+    guard let member = Member.currentMember,
+          let pick = pool.currentPick,
+          pick.didNotifyMember != true,
+          pick.member == member else { return }
+    FirebaseInterface.didNotifyTurn(member: member, poolId: pool.id, pickNumber: pick.number) { (error) in
+      guard error == nil else { return }
+      addNotification(id: "\(pool.id).\(pick.number)",
+                      title: "It's your pick at number \(pick.number) in \(pool.name)!",
+                      body: "Don't pick a 💩 team ;)")
+    }
   }
 }
 

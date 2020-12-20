@@ -182,6 +182,13 @@ struct FirebaseInterface {
     }
   }
   
+  static func didNotifyTurn(member: Member, poolId id: String, pickNumber number: Int, completion: @escaping (Error?) -> Void) {
+    db.collection("pools").document(id).updateData([
+      "numberToPick.\(number).didNotifyMember" : true
+    ],
+    completion: completion)
+  }
+  
 }
 
 extension Encodable {

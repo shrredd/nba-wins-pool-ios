@@ -14,6 +14,7 @@ struct Pool: Codable {
     let number: Int
     let member: Member
     var teamId: String?
+    var didNotifyMember: Bool?
   }
   
   let id: String
@@ -79,9 +80,9 @@ extension Pool {
   }
   
   func recordForMember(_ member: Member) -> Record {
-    var record = Record(wins: 0, losses: 0)
-    teamsForMember(member).forEach { record = record + ($0.record ?? Record(wins: 0, losses: 0)) }
-    return record
+    return teamsForMember(member)
+      .compactMap { $0.record }
+      .reduce(Record(wins: 0, losses: 0), { $0 + $1 })
   }
 }
 

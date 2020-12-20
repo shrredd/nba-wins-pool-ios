@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func handleAppRefresh(task: BGAppRefreshTask) {
+    UNUserNotificationCenter.addNotification(id: "test", title: "test", body: "test")
     scheduleAppRefresh()
     Teams.shared.getStandings { (success) in
       task.setTaskCompleted(success: success)
@@ -63,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func scheduleAppRefresh() {
     let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
     request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 2)
+  
     
     do {
       try BGTaskScheduler.shared.submit(request)

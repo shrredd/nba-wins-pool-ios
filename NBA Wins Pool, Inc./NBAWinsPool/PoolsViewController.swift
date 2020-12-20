@@ -51,6 +51,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
       }
       guard let p = updatedPools else { return }
       self.pools = p.sorted { $0.name < $1.name }
+      p.forEach { UNUserNotificationCenter.addDraftPickNotification(pool: $0) }
       self.reloadData()
     }
   }

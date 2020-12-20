@@ -14,7 +14,6 @@ class MembersViewController: UITableViewController {
   
   var pool: Pool! {
     didSet {
-      // TODO: add logic for if the draft is finished or not
       if pool.members.count != pool.size {
         members = pool.members.sorted { $0.name < $1.name }
       } else {
@@ -63,12 +62,12 @@ class MembersViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return pool.members.count
+    return members.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! MemberTableViewCell
-    let member = pool.members[indexPath.row]
+    let member = members[indexPath.row]
     cell.nameLabel?.text = member.name
     let record = pool.recordForMember(member)
     cell.recordLabel?.text = "\(record.wins)-\(record.losses) (\(String(format: "%.1f", record.percentage*100.0)))"
@@ -85,7 +84,7 @@ class MembersViewController: UITableViewController {
     if let indexPath = self.tableView.indexPathForSelectedRow {
       let viewController = segue.destination as! TeamsViewController
       viewController.pool = pool
-      viewController.member = pool.members[indexPath.row]
+      viewController.member = members[indexPath.row]
     }
   }
   
