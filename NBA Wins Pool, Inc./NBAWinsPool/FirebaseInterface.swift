@@ -97,7 +97,7 @@ struct FirebaseInterface {
         return nil
       }
       
-      guard let p = pool else {
+      guard var p = pool else {
         let error = NSError(
           domain: "AppErrorDomain",
           code: -1,
@@ -133,9 +133,15 @@ struct FirebaseInterface {
         return nil
       }
       
-      transaction.updateData([
+      var dictionary = [
         "numberToPick.\(number).teamId": teamId
-      ], forDocument: documentRef)
+      ]
+      
+      if p.currentPick?.number == 29 {
+        dictionary["numberToPick.30.teamId"] = Set(p.teamsRemaining.map { $0.id.rawValue }).subtracting([teamId]).first
+      }
+      
+      transaction.updateData(dictionary, forDocument: documentRef)
       return nil
     }) { (_, error) in
       completion(error)

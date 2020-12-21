@@ -110,6 +110,11 @@ extension Pool {
   var membersSortedByWinPercentage: [Member] {
     return members.sorted { self.recordForMember($0).percentage > self.recordForMember($1).percentage }
   }
+  
+  var teamsRemaining: Set<Team> {
+    let selectedTeams = picks?.compactMap { $0.team } ?? []
+    return Set(Teams.shared.teams.subtracting(selectedTeams))
+  }
 }
 
 extension Pool: Equatable {

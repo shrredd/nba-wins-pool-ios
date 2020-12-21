@@ -14,8 +14,7 @@ class DraftViewController: UITableViewController {
   var pool: Pool! {
     didSet {
       picks = pool.picksSortedByDraftNumber.filter { $0.team != nil }
-      let selectedTeams = picks.compactMap { $0.team }
-      teams = Teams.shared.teams.subtracting(selectedTeams).sorted { $0.name < $1.name }
+      teams = pool.teamsRemaining.sorted { $0.name < $1.name }
     }
   }
   var picks: [Pool.Pick]!
