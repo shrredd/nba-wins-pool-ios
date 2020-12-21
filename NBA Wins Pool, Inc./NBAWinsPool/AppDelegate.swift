@@ -34,8 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UIApplication.shared.isStatusBarHidden = false
     UIApplication.shared.statusBarStyle = .default
     
-    BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: nil) { task in
-      self.handleAppRefresh(task: task as! BGAppRefreshTask)
+    if #available(iOS 13.0, *) {
+      BGTaskScheduler.shared.register(forTaskWithIdentifier: backgroundTaskIdentifier, using: nil) { task in
+        self.handleAppRefresh(task: task as! BGAppRefreshTask)
+      }
+    } else {
+      application.setMinimumBackgroundFetchInterval(60.0*2)
     }
     
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) {(accepted, error) in
@@ -53,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
+  @available(iOS 13.0, *)
   func handleAppRefresh(task: BGAppRefreshTask) {
     scheduleAppRefresh()
     Teams.shared.getStandings { (success) in
@@ -60,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
   
+  @available(iOS 13.0, *)
   func scheduleAppRefresh() {
     let request = BGAppRefreshTaskRequest(identifier: backgroundTaskIdentifier)
     request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 2)
@@ -108,6 +114,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return false
   }
   
+  func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    Teams.shared.getStandings { (success) in
+      completionHandler(success ? .newData : .failed)
+    }
+  }
+  
   func applicationDidBecomeActive(_ application: UIApplication) {
     standingsTimer?.invalidate()
     standingsTimer = Timer.scheduledTimer(withTimeInterval: 120.0, repeats: true, block: { (timer) in
@@ -121,7 +133,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func applicationDidEnterBackground(_ application: UIApplication) {
-    scheduleAppRefresh()
+    if #available(iOS 13.0, *) {
+      scheduleAppRefresh()
+    }
   }
 }
 

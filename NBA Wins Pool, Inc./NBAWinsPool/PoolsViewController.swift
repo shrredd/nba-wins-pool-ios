@@ -128,14 +128,21 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
       }
     }
   }
-
-  func invite(pool: Pool) {
+  
+  func invite(pool: Pool, button: UIButton) {
     let message = "Join our wins pool ->"
     let string = "id=\(pool.id)"
     
     if let escapedString = string.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
       if let url = URL(string: "WinsPool://?" + escapedString) {
         let activityViewController = UIActivityViewController(activityItems: [message, url], applicationActivities: nil)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+          activityViewController.modalPresentationStyle = .popover
+          activityViewController.preferredContentSize = CGSize(width: 0, height: 0)
+          activityViewController.popoverPresentationController?.sourceView = button
+          activityViewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        }
+        activityViewController.modalPresentationStyle = .none
         present(activityViewController, animated: true, completion: {})
       }
     }
@@ -147,7 +154,7 @@ class PoolsViewController: UITableViewController, PoolTableViewCellDelegate {
     if let indexPath = tableView.indexPath(for: cell) {
       let pool = pools[indexPath.row]
       if pool.members.count != pool.size {
-        invite(pool: pool)
+        invite(pool: pool, button: cell.button)
       } else if !pool.isComplete {
         let viewController = DraftViewController()
         viewController.pool = pool
