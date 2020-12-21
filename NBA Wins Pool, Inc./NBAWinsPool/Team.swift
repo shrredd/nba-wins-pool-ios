@@ -210,7 +210,7 @@ extension Team {
     case .spurs:
       return "San Antonio Spurs"
     case .raptors:
-      return "Toronto Raptors"
+      return "Tampa Bay Raptors"
     case .jazz:
       return "Utah Jazz"
     case .wizards:
